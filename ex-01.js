@@ -52,3 +52,24 @@ const array02 = users.map((user) => ({
   averageScore: checkAverageScore(user?.scores),
 }));
 console.log("array02", array02);
+
+// Task 3 – Search
+
+// Find the user with the highest average score among the filtered users.
+
+let highAverage = 0;
+
+const array03 = users
+  .map((user) => ({
+    id: user.id,
+    name: user.name,
+    averageScore: checkAverageScore(user?.scores),
+  }))
+  .filter((user) => {
+    highAverage =
+      user.averageScore || 0 > highAverage ? user.averageScore : highAverage;
+    return user;
+  })
+  .filter((user) => user?.averageScore === highAverage);
+
+console.log("array03", array03);
