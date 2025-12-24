@@ -1,3 +1,9 @@
+// let array = [];
+
+// array.reduce((accumulator, currentValue, index, array) => {
+//   // return new accumulator
+// }, initialValue);
+
 const scores = [80, 90, 100];
 let count = 0;
 const sum = scores.reduce((acc, score) => {
