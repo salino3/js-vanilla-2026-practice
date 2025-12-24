@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const input = prompt("What's your name?");
+  let input = ""; // prompt("What's your name?");
   //   alert(`Your name is ${input}`);
+  if (!input) {
+    input = "Joe";
+  }
 
   if (input) {
     document.getElementById("spanName").textContent = input;
