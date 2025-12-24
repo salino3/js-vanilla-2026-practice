@@ -57,19 +57,20 @@ console.log("array02", array02);
 
 // Find the user with the highest average score among the filtered users.
 
-let highAverage = 0;
-
-const array03 = users
+const filteredUsers = users
+  .filter((user) => user.role === "user" && user.active)
   .map((user) => ({
     id: user.id,
     name: user.name,
-    averageScore: checkAverageScore(user?.scores),
+    averageScore: checkAverageScore(user.scores),
   }))
-  .filter((user) => {
-    highAverage =
-      user.averageScore || 0 > highAverage ? user.averageScore : highAverage;
-    return user;
-  })
-  .filter((user) => user?.averageScore === highAverage);
+  .filter((user) => user.averageScore !== null);
 
-console.log("array03", array03);
+const topUser =
+  filteredUsers.length === 0
+    ? null
+    : filteredUsers.reduce((best, current) =>
+        current.averageScore > best.averageScore ? current : best
+      );
+
+console.log("topUser03", topUser);
