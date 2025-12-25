@@ -64,3 +64,31 @@ const completedRevenue02 = orders.reduce((acc, order) => {
 }, 0);
 
 console.log("completedRevenue02", completedRevenue02);
+
+//#
+// Task 2
+// Find the student with the highest average grade.
+
+const students = [
+  { name: "Ana", grades: [90, 80, 85] },
+  { name: "Luis", grades: [70, 75, 72] },
+  { name: "Maria", grades: [95, 90, 93] },
+  // { name: "Marias", grades: [ ] },
+];
+
+const highestAverageGrade = students.map((student) => {
+  let sum = 0;
+  student.grades.forEach((num = 0) => {
+    sum += num;
+  });
+  return {
+    name: student.name,
+    average: (sum / student.grades?.length || 0).toFixed(2),
+  };
+});
+
+const betterStudent = highestAverageGrade.reduce((acc, student) => {
+  return acc?.average >= student.average ? acc : student;
+});
+
+console.log("betterStudent", betterStudent);
