@@ -73,7 +73,6 @@ const students = [
   { name: "Ana", grades: [90, 80, 85] },
   { name: "Luis", grades: [70, 75, 72] },
   { name: "Maria", grades: [95, 90, 93] },
-  // { name: "Marias", grades: [ ] },
 ];
 
 const highestAverageGrade = students.map((student) => {
@@ -125,14 +124,51 @@ console.log("resultGroupsByCountry", resultGroupsByCountry);
 
 const sessions = [
   { userId: 1, duration: 30 },
-  { userId: 2, duration: 45 },
-  { userId: 1, duration: 15 },
+  { userId: 2, duration: 59 },
+  { userId: 2, duration: 59 },
   { userId: 3, duration: 60 },
-  { userId: 2, duration: 15 },
+  { userId: 1, duration: 15 },
 ];
 
-const idByHighDuration = sessions.reduce((acc, session) => {
-  return session.duration >= acc.duration ? session : acc;
-}).userId;
+const groupByUserId = Object.values(
+  Object.groupBy(sessions, ({ userId }) => userId)
+);
 
-console.log("idByHighDuration", idByHighDuration);
+const usersMapped = groupByUserId.map((item) => {
+  return {
+    [item[0].userId]: item.reduce((acc, session) => {
+      acc += session?.duration;
+      console.log("ACC", acc, session);
+      return acc;
+    }, 0),
+  };
+});
+
+let higherValue = 0;
+let usersMapped2 = Object.keys(
+  usersMapped
+    .map((item, index) => {
+      higherValue =
+        higherValue < item[index + 1] ? item[index + 1] : higherValue;
+      return item;
+    })
+    .find((x, index) => x[index + 1] == higherValue)
+)[0];
+
+console.log("groupByUserId02", usersMapped2);
+
+// Better result Task 5
+const result = sessions.reduce((acc, s) => {
+  console.log("Check01", acc);
+  acc[s.userId] = (acc[s.userId] || 0) + s.duration;
+  return acc;
+}, {});
+
+console.log("Check02", Object.entries(result));
+
+const userWithMax = Object.entries(result).reduce(
+  (best, [userId, total]) => (total > best.total ? { userId, total } : best),
+  { userId: null, total: -Infinity }
+);
+
+console.log("Better result Task 5: ", userWithMax.userId);
