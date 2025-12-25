@@ -92,3 +92,27 @@ const betterStudent = highestAverageGrade.reduce((acc, student) => {
 });
 
 console.log("betterStudent", betterStudent);
+
+// Task 4
+// Group people by country.
+
+const people = [
+  { name: "Alice", country: "Spain" },
+  { name: "Bob", country: "USA" },
+  { name: "Carlos", country: "Spain" },
+  { name: "Diana", country: "USA" },
+  { name: "Eva", country: "France" },
+];
+
+const groupsByCountry = Object.groupBy(people, ({ country }) => country);
+console.log("groupsByCountry", groupsByCountry);
+
+let resultGroupsByCountry = {};
+for (x in groupsByCountry) {
+  resultGroupsByCountry[x] = groupsByCountry[x].reduce((acc, people) => {
+    acc.push(people.name);
+    return acc;
+  }, []);
+}
+
+console.log("resultGroupsByCountry", resultGroupsByCountry);
