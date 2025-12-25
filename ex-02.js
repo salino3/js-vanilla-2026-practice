@@ -83,7 +83,7 @@ const highestAverageGrade = students.map((student) => {
   });
   return {
     name: student.name,
-    average: (sum / student.grades?.length || 0).toFixed(2),
+    average: sum / student.grades?.length || 0,
   };
 });
 
@@ -91,7 +91,10 @@ const betterStudent = highestAverageGrade.reduce((acc, student) => {
   return acc?.average >= student.average ? acc : student;
 });
 
-console.log("betterStudent", betterStudent);
+console.log("betterStudent", {
+  ...betterStudent,
+  average: betterStudent?.average.toFixed(2),
+});
 
 // Task 4
 // Group people by country.
@@ -116,3 +119,20 @@ for (x in groupsByCountry) {
 }
 
 console.log("resultGroupsByCountry", resultGroupsByCountry);
+
+// Task 5
+// Return the userId with the highest total duration.
+
+const sessions = [
+  { userId: 1, duration: 30 },
+  { userId: 2, duration: 45 },
+  { userId: 1, duration: 15 },
+  { userId: 3, duration: 60 },
+  { userId: 2, duration: 15 },
+];
+
+const idByHighDuration = sessions.reduce((acc, session) => {
+  return session.duration >= acc.duration ? session : acc;
+}).userId;
+
+console.log("idByHighDuration", idByHighDuration);
