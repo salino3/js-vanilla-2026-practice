@@ -172,3 +172,78 @@ const userWithMax = Object.entries(result).reduce(
 );
 
 console.log("Better result Task 5: ", userWithMax.userId);
+
+// Task 6
+// Return an object with the count of each word.
+
+const words = ["apple", "banana", "apple", "orange", "banana", "apple"];
+
+const resultFruits = words.reduce((acc, word) => {
+  acc[word] = acc[word] && acc[word] > 0 ? (acc[word] += 1) : 1;
+  return acc;
+}, {});
+
+console.log("Task06", resultFruits);
+
+// Task 7
+// Return an object indexed by id, only for active users.
+const users = [
+  { id: 1, name: "Alice", active: true },
+  { id: 2, name: "Bob", active: false },
+  { id: 3, name: "Carol", active: true },
+];
+
+const objIndexedUsers = users.reduce((acc, user) => {
+  user.active && (acc[user.id] = user);
+  return acc;
+}, {});
+
+console.log("objIndexedUsers", objIndexedUsers);
+
+// Task 8
+// Return an object indexed by id, only for active users.
+
+const ordersTask8 = [
+  {
+    id: 1,
+    items: [
+      { name: "Book", price: 10 },
+      { name: "Pen", price: 2 },
+    ],
+  },
+  {
+    id: 2,
+    items: [{ name: "Notebook", price: 5 }],
+  },
+];
+
+const orderedArray = ordersTask8.reduce((acc, order) => {
+  let arr = order.items.flat().map((item) => item.name);
+  return [...acc, ...arr];
+}, []);
+
+console.log("Task 6", orderedArray);
+
+// Task 9
+// Return an object indexed by id, only for active users.
+
+const transactions = [
+  { type: "income", amount: 1000 },
+  { type: "expense", amount: 300 },
+  { type: "income", amount: 500 },
+  { type: "expense", amount: 200 },
+];
+
+const resultTransactions = transactions.reduce(
+  (acc, t, index, array) => {
+    acc[t.type] += t.amount;
+
+    if (array.length - 1 === index) {
+      acc.balance = acc.income - acc.expense;
+    }
+    return acc;
+  },
+  { income: 0, expense: 0, balance: 0 }
+);
+
+console.log("resultTransactions", resultTransactions);
