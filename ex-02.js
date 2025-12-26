@@ -225,7 +225,7 @@ const orderedArray = ordersTask8.reduce((acc, order) => {
 console.log("Task 6", orderedArray);
 
 // Task 9
-// Return an object indexed by id, only for active users.
+// Return object with incomes, expenses and the balance.
 
 const transactions = [
   { type: "income", amount: 1000 },
@@ -247,3 +247,30 @@ const resultTransactions = transactions.reduce(
 );
 
 console.log("resultTransactions", resultTransactions);
+
+// Task 10
+// Return the userId with the highest number of actions.
+
+const logs = [
+  { userId: 1, action: "login" },
+  { userId: 1, action: "click" },
+  { userId: 2, action: "login" },
+  { userId: 1, action: "logout" },
+  { userId: 2, action: "click" },
+];
+
+const reducedLogs = logs.reduce((acc, log) => {
+  acc[log.userId] = acc[log.userId] ? (acc[log.userId] += 1) : 1;
+  return acc;
+}, {});
+
+console.log("reducedLogs", reducedLogs);
+
+let higherUserId = { 0: 0 };
+for (x in reducedLogs) {
+  if (higherUserId[0] < reducedLogs[x]) {
+    higherUserId = { [x]: reducedLogs[x] };
+  }
+}
+
+console.log("higherUserId", Object.keys(higherUserId)[0]);
