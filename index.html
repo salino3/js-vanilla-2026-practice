@@ -9,5 +9,53 @@
     <h1>Hi <span id="spanName"></span></h1>
     <!-- <script src="./ex-01.js"></script> -->
     <script src="./ex-02.js"></script>
+
+    <script>
+      function createSnowflake() {
+        const snowflake = document.createElement("div");
+        snowflake.className = "snowflake";
+
+        snowflake.style.left = `${Math.random() * innerWidth}px`;
+        snowflake.style.top = "-5px";
+        snowflake.style.opacity = Math.random();
+        snowflake.style.transform = `scale(${Math.random() * 3.5 + 0.5})`;
+
+        document.body.appendChild(snowflake);
+
+        let posY = -5;
+        let speed = Math.random() * 2 + 1;
+        let wobble = 0;
+
+        function fall() {
+          posY += speed;
+          wobble += 0.02;
+
+          snowflake.style.top = posY + "px";
+          snowflake.style.left =
+            parseFloat(snowflake.style.left) + Math.sin(wobble) * 2 + "px";
+
+          if (posY < innerHeight) {
+            requestAnimationFrame(fall);
+          } else {
+            snowflake.remove();
+          }
+        }
+
+        fall();
+      }
+
+      setInterval(createSnowflake, 20);
+    </script>
+
+    <style>
+      .snowflake {
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+    </style>
   </body>
 </html>
