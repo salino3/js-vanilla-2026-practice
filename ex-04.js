@@ -144,7 +144,13 @@ var moveZeroes = function (nums) {
       arrayStart.push(values);
     }
   }
-  return [...arrayStart, ...arrayEnd];
+
+  const result = [...arrayStart, ...arrayEnd];
+
+  for (let i = 0; i < nums.length; i++) {
+    nums[i] = result[i];
+  }
+  return nums;
 };
 
 console.log("Task 6: ", moveZeroes([0, 1, 0, 3, 12]));
