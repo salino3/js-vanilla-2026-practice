@@ -154,3 +154,64 @@ var moveZeroes = function (nums) {
 };
 
 console.log("Task 6: ", moveZeroes([0, 1, 0, 3, 12]));
+
+// Task 7
+// You are given an array prices where prices[i] is the price of a given stock on day i.
+// You want to maximize your profit by choosing:
+// one day to buy
+// one later day to sell
+// If you cannot achieve any profit, return 0..
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+  const copyPrices = [...prices].sort();
+  const lowerIndex = prices.indexOf(copyPrices[0]);
+
+  const copyPrices2 = prices.slice(lowerIndex);
+  const lower = copyPrices2[0];
+  const major = copyPrices2[copyPrices2.length - 1];
+
+  if (lowerIndex && major) {
+    return `Buy on day ${lowerIndex} (price = ${lower}) and sell on day ${prices.indexOf(
+      copyPrices.length - 1
+    )} (price = ${major})`;
+  } else {
+    ("Not convenient to buy");
+  }
+};
+
+console.log("Task 7: ", maxProfit([7, 3, 1, 5, 3, 6, 4]));
+
+// Better correct version
+
+var maxProfitWithDays = function (prices) {
+  let minPrice = Infinity;
+  let maxProfit = 0;
+  let buyDay = 0;
+  let sellDay = 0;
+  let tempBuyDay = 0;
+
+  for (let i = 0; i < prices.length; i++) {
+    if (prices[i] < minPrice) {
+      minPrice = prices[i];
+      tempBuyDay = i; // candidate buy day
+    }
+    const profit = prices[i] - minPrice;
+    if (profit > maxProfit) {
+      maxProfit = profit;
+      buyDay = tempBuyDay;
+      sellDay = i;
+    }
+  }
+
+  if (maxProfit > 0) {
+    return `Buy on day ${buyDay} (price = ${prices[buyDay]}) and sell on day ${sellDay} (price = ${prices[sellDay]})`;
+  } else {
+    return "No profitable transaction";
+  }
+};
+
+console.log("Task 7 V2: ", maxProfitWithDays([7, 3, 1, 5, 3, 6, 4]));
