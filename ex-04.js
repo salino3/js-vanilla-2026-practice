@@ -87,3 +87,16 @@ function twoSum(nums, target) {
 }
 
 console.log("Task 4: ", twoSum(arrayNums, target));
+
+// Task 5
+// Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = (s, t) =>
+  s.split("").sort().join("") === t.split("").sort().join("");
+
+console.log("Task 5: ", isAnagram("anagram", "nagaram"));
