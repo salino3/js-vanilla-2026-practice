@@ -97,6 +97,54 @@ console.log("Task 4: ", twoSum(arrayNums, target));
  * @return {boolean}
  */
 var isAnagram = (s, t) =>
-  s.split("").sort().join("") === t.split("").sort().join("");
+  s.toLowerCase().split("").sort().join("") ===
+  t.toLowerCase().split("").sort().join("");
 
-console.log("Task 5: ", isAnagram("anagram", "nagaram"));
+console.log("Task 5: ", isAnagram("aNagraM", "naGaram"));
+
+// Better solution
+var isAnagram2 = function (s, t) {
+  if (s.length !== t.length) return false;
+
+  const count = {};
+
+  for (let char of s.toLowerCase()) {
+    console.log("S1", count);
+    count[char] = (count[char] || 0) + 1;
+    console.log("S2", count[char]);
+  }
+  console.log("S3", count); // {a: 3, n: 1, " ": 1, g: 1, r: 1, m: 1}
+
+  for (let char of t.toLowerCase()) {
+    if (!count[char]) return false;
+    count[char]--;
+  }
+
+  return true;
+};
+
+console.log("Task 5 V2: ", isAnagram2("ana graM", "nagAr am"));
+
+// Task 6
+// Given an integer array nums, move all 0s to the end of it
+// while maintaining the relative order of the non-zero elements.
+
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place.
+ */
+var moveZeroes = function (nums) {
+  const arrayStart = [];
+  const arrayEnd = [];
+
+  for (let values of nums) {
+    if (values === 0) {
+      arrayEnd.push(values);
+    } else {
+      arrayStart.push(values);
+    }
+  }
+  return [...arrayStart, ...arrayEnd];
+};
+
+console.log("Task 6: ", moveZeroes([0, 1, 0, 3, 12]));
