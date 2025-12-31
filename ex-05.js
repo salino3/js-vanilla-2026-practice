@@ -58,7 +58,7 @@ console.log("Task 2: ", searchContainsDuplicate([1, 3, 13, 0, -9, -8, 4, 1]));
 /**
  * @param {number[]} nums1
  * @param {number[]} nums2
- * @return {void}
+ * @return {number[]}
  */
 
 const mergeNums = function (nums1, nums2) {
@@ -73,3 +73,42 @@ const mergeNums = function (nums1, nums2) {
 };
 
 console.log("Task 3: ", mergeNums([1, 2, 3, 0, 0, 0], [2, 5, 6]));
+
+// Task 4
+// You are given an array of characters 's'.
+// Reverse the array in-place.
+// ❌ Do NOT return a new array
+// ❌ Do NOT create another array
+// ❌ Do NOT use .reverse()
+// ✅ Modify s directly
+
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify 's' in-place.
+ */
+
+const reverseString = function (s) {
+  return s.reduce((acc, _, index, array) => {
+    acc[index] = array[array.length - index - 1];
+    return acc;
+  }, []);
+};
+
+console.log("Task 4: ", reverseString(["c", "o", "u", "n", "t", "r", "y"]));
+
+// Better version
+const reverseString02 = function (s) {
+  let left = 0;
+  let right = s.length - 1;
+
+  while (left < right) {
+    [s[left], s[right]] = [s[right], s[left]];
+    left++;
+    right--;
+  }
+};
+
+const strings = ["m", "o", "n", "e", "y"];
+// const strings = ["a", "b", "c", "d", "e", "f"];
+reverseString02(strings);
+console.log("Task 4 V2: ", strings);
