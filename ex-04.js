@@ -51,10 +51,10 @@ console.log("#----------------------------");
 let s = "abcabcbb";
 
 function lengthOfLongestSubstring(s) {
-  var longestSubstring = "";
-  var currentWord = "";
-  for (var i = 0; i < s.length; i++) {
-    var foundIndex = currentWord.indexOf(s[i]);
+  let longestSubstring = "";
+  let currentWord = "";
+  for (let i = 0; i < s.length; i++) {
+    let foundIndex = currentWord.indexOf(s[i]);
     if (foundIndex > -1) {
       if (longestSubstring.length < currentWord.length)
         longestSubstring = currentWord;
@@ -96,14 +96,14 @@ console.log("Task 4: ", twoSum(arrayNums, target));
  * @param {string} t
  * @return {boolean}
  */
-var isAnagram = (s, t) =>
+const isAnagram = (s, t) =>
   s.toLowerCase().split("").sort().join("") ===
   t.toLowerCase().split("").sort().join("");
 
 console.log("Task 5: ", isAnagram("aNagraM", "naGaram"));
 
 // Better solution
-var isAnagram2 = function (s, t) {
+const isAnagram2 = function (s, t) {
   if (s.length !== t.length) return false;
 
   const count = {};
@@ -133,7 +133,7 @@ console.log("Task 5 V2: ", isAnagram2("ana graM", "nagAr am"));
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place.
  */
-var moveZeroes = function (nums) {
+const moveZeroes = function (nums) {
   const arrayStart = [];
   const arrayEnd = [];
 
@@ -166,7 +166,7 @@ console.log("Task 6: ", moveZeroes([0, 1, 0, 3, 12]));
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfit = function (prices) {
+const maxProfit = function (prices) {
   const copyPrices = [...prices].sort();
   const lowerIndex = prices.indexOf(copyPrices[0]);
 
@@ -187,7 +187,7 @@ console.log("Task 7: ", maxProfit([7, 3, 1, 5, 3, 6, 4]));
 
 // Better correct version
 
-var maxProfitWithDays = function (prices) {
+const maxProfitWithDays = function (prices) {
   let minPrice = Infinity;
   let maxProfit = 0;
   let buyDay = 0;
