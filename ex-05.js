@@ -1,6 +1,6 @@
 // Task 1
-// Given an integer array nums, return true if any value appears at least twice in the array,
-//  if not return false
+// Given an integer array nums, return true if every value appears at least twice in the array,
+// if not return false
 
 /**
  * @param {number[]} nums
