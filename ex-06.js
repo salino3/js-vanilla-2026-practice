@@ -3,15 +3,16 @@
 // only the numbers that appear an odd number of times in the original list.
 
 function oddUniqueFrequencyFilter(arr = []) {
-  arr.reduce((acc, num) => {
+  const counts = arr.reduce((acc, num) => {
     acc[num] = acc[num] ? acc[num] + 1 : 1;
     return acc;
   }, {});
 
-  const result = new Set();
-  for (let key in arr) {
-    if (arr[key] % 2 !== 0) {
-      result.add(arr[key]);
+  const result = [];
+
+  for (let num in counts) {
+    if (counts[num] % 2 !== 0) {
+      result.push(Number(num));
     }
   }
 
