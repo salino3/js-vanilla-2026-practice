@@ -81,3 +81,50 @@ console.log(
     history: 60,
   })
 );
+
+// Task 6
+// return object users by country
+
+function returnObjectUsersByKey(arr, key) {
+  return Object.groupBy(arr, (item) => item[key]);
+}
+
+console.log(
+  "Task 6: ",
+  returnObjectUsersByKey(
+    [
+      { name: "Ana", country: "Spain" },
+      { name: "John", country: "USA" },
+      { name: "Luis", country: "Spain" },
+      { name: "Emma", country: "USA" },
+    ],
+    "country"
+  )
+);
+
+function returnObjectUsersByKey02(arr, key) {
+  return arr.reduce((acc, item) => {
+    const groupKey = item[key];
+
+    if (!acc[groupKey]) {
+      acc[groupKey] = [];
+    }
+
+    acc[groupKey].push(item);
+    return acc;
+  }, {});
+}
+
+// with reduce()
+console.log(
+  "Task 6 V2: ",
+  returnObjectUsersByKey(
+    [
+      { name: "Ana", country: "Spain" },
+      { name: "John", country: "USA" },
+      { name: "Luis", country: "Spain" },
+      { name: "Emma", country: "USA" },
+    ],
+    "country"
+  )
+);
