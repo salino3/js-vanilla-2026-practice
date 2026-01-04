@@ -59,3 +59,25 @@ console.log(
     viewer: "read only",
   })
 );
+
+// Task 5
+// Return a new object with only subjects >= 80.
+
+function filterObjectByValue(obj) {
+  for (item in obj) {
+    if (obj[item] < 80) {
+      delete obj[item];
+    }
+  }
+  return obj;
+}
+
+console.log(
+  "Task 5: ",
+  filterObjectByValue({
+    math: 90,
+    english: 70,
+    physics: 85,
+    history: 60,
+  })
+);
