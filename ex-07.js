@@ -27,7 +27,7 @@ console.log(
 // Return how many properties the object has.
 
 function countPropertiesObject(obj) {
-  return Object.entries(obj).length;
+  return Object.keys(obj).length;
 }
 
 console.log(
@@ -82,6 +82,23 @@ console.log(
   })
 );
 
+// better version, do not use 'delete' if possible
+function filterObjectByValue02(obj) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([_, value]) => value >= 80)
+  );
+}
+
+console.log(
+  "Task 5 V2: ",
+  filterObjectByValue02({
+    math: 90,
+    english: 70,
+    physics: 85,
+    history: 60,
+  })
+);
+
 // Task 6
 // return object users by country
 
@@ -118,7 +135,7 @@ function returnObjectUsersByKey02(arr, key) {
 // with reduce()
 console.log(
   "Task 6 V2: ",
-  returnObjectUsersByKey(
+  returnObjectUsersByKey02(
     [
       { name: "Ana", country: "Spain" },
       { name: "John", country: "USA" },
@@ -128,3 +145,7 @@ console.log(
     "country"
   )
 );
+
+// 'delete' breaks the hidden class of the object
+// engine V8 JS become slowly with it
+// if possible better -> obj.b = 'undefined' or 'null';
