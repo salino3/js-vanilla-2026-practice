@@ -53,3 +53,18 @@ function moveZerosToEnds02(arr) {
 }
 
 console.log("Task 2 V2: ", moveZerosToEnds02([0, 1, 0, 0, 0, 0, 3, 12, 0]));
+
+// Task 3
+// Imagine you have an array of strings representing "votes" for different candidates.
+// You need to return an Object where the key is the candidate's name and the value is
+// the total number of votes they received.
+
+const votes = ["Alice", "Bob", "Alice", "Charlie", "Alice", "Bob"];
+
+const tally = votes.reduce((acc, candidate) => {
+  acc[candidate] ? acc[candidate]++ : (acc[candidate] = 1);
+
+  return acc;
+}, {});
+
+console.log("Task 3: ", tally);
