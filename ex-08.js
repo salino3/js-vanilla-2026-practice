@@ -68,3 +68,27 @@ const tally = votes.reduce((acc, candidate) => {
 }, {});
 
 console.log("Task 3: ", tally);
+
+//
+const fruits = ["Manzana", "Pera", "Plátano", "Fresa", "Cacao"];
+
+fruits.sort((a, b) => {
+  if (a === "Plátano") return -1;
+  if (b === "Plátano") return 1;
+  return a.localeCompare(b);
+});
+
+console.log(fruits); // ['Plátano', 'Cacao', 'Fresa', 'Manzana', 'Pera']
+
+//
+const weights = {
+  "admin": 1,
+  "editor": 2,
+  "user": 3,
+};
+
+const users = ["user", "admin", "editor"];
+
+users.sort((a, b) => (weights[a] || 99) - (weights[b] || 99)); // or 'Infinity'
+
+console.log(users); // ["admin", "editor", "usuario"]
