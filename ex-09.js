@@ -230,3 +230,26 @@ function getVIPCustomers02(data) {
 }
 
 console.log("Task 4 V2: ", getVIPCustomers02(clients));
+
+// Task 5
+// Write a function that:
+// Flattens the nested arrays regardless of how deep they are.
+// Filters out any strings that are shorter than 3 characters.
+// Returns a comma-separated string of all items.
+
+function getDeepInventory(warehouse) {
+  return warehouse
+    .flat(Infinity)
+    .filter((word) => word.length > 2)
+    .join("-");
+}
+
+console.log(
+  "task 5: ",
+  getDeepInventory([
+    "Hammer",
+    ["Drill", ["Screw", "Nail"]],
+    ["Saw", ["Chisel", "XY"]],
+    "Level",
+  ])
+);
