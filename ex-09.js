@@ -171,7 +171,7 @@ function getVIPCustomers(data) {
   }
 
   return {
-    vipCustomers: reducedData,
+    vipCustomers: Object.keys(reducedData),
     [spender[0]]: spender[1],
   };
 }
