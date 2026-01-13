@@ -149,6 +149,30 @@ console.log(
 // who have spent more than $500 in total across all their orders.
 // who spent more
 
+let clients = [
+  {
+    name: "Alice",
+    orders: [
+      { item: "Books", amount: 100 },
+      { item: "Laptop", amount: 1200 },
+    ],
+  },
+  {
+    name: "Bob",
+    orders: [
+      { item: "Coffee", amount: 10 },
+      { item: "Bread", amount: 5 },
+    ],
+  },
+  {
+    name: "Charlie",
+    orders: [
+      { item: "Monitor", amount: 400 },
+      { item: "Mouse", amount: 150 },
+    ],
+  },
+];
+
 function getVIPCustomers(data) {
   const reducedData = data.reduce((acc, obj) => {
     let total = obj.orders.reduce((a, b) => a + b.amount, 0);
@@ -176,29 +200,33 @@ function getVIPCustomers(data) {
   };
 }
 
-console.log(
-  "Task 4: ",
-  getVIPCustomers([
-    {
-      name: "Alice",
-      orders: [
-        { item: "Books", amount: 100 },
-        { item: "Laptop", amount: 1200 },
-      ],
-    },
-    {
-      name: "Bob",
-      orders: [
-        { item: "Coffee", amount: 10 },
-        { item: "Bread", amount: 5 },
-      ],
-    },
-    {
-      name: "Charlie",
-      orders: [
-        { item: "Monitor", amount: 400 },
-        { item: "Mouse", amount: 150 },
-      ],
-    },
-  ])
-);
+console.log("Task 4: ", getVIPCustomers(clients));
+
+// Task 4 V2
+
+function getVIPCustomers02(data) {
+  // 1. Calculate totals and filter
+  const vips = data
+    .map((cust) => ({
+      name: cust.name,
+      total: cust.orders.reduce((sum, order) => sum + order.amount, 0),
+    }))
+    .filter((cust) => cust.total > 500);
+
+  if (vips.length > 0) {
+    // 2. Find the top spender using reduce
+    const topSpender = vips.reduce(
+      (prev, current) => (prev.total > current.total ? prev : current),
+      vips[0]
+    );
+
+    return {
+      vipNames: vips.map((v) => v.name),
+      topSpender: topSpender,
+    };
+  } else {
+    return "No VIP customers";
+  }
+}
+
+console.log("Task 4 V2: ", getVIPCustomers02(clients));
