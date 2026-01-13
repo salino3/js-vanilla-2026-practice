@@ -143,3 +143,62 @@ console.log(
     { id: 3, brands: ["Logitech", "Samsung", undefined] },
   ])
 );
+
+// Task 4
+// Create a function that returns an array of names of customers
+// who have spent more than $500 in total across all their orders.
+// who spent more
+
+function getVIPCustomers(data) {
+  const reducedData = data.reduce((acc, obj) => {
+    let total = obj.orders.reduce((a, b) => a + b.amount, 0);
+    if (total > 500) {
+      acc[obj.name] = total;
+    }
+
+    return acc;
+  }, {});
+
+  let spender = Object.entries(reducedData)[0] || {};
+  if (Object.keys(spender).length > 0) {
+    for (x in reducedData) {
+      if (reducedData[x] > spender[1]) {
+        spender = [x, reducedData[x]];
+      }
+    }
+  } else {
+    return "No VIP customers";
+  }
+
+  return {
+    vipCustomers: reducedData,
+    [spender[0]]: spender[1],
+  };
+}
+
+console.log(
+  "Task 4: ",
+  getVIPCustomers([
+    {
+      name: "Alice",
+      orders: [
+        { item: "Books", amount: 100 },
+        { item: "Laptop", amount: 1200 },
+      ],
+    },
+    {
+      name: "Bob",
+      orders: [
+        { item: "Coffee", amount: 10 },
+        { item: "Bread", amount: 5 },
+      ],
+    },
+    {
+      name: "Charlie",
+      orders: [
+        { item: "Monitor", amount: 400 },
+        { item: "Mouse", amount: 150 },
+      ],
+    },
+  ])
+);
