@@ -328,3 +328,24 @@ console.log(
     { date: "2024-01-02", amount: 30, category: "Food" },
   ])
 );
+
+// Task 8
+// Create a function that:
+// Filters: Only keep users who have the tag "JavaScript" AND are older than 25.
+// Maps: Return only the names of these users.
+
+function getSpecificUserNames(users) {
+  return users
+    .filter((user) => user.age > 25 && user.tags.includes("JavaScript"))
+    .map((user) => user.name);
+}
+
+console.log(
+  "Task 8: ",
+  getSpecificUserNames([
+    { name: "Leo", age: 30, tags: ["JavaScript", "React", "Node"] },
+    { name: "Anna", age: 22, tags: ["JavaScript", "Design"] },
+    { name: "Jonas", age: 28, tags: ["Python", "Data"] },
+    { name: "Marta", age: 35, tags: ["Java", "JavaScript"] },
+  ])
+);
