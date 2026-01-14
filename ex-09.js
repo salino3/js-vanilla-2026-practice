@@ -253,3 +253,42 @@ console.log(
     "Level",
   ])
 );
+
+// Task 6
+// Create a function that returns an array of order summaries.
+// Join: Match the productId in the order to the id in the products array.
+// Calculate: Get the total cost (quantity * price).
+// Format: Return an array of strings: "CustomerName bought Quantity x ProductName for $Total".
+
+function getEnrichedOrders(orders, products) {
+  const matchData = orders.reduce((acc, order) => {
+    products.map((item) =>
+      item.productId == order.id
+        ? acc.push({
+            ...item,
+            ...{ ...order, total: order.price * item.quantity },
+          })
+        : null
+    );
+    return acc;
+  }, []);
+
+  return matchData.map(
+    (data) =>
+      `${data.customer} bought ${data.quantity} x ${data.name} for $${data.total}`
+  );
+}
+
+console.log(
+  "Task 6: ",
+  getEnrichedOrders(
+    [
+      { id: 101, name: "Laptop", price: 1000 },
+      { id: 102, name: "Mouse", price: 50 },
+    ],
+    [
+      { customer: "Alice", productId: 101, quantity: 1 },
+      { customer: "Bob", productId: 102, quantity: 3 },
+    ]
+  )
+);
