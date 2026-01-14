@@ -290,3 +290,41 @@ console.log(
     ]
   )
 );
+
+// Task 7
+// Create a function that performs the following:
+// Group: Use .reduce() to sum the amount for each unique date (creating a lookup object like { "date": total }).
+// Transform: Convert that object back into an array of entries using Object.entries().
+// Sort: Sort the dates in descending order (from newest to oldest).
+// Format: Use .map() to return the final result as an array of strings in the format: "Date: [date] - Total: $[amount]".
+
+function getDailySales(transactions) {
+  return Object.entries(
+    transactions.reduce((acc, transaction) => {
+      if (!acc[transaction.date]) {
+        acc[transaction.date] = transaction.amount;
+      } else {
+        acc[transaction.date] += transaction.amount;
+      }
+      return acc;
+    }, [])
+  )
+    .sort((a, b) => {
+      return b[0].localeCompare(a[0]);
+    })
+    .map(([date, total]) => {
+      return `Date: ${date} - Total: $${total}`;
+    });
+}
+
+console.log(
+  "Task 7: ",
+  getDailySales([
+    { date: "2024-01-01", amount: 100, category: "Food" },
+    { date: "2024-01-02", amount: 50, category: "Tech" },
+    { date: "2024-01-01", amount: 60, category: "Tech" },
+    { date: "2024-01-01", amount: 150, category: "Clothes" },
+    { date: "2024-01-03", amount: 200, category: "Tech" },
+    { date: "2024-01-02", amount: 30, category: "Food" },
+  ])
+);
