@@ -261,34 +261,32 @@ console.log(
 // Format: Return an array of strings: "CustomerName bought Quantity x ProductName for $Total".
 
 function getEnrichedOrders(orders, products) {
-  const matchData = orders.reduce((acc, order) => {
-    products.map((item) =>
-      item.productId == order.id
-        ? acc.push({
-            ...item,
-            ...{ ...order, total: order.price * item.quantity },
-          })
-        : null
-    );
+  const productLookup = products.reduce((acc, p) => {
+    acc[p.id] = p;
     return acc;
-  }, []);
+  }, {});
 
-  return matchData.map(
-    (data) =>
-      `${data.customer} bought ${data.quantity} x ${data.name} for $${data.total}`
-  );
+  return orders.map((order) => {
+    const product = productLookup[order.productId];
+
+    if (!product) return `Order for product ${order.productId} not found`;
+
+    return `${order.customer} bought ${order.quantity} x ${product.name} for $${
+      order.quantity * product.price
+    }`;
+  });
 }
 
 console.log(
   "Task 6: ",
   getEnrichedOrders(
     [
-      { id: 101, name: "Laptop", price: 1000 },
-      { id: 102, name: "Mouse", price: 50 },
-    ],
-    [
       { customer: "Alice", productId: 101, quantity: 1 },
       { customer: "Bob", productId: 102, quantity: 3 },
+    ],
+    [
+      { id: 101, name: "Laptop", price: 1000 },
+      { id: 102, name: "Mouse", price: 50 },
     ]
   )
 );
