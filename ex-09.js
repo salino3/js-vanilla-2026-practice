@@ -349,3 +349,31 @@ console.log(
     { name: "Marta", age: 35, tags: ["Java", "JavaScript"] },
   ])
 );
+
+// Task 9
+// Create a function that returns an object where:
+// The keys are the grades ("A", "B", "C").
+// The values are arrays of strings containing the student names.
+
+function groupStudentsByGrade(students) {
+  return students.reduce((acc, student) => {
+    if (!acc[student.grade]) {
+      acc[student.grade] = [student.name];
+    } else {
+      acc[student.grade].push(student.name);
+    }
+
+    return acc;
+  }, {});
+}
+
+console.log(
+  "Task 9",
+  groupStudentsByGrade([
+    { name: "Alice", grade: "A" },
+    { name: "Bob", grade: "B" },
+    { name: "Charlie", grade: "A" },
+    { name: "David", grade: "C" },
+    { name: "Eve", grade: "B" },
+  ])
+);
