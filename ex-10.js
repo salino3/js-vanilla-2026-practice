@@ -103,3 +103,51 @@ console.log(
     { id: 5, category: "Transport", amount: 15 },
   ]),
 );
+
+// Task 4
+// Write a function getTopSpender(orders) that:
+// Filters only orders where status is "completed".
+// Groups the total spent by customerName.
+// Finds the name of the person with the highest total.
+// Returns a string: "The winner is [Name] with $[Amount]".
+
+function getTopSpender(orders) {
+  const reducedOrders = orders.reduce((acc, customer) => {
+    if (customer.status === "pending") {
+      return acc;
+    }
+    acc[customer.customerName] =
+      (acc[customer.customerName] || 0) + customer.amount;
+
+    return acc;
+  }, {});
+
+  let winner = {
+    name: "",
+    amount: -Infinity,
+  };
+
+  for (let item in reducedOrders) {
+    if (winner.amount < reducedOrders[item]) {
+      winner = {
+        name: item,
+        amount: reducedOrders[item],
+      };
+    }
+  }
+  return {
+    reducedOrders,
+    winner: `The winner is ${winner.name} with ${winner.amount}`,
+  };
+}
+
+console.log(
+  "Task 4: ",
+  getTopSpender([
+    { customerName: "Alice", amount: 100, status: "completed" },
+    { customerName: "Bob", amount: 50, status: "completed" },
+    { customerName: "Alice", amount: 200, status: "pending" }, // Ignore: pending
+    { customerName: "Bob", amount: 80, status: "completed" },
+    { customerName: "Alice", amount: 50, status: "completed" },
+  ]),
+);
