@@ -151,3 +151,34 @@ console.log(
     { customerName: "Alice", amount: 50, status: "completed" },
   ]),
 );
+
+// Task 5
+// Write an asynchronous function called sendNotifications that:
+// Loops through the array of notifications.
+// Waits for the specified delay using a Promise and setTimeout.
+// Logs the message to the console.
+// Returns a string when all notifications are finished: "All notifications sent!".
+
+const notifications = [
+  { message: "Server starting...", delay: 1000 },
+  { message: "Database connected!", delay: 2000 },
+  { message: "Backup complete.", delay: 500 },
+];
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
+
+async function sendNotifications(list) {
+  for (const item of list) {
+    await sleep(item.delay);
+    console.log(item.message);
+  }
+
+  return "All notifications sent!";
+}
+
+console.log(
+  "Task 5 ",
+  sendNotifications(notifications).then((result) => {
+    console.log(result);
+  }),
+);
