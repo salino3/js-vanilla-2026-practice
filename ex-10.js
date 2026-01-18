@@ -67,3 +67,39 @@ console.log(
     "ana",
   ]),
 );
+
+// Task 3
+// Write a function called getCategoryTotals that:
+// Filters out any expense with a negative amount (those are errors).
+// Groups the expenses by category.
+// Sums the total amount for each category.
+// Returns an object where the keys are the categories and the values are the totals.
+
+function getCategoryTotals(expenses) {
+  return expenses.reduce((acc, item) => {
+    if (item.amount < 0) {
+      return acc;
+    }
+    // if (!acc[item.category]) {
+    //   acc[item.category] = item.amount;
+    // } else {
+    //   acc[item.category] += item.amount;
+    // }
+
+    acc[item.category] = (acc[item.category] || 0) + item?.amount;
+
+    return acc;
+  }, {});
+}
+
+console.log(
+  "Task 3: ",
+  getCategoryTotals([
+    { id: 1, category: "Food", amount: 50 },
+    { id: 2, category: "Transport", amount: 20 },
+    { id: 3, category: "Food", amount: 30 },
+    { id: 4, category: "Tech", amount: 1200 },
+    { id: 6, category: "Food", amount: -10 }, // Error: Ignore this
+    { id: 5, category: "Transport", amount: 15 },
+  ]),
+);
