@@ -29,3 +29,29 @@ console.log(
     { name: "USB-C Hub", price: 45.0 },
   ]),
 );
+
+// Task 2
+// Filter: Create a new array called adultsOnly that only includes people aged 18 or older.
+// Map: Create a new array of strings called formattedGuests. Each string should be formatted as: "LASTNAME, Firstname".
+// Example: { firstName: "jane", lastName: "doe" } becomes "DOE, Jane".
+// Crucial Step: You must ensure the Last Name is all uppercase and the First Name has the first letter capitalized (even if the data is messy).
+// Output: Use a loop or .forEach() to log each formatted name to the console.
+
+const guests = [
+  { firstName: "jane", lastName: "doe", age: 25 },
+  { firstName: "bob", lastName: "smith", age: 15 },
+  { firstName: "alice", lastName: "williams", age: 32 },
+  { firstName: "charlie", lastName: "brown", age: 17 },
+  { firstName: "emily", lastName: "davis", age: 45 },
+];
+
+const formattedGuests = [];
+for (let i = 0; guests.length > i; i++) {
+  if (guests[i].age > 17) {
+    formattedGuests.push(
+      `${guests[i].lastName.toUpperCase()}, ${guests[i].firstName.charAt(0).toUpperCase() + guests[i].firstName.slice(1)}`,
+    );
+  }
+}
+
+console.log("clog1", formattedGuests);
