@@ -54,4 +54,46 @@ for (let i = 0; guests.length > i; i++) {
   }
 }
 
-console.log("clog1", formattedGuests);
+console.log("Task 2: ", formattedGuests);
+
+// Task 3
+// Find the first "Out of Stock" item: Use .find() to get the object where stock === 0.
+// The Logic Check: Use .some() to see if any "Electronics" have stock < 10.
+// The Summary Object (The "Single Pass" Challenge):
+// Create an object that counts the items per category.
+// Constraint: Try to do this using .reduce() so you only iterate the array once to build the final object: { Electronics: 3, Appliances: 2 }.
+
+function checkOutOfStock(inventory) {
+  const firstStockZero = inventory.find((item) => item.stock === 0);
+  const areSomeItemsLessThan10 = firstStockZero
+    ? true
+    : inventory.some((item) => item.stock < 10);
+
+  const categoryCounted = inventory.reduce((acc, item) => {
+    console.log("clog3", item.stock, acc);
+
+    if (!acc[item.category]) {
+      acc[item.category] = 0;
+    }
+    acc[item.category] += item.stock;
+
+    return acc;
+  }, {});
+
+  return {
+    firstStockZero,
+    areSomeItemsLessThan10,
+    categoryCounted,
+  };
+}
+
+console.log(
+  "Task 3: ",
+  checkOutOfStock([
+    { id: 1, name: "Laptop", category: "Electronics", stock: 5 },
+    { id: 2, name: "Coffee Maker", category: "Appliances", stock: 0 },
+    { id: 3, name: "Headphones", category: "Electronics", stock: 12 },
+    { id: 4, name: "Toaster", category: "Appliances", stock: 2 },
+    { id: 5, name: "Smartphone", category: "Electronics", stock: 8 },
+  ]),
+);
