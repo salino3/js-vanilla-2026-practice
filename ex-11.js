@@ -97,3 +97,31 @@ console.log(
     { id: 5, name: "Smartphone", category: "Electronics", stock: 8 },
   ]),
 );
+
+// Task 4
+// Create a function that returns an array of unique customers, and sums their total amounts.
+
+function reduceDataCustomer(rawOrders) {
+  return Object.values(
+    rawOrders.reduce((acc, order) => {
+      if (!acc[order.customer]) {
+        acc[order.customer] = { customer: order.customer, total: 0 };
+      }
+
+      acc[order.customer].total += order.amount || 0;
+
+      return acc;
+    }, {}),
+  );
+}
+
+console.log(
+  "Task 4: ",
+  reduceDataCustomer([
+    { customer: "Alex", amount: 50 },
+    { customer: "Bella", amount: 30 },
+    { customer: "Alex", amount: 20 },
+    { customer: "Chris", amount: 100 },
+    { customer: "Bella", amount: 10 },
+  ]),
+);
