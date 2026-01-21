@@ -125,3 +125,58 @@ console.log(
     { customer: "Bella", amount: 10 },
   ]),
 );
+
+// Task 5
+// Step 1: Use reduce on the employees array to get total spending per department
+// (e.g., { Engineering: 240000, ... }).
+// Step 2: Use filter or reduce on the budgets array to compare the limits with your
+// totals and calculate the overBy amount.
+
+const employees = [
+  { id: 2, name: "Bob", dept: "Marketing", salary: 50000 },
+  { id: 1, name: "Alice", dept: "Engineering", salary: 80000 },
+  { id: 3, name: "Charlie", dept: "Engineering", salary: 90000 },
+  { id: 4, name: "David", dept: "Sales", salary: 60000 },
+  { id: 5, name: "Emily", dept: "Engineering", salary: 70000 },
+  { id: 6, name: "Frank", dept: "Marketing", salary: 45000 },
+];
+
+const budgets = [
+  { dept: "Engineering", limit: 200000 },
+  { dept: "Marketing", limit: 100000 },
+  { dept: "Sales", limit: 50000 },
+];
+
+function checkBudgetDepartaments(employees, budgets) {
+  const spendingDepartament = employees.reduce((acc, workers) => {
+    if (!acc[workers.dept]) {
+      acc[workers.dept] = 0;
+    }
+
+    acc[workers.dept] += workers.salary;
+
+    return acc;
+  }, {});
+
+  return budgets.reduce((acc, item) => {
+    acc[item.dept] = item.limit < spendingDepartament[item.dept];
+    return acc;
+  }, {});
+}
+
+console.log("Task 5: ", checkBudgetDepartaments(employees, budgets));
+
+//
+let book = {
+  title: "JavaScript Essentials",
+};
+
+let additionalDetails = {
+  author: "Alex Doe",
+  year: 2023,
+};
+
+Object.assign(book, additionalDetails);
+
+// Displaying the result variable 'book'
+console.log("Book Details:", book);
