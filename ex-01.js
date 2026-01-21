@@ -70,7 +70,22 @@ const topUser =
   filteredUsers.length === 0
     ? null
     : filteredUsers.reduce((best, current) =>
-        current.averageScore > best.averageScore ? current : best
+        current.averageScore > best.averageScore ? current : best,
       );
 
 console.log("topUser03", topUser);
+
+//
+let book = {
+  title: "JavaScript Essentials",
+};
+
+let additionalDetails = {
+  author: "Alex Doe",
+  year: 2023,
+};
+
+Object.assign(book, additionalDetails);
+
+// Displaying the result variable 'book'
+console.log("Book Details:", book);

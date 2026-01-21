@@ -152,31 +152,24 @@ function checkBudgetDepartaments(employees, budgets) {
     if (!acc[workers.dept]) {
       acc[workers.dept] = 0;
     }
-
     acc[workers.dept] += workers.salary;
 
     return acc;
   }, {});
 
   return budgets.reduce((acc, item) => {
-    acc[item.dept] = item.limit < spendingDepartament[item.dept];
+    if (spendingDepartament[item.dept] > item.limit) {
+      acc[item.dept] = spendingDepartament[item.dept] - item.limit;
+    }
     return acc;
   }, {});
 }
 
 console.log("Task 5: ", checkBudgetDepartaments(employees, budgets));
 
-//
-let book = {
-  title: "JavaScript Essentials",
-};
-
-let additionalDetails = {
-  author: "Alex Doe",
-  year: 2023,
-};
-
-Object.assign(book, additionalDetails);
-
-// Displaying the result variable 'book'
-console.log("Book Details:", book);
+// Task 6
+// Write fetchUser(): Returns a Promise resolving in 1s with { name: "Alex" }.
+// Write fetchPosts(): Returns a Promise resolving in 2s with ["Post 1", "Post 2"].
+// Write an async function loadAll() to get both results.
+// The Performance Constraint: If you await the user and then await the posts, the code
+// will take 3 seconds (sequential). I want you to make it take only 2 seconds (parallel).
