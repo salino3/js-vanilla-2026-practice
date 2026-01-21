@@ -58,23 +58,26 @@ class Vehicle {
 
 //
 class ElectricCar extends Vehicle {
+  // 1. Declare the private field at the top
+  #batteryLevel;
+
   constructor(brand, speed, batteryLevel) {
     super(brand, speed);
-    this.batteryLevel =
+    this.#batteryLevel =
       batteryLevel > 100 ? 100 : batteryLevel < 0 ? 0 : batteryLevel;
   }
 
   charge() {
-    this.batteryLevel = 100;
+    this.#batteryLevel = 100;
     return (
       "Battery recharged! The current battery level is " +
-      this.batteryLevel +
+      this.#batteryLevel +
       "%"
     );
   }
 
   move() {
-    return `${super.move()} and his battery level is ${this.batteryLevel}`;
+    return `${super.move()} and his battery level is ${this.#batteryLevel}`;
   }
 }
 
@@ -90,3 +93,40 @@ console.log(R8.move());
 console.log(cinquencento.move());
 
 console.log(cinquencento.charge());
+// cinquencento.#batteryLevel = 88; // no possible. ex-12.js:96 Uncaught SyntaxError:
+// Private field '#batteryLevel' must be declared in an enclosing class
+//
+// console.log(cinquencento.move());
+
+//------------------------
+console.log("-------------------------------");
+
+class BankAccount {
+  #balance = 0; // Private field
+
+  // GETTER: Allows reading the balance, but adds a "$" for formatting
+  get balance() {
+    return `$${this.#balance}`;
+  }
+
+  // SETTER: Validates the input before updating the private field
+  set deposit(amount) {
+    if (amount <= 0) {
+      console.error("You must deposit a positive amount!");
+      return;
+    }
+    this.#balance += amount;
+    console.log(`Deposited: $${amount}`);
+  }
+}
+
+const myAccount = new BankAccount();
+
+// Using the SETTER (looks like an assignment, but runs the 'set' function)
+myAccount.deposit = 100; // Logs: Deposited: $100
+myAccount.deposit = -50; // Logs: You must deposit a positive amount!
+
+// Using the GETTER (looks like a property, but runs the 'get' function)
+console.log(myAccount.balance); // Output: "$100"
+myAccount.balance = -190; // with 'get' we protect for external modification or directly modification
+console.log(myAccount.balance); // Output: "$100"
