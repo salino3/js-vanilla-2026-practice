@@ -173,3 +173,35 @@ console.log("Task 5: ", checkBudgetDepartaments(employees, budgets));
 // Write an async function loadAll() to get both results.
 // The Performance Constraint: If you await the user and then await the posts, the code
 // will take 3 seconds (sequential). I want you to make it take only 2 seconds (parallel).
+
+const fetchUser = (ms) =>
+  new Promise((resolve) => setTimeout(() => resolve({ name: "Alex" }), ms));
+const fetchPosts = (ms) =>
+  new Promise((resolve) => setTimeout(() => resolve(["Post 1", "Post 2"]), ms));
+
+async function loadAll(...args) {
+  const maxMs = Math.max(
+    ...args.map((fn) => {
+      const match = fn.toString().match(/\((\d+)\)/);
+      return match ? Number(match[1]) : 0;
+    }),
+  );
+
+  console.log(`Waiting for the slowest task: ${maxMs}ms...`);
+
+  let result =
+    args.length === 0 ? null : await Promise.all(args.map((fn) => fn()));
+
+  console.log(
+    "Result",
+    result.map((i) => console.log(i)),
+  );
+}
+
+console.log(
+  "Task 6: ",
+  loadAll(
+    () => fetchUser(1000),
+    () => fetchPosts(2000),
+  ),
+);
