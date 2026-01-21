@@ -130,3 +130,41 @@ myAccount.deposit = -50; // Logs: You must deposit a positive amount!
 console.log(myAccount.balance); // Output: "$100"
 myAccount.balance = -190; // with 'get' we protect for external modification or directly modification
 console.log(myAccount.balance); // Output: "$100"
+
+class User {
+  // 1. STORAGE (Private - Hidden away)
+  #internalName;
+
+  constructor(inputName) {
+    // 2. We trigger the SETTER by using its name
+    this.name = inputName;
+  }
+
+  // 3. THE GATEKEEPER (Getter & Setter share the name 'name')
+  get getName() {
+    return this.#internalName ? this.#internalName.toUpperCase() : "NO NAME";
+  }
+
+  set setName(newName) {
+    if (newName.length < 3) {
+      console.error(`Error: "${newName}" is too short!`);
+      return;
+    }
+    this.#internalName = newName;
+  }
+
+  // 4. THE ACTION
+  displayInfo() {
+    return `The user's name is: ${this.name}`; // Calls the getter
+  }
+}
+
+const user1 = new User("Al"); // Logs: "Name too short!"
+const user2 = new User("Alex"); // Works
+
+// Calling the 'setter'
+user2.setName = "Bo"; // Logs: "Name too short!" (Validation works even after creation)
+console.log("clog1", user1);
+console.log("clog2", user2);
+console.log("clog3", user2.name);
+console.log("clog4", user2.displayInfo());
