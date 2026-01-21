@@ -194,7 +194,7 @@ async function loadAll(...args) {
 
   console.log(
     "Result",
-    result.map((i) => console.log(i)),
+    result.map((p) => console.log(p)),
   );
 }
 
@@ -205,3 +205,22 @@ console.log(
     () => fetchPosts(2000),
   ),
 );
+
+// Task 6 V2
+
+async function loadAll02(...tasks) {
+  console.log(`Starting ${tasks.length} tasks in parallel...`);
+
+  return (results = await Promise.all(tasks.map((fn) => fn())));
+}
+
+// Execution
+loadAll02(
+  () => fetchUser(1000),
+  () => fetchPosts(2000),
+).then((data) => {
+  console.log(
+    "Task 6 V2 Final Results Array:",
+    data.map((p) => console.log(p)),
+  );
+});
