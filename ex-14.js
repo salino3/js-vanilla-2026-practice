@@ -75,3 +75,22 @@ function getHighPerformers02(arr) {
 
 console.log("Task 1 ", getHighPerformers(employeeLogs));
 console.log("Task 1 V2 ", getHighPerformers02(employeeLogs));
+
+// The Task: Write a function updateEmployeeName(logs, id, newName) that:
+
+// Takes the employeeLogs array.
+
+// Finds the employee with the matching id.
+
+// Returns a new array where that specific employee's name is updated, but all other employees remain exactly as they were.
+
+// Constraint: Do not use .push() or modify the original logs array.
+
+function updateEmployeeName(logs, id, newName) {
+  const newEmployeeLogs = logs.map((log) =>
+    log.id === id ? { ...log, name: newName } : log,
+  );
+  return newEmployeeLogs;
+}
+
+console.log("Task 2 ", updateEmployeeName(employeeLogs, 2, "Joe"));
