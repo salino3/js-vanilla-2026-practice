@@ -155,3 +155,8 @@ function recordProgress(logs, id, newCount) {
 
 console.log("Task 4 ", recordProgress(employeeLogs02, 104, 22));
 console.log(false == "0"); // true
+console.log(typeof NaN); // number
+console.log("7" - 2); // 5 , it is a number
+console.log("7" * 2);
+const result = ["1", "1", "2"].map(console.log);
+console.log(result);
