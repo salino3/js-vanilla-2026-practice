@@ -142,21 +142,15 @@ const employeeLogs02 = [
 // Optimization: If the newCount is lower or the id isn't found, it returns the original logs array (this prevents React from re-rendering unnecessarily).
 
 function recordProgress(logs, id, newCount) {
-  const newLogs = logs.filter(
-    (log) => log.id === id && log.tasksCompleted < newCount,
-  );
+  const employee = logs.find((emp) => emp.id === id);
 
-  if (!newLogs || newLogs.length === 0) {
+  if (!employee || newCount <= employee.tasksCompleted) {
     return logs;
   }
 
-  return logs.map((log) => ({
-    ...log,
-    tasksCompleted:
-      log.id === id && log.tasksCompleted < newCount
-        ? newCount
-        : log.tasksCompleted,
-  }));
+  return logs.map((emp) =>
+    emp.id === id ? { ...emp, tasksCompleted: newCount } : emp,
+  );
 }
 
 console.log("Task 4 ", recordProgress(employeeLogs02, 104, 22));
