@@ -122,3 +122,41 @@ function getDepartmentSummary(logs, deptName) {
 }
 
 console.log("Task 3 ", getDepartmentSummary(employeeLogs, "Engineering"));
+
+//
+const employeeLogs02 = [
+  { id: 101, name: "Sarah", department: "Engineering", tasksCompleted: 45 },
+  { id: 102, name: "Mike", department: "Design", tasksCompleted: 12 },
+  { id: 103, name: "Elena", department: "Engineering", tasksCompleted: 30 },
+  { id: 104, name: "Josh", department: "Sales", tasksCompleted: 8 },
+];
+
+// Write recordProgress(logs, id, newCount) so that:
+
+// It finds the employee by id.
+
+// Condition: It only updates tasksCompleted if newCount is strictly greater than the current value.
+
+// Immutability: It returns a new array if an update happens.
+
+// Optimization: If the newCount is lower or the id isn't found, it returns the original logs array (this prevents React from re-rendering unnecessarily).
+
+function recordProgress(logs, id, newCount) {
+  const newLogs = logs.filter(
+    (log) => log.id === id && log.tasksCompleted < newCount,
+  );
+
+  if (!newLogs || newLogs.length === 0) {
+    return logs;
+  }
+
+  return logs.map((log) => ({
+    ...log,
+    tasksCompleted:
+      log.id === id && log.tasksCompleted < newCount
+        ? newCount
+        : log.tasksCompleted,
+  }));
+}
+
+console.log("Task 4 ", recordProgress(employeeLogs02, 104, 22));
