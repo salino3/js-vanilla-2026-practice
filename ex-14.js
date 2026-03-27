@@ -154,3 +154,4 @@ function recordProgress(logs, id, newCount) {
 }
 
 console.log("Task 4 ", recordProgress(employeeLogs02, 104, 22));
+console.log(false == "0"); // true
