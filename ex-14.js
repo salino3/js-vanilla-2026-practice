@@ -94,3 +94,31 @@ function updateEmployeeName(logs, id, newName) {
 }
 
 console.log("Task 2 ", updateEmployeeName(employeeLogs, 2, "Joe"));
+
+// The Task: Modify your getHighPerformers function or create a new one called getDepartmentSummary(logs, deptName) that:
+
+// Filters by a department name passed as an argument.
+
+// Edge Case: If the department doesn't exist in the data or has no employees, return the string: "No employees found for [deptName] department".
+
+// If it does exist, return an object like this:
+// { department: "Engineering", count: 3, averageTasks: 11.67 }
+
+function getDepartmentSummary(logs, deptName) {
+  const filtered = logs.filter((emp) => emp.department === deptName);
+
+  if (filtered.length === 0) {
+    return `No employees found for ${deptName} department`;
+  }
+
+  const totalTasks = filtered.reduce((sum, emp) => sum + emp.tasksCompleted, 0);
+  const average = totalTasks / filtered.length;
+
+  return {
+    department: deptName,
+    count: filtered.length,
+    averageTasks: Number(average.toFixed(2)),
+  };
+}
+
+console.log("Task 3 ", getDepartmentSummary(employeeLogs, "Engineering"));
