@@ -61,4 +61,17 @@ function getHighPerformers(arr) {
   return arrReduced.map((e) => e.name);
 }
 
+//
+function getHighPerformers02(arr) {
+  return arr
+    .filter((emp) => emp.department === "Engineering")
+    .map((emp) => ({
+      ...emp, // Spread operator creates a NEW object, no mutation!
+      productivityScore: emp.tasksCompleted / emp.hoursWorked,
+    }))
+    .sort((a, b) => b.productivityScore - a.productivityScore)
+    .map((emp) => emp.name);
+}
+
 console.log("Task 1 ", getHighPerformers(employeeLogs));
+console.log("Task 1 V2 ", getHighPerformers02(employeeLogs));
