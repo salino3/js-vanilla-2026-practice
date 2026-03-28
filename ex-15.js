@@ -84,7 +84,7 @@ async function getUserData(userId) {
 
 console.log(
   "Task 3 ",
-  //   getUserData(2).then((res) => console.log(res)),
+  getUserData(2).then((res) => console.log(res)),
 );
 
 // The Challenge: The "Department Mapper"
@@ -117,3 +117,13 @@ function getEmployeeLabels(employees, departments) {
 }
 
 console.log("Task 4 ", getEmployeeLabels(employees02, departments));
+
+//
+function getEmployeeLabels02(employees, departments) {
+  return employees.map((emp) => {
+    const dept = departments.find((d) => d.id === emp.deptId);
+    return `${emp.name} works in ${dept ? dept.name : "Unknown"}`;
+  });
+}
+
+console.log("Task 4 V2", getEmployeeLabels02(employees02, departments));
