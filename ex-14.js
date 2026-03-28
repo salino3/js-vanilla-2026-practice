@@ -164,3 +164,4 @@ console.log("arrays", typeof ([] + []));
 console.log(0.1 + 0.2 === 0.3);
 console.log(0.1 + 0.7); // not round number
 console.log(0.1 + 0.9); // round number
+console.log([1, 2] + [3, 4]); // 1,23,4
