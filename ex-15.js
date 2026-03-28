@@ -127,3 +127,27 @@ function getEmployeeLabels02(employees, departments) {
 }
 
 console.log("Task 4 V2", getEmployeeLabels02(employees02, departments));
+
+// The Challenge: The "FizzBuzz" Sum
+// Write a function sumSpecial(n) that takes a number n and returns
+//  the sum of all numbers from 1 up to n that are divisible by 3 or 5. Example: If n = 10: Numbers
+//  divisible by 3 or 5: 3, 5, 6, 9, 10 Result: $3 + 5 + 6 + 9 + 10 = 33$ Constraints:If n is negative, return 0.
+//  Be careful not to count a number twice if it's divisible by both (like 15).
+
+function sumSpecial(n) {
+  if (n < 0) {
+    return 0;
+  }
+
+  let sum = 0;
+
+  for (let i = 1; i <= n; i++) {
+    if (i % 3 === 0 || i % 5 === 0) {
+      sum += i;
+    }
+  }
+
+  return sum;
+}
+
+console.log("Task 5 ", sumSpecial(33));
