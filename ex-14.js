@@ -160,3 +160,7 @@ console.log("7" - 2); // 5 , it is a number
 console.log("7" * 2);
 const result = ["1", "1", "2"].map(console.log);
 console.log(result);
+console.log("arrays", typeof ([] + []));
+console.log(0.1 + 0.2 === 0.3);
+console.log(0.1 + 0.7); // not round number
+console.log(0.1 + 0.9); // round number
