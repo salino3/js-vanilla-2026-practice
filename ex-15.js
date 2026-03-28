@@ -84,5 +84,36 @@ async function getUserData(userId) {
 
 console.log(
   "Task 3 ",
-  getUserData(2).then((res) => console.log(res)),
+  //   getUserData(2).then((res) => console.log(res)),
 );
+
+// The Challenge: The "Department Mapper"
+// You have an array of Employees and an array of Departments. Your goal is to create a
+// new array of strings that describes which department each person belongs to.
+
+// Your Task: Write a function getEmployeeLabels(employees, departments) that returns
+// an array of strings in the format: "Name works in DepartmentName".
+
+const employees02 = [
+  { id: 1, name: "Alice", deptId: 101 },
+  { id: 2, name: "Bob", deptId: 102 },
+  { id: 3, name: "Charlie", deptId: 101 },
+];
+
+const departments = [
+  { id: 101, name: "Engineering" },
+  { id: 102, name: "Marketing" },
+];
+
+function getEmployeeLabels(employees, departments) {
+  const reducedEmployees = employees.reduce((acc, emp) => {
+    acc[emp.name] =
+      `${emp.name} works in ${departments.find((d) => d.id === emp.deptId).name}`;
+
+    return acc;
+  }, {});
+
+  return Object.values(reducedEmployees);
+}
+
+console.log("Task 4 ", getEmployeeLabels(employees02, departments));
