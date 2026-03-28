@@ -56,3 +56,33 @@ function getTotalsByCategory(transactions) {
 }
 
 console.log("Task 2 ", getTotalsByCategory(transactions));
+
+// The Challenge: The "User & Posts" Fetcher
+// You need to write an async function that:
+
+// Fetches a user from an API.
+
+// Fetches that user's posts using the ID from the first request.
+
+// Returns an object containing both the user and their posts.
+
+// The Code Blueprint:
+
+async function getUserData(userId) {
+  const user = await fetch(
+    `https://jsonplaceholder.typicode.com/users/${userId}`,
+  ).then(function (response) {
+    return response.json();
+  });
+
+  const posts = await fetch(
+    `https://jsonplaceholder.typicode.com/posts?userId=${userId}`,
+  ).then((response) => response.json());
+
+  return { user, posts };
+}
+
+console.log(
+  "Task 3 ",
+  getUserData(2).then((res) => console.log(res)),
+);
