@@ -54,3 +54,35 @@ function groupByCategory(array) {
 }
 
 console.log("Task 2 ", groupByCategory(products));
+
+//
+const transactions = [
+  { id: 1, amount: 50, status: "completed" },
+  { id: 2, amount: 20, status: "pending" },
+  { id: 3, amount: 100, status: "completed" },
+  { id: 4, amount: 40, status: "failed" },
+  { id: 5, amount: 30, status: "completed" },
+];
+
+// You have a list of transactions. The user wants a summary that shows the total spent and the
+// number of transactions for a specific status (e.g., "completed").
+
+// Write a function getTransactionSummary(list, targetStatus) that returns an object like this:
+// { totalAmount: 180, count: 3 } (for "completed").
+
+// Bonus: Try to do it using only one .reduce() and no external variables.
+
+function getTransactionSummary(list, targetStatus) {
+  const redicedList = list.reduce(
+    (acc, t) => {
+      return t.status === targetStatus
+        ? { totalAmount: acc.totalAmount + t.amount, count: acc.count + 1 }
+        : acc;
+    },
+    { totalAmount: 0, count: 0 },
+  );
+
+  return redicedList;
+}
+
+console.log("Task 3 ", getTransactionSummary(transactions, "completed"));
