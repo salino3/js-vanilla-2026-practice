@@ -118,3 +118,16 @@ console.log("Task 4 ", transformDataUsers(users));
 // accent,    Ignores Case, but cares about Accents,          a === A (but a !== á)
 // case,      Ignores Accents, but cares about Case,          a === á (but a !== A)
 // variant,   Cares about Everything (Default),                 Nothing matches unless identical
+
+function transformDataUsers02(usersData) {
+  return usersData
+    .reduce((acc, u) => {
+      if (u.isActive && u.age >= 18) {
+        return [...acc, u.name];
+      }
+      return acc;
+    }, [])
+    .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+}
+
+console.log("Task 4 V 2", transformDataUsers02(users));
