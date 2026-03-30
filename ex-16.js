@@ -111,3 +111,10 @@ function transformDataUsers(usersData) {
 }
 
 console.log("Task 4 ", transformDataUsers(users));
+
+// Level,     What it ignores,                                  Example Match (returns 0)
+
+// base,      Ignores Accents and Case,                         a === A === á
+// accent,    Ignores Case, but cares about Accents,          a === A (but a !== á)
+// case,      Ignores Accents, but cares about Case,          a === á (but a !== A)
+// variant,   Cares about Everything (Default),                 Nothing matches unless identical
