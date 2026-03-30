@@ -84,7 +84,7 @@ async function getUserData(userId) {
 
 console.log(
   "Task 3 ",
-  // getUserData(2).then((res) => console.log(res)),
+  getUserData(2).then((res) => console.log(res)),
 );
 
 // The Challenge: The "Department Mapper"

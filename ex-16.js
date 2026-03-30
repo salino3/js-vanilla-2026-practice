@@ -86,3 +86,28 @@ function getTransactionSummary(list, targetStatus) {
 }
 
 console.log("Task 3 ", getTransactionSummary(transactions, "completed"));
+
+//
+const users = [
+  { name: "Bob", age: 17, isActive: true },
+  { name: "Charlie", age: 30, isActive: false },
+  { name: "David", age: 20, isActive: true },
+  { name: "Alice", age: 25, isActive: true },
+];
+
+// Filter for isActive: true.
+
+// Filter for age >= 18.
+
+// Map to get only the name.
+
+// Sort the names alphabetically.
+
+function transformDataUsers(usersData) {
+  return usersData
+    .filter((u) => u.age >= 18 && !!u.isActive)
+    .map((u) => u.name)
+    .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+}
+
+console.log("Task 4 ", transformDataUsers(users));
