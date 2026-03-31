@@ -131,3 +131,104 @@ function transformDataUsers02(usersData) {
 }
 
 console.log("Task 4 V 2", transformDataUsers02(users));
+
+//
+const books = [
+  {
+    id: 1,
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    year: 1925,
+    rating: 4.2,
+    genres: ["Classic", "Fiction"],
+  },
+  {
+    id: 2,
+    title: "1984",
+    author: "George Orwell",
+    year: 1949,
+    rating: 4.6,
+    genres: ["Dystopian", "Sci-Fi"],
+  },
+  {
+    id: 3,
+    title: "The Hobbit",
+    author: "J.R.R. Tolkien",
+    year: 1937,
+    rating: 4.8,
+    genres: ["Fantasy", "Adventure"],
+  },
+  {
+    id: 4,
+    title: "To Kill a Mockingbird",
+    author: "Harper Lee",
+    year: 1960,
+    rating: 4.3,
+    genres: ["Classic", "Law"],
+  },
+  {
+    id: 5,
+    title: "The Catcher in the Rye",
+    author: "J.D. Salinger",
+    year: 1951,
+    rating: 3.9,
+    genres: ["Classic", "YA"],
+  },
+];
+
+// Filter: Create a new array called highlyRated that contains only books with a rating of 4.5 or higher.
+
+// Map: Create a new array called bookLabels that contains strings formatted as: "Title (Year) by Author".
+
+// Find: Find the first book in the original array that belongs to the "Fantasy" genre.
+
+// Reduce: Calculate the average rating of all books in the library.
+
+// Check if any book was published before 1930.
+
+// Check if all books have at least one genre.
+
+function highlyRatedItems(array) {
+  const reducedArray = array.reduce(
+    (acc, el, index, array) => {
+      if (!acc.firstFantasy) {
+        acc.firstFantasy = el.genres.some((book) => book === "Fantasy")
+          ? el
+          : null;
+      }
+
+      if (!el.genres.length === 0) {
+        acc.allHaveGenre = false;
+      }
+
+      if (!acc.somePublishedBefore1930 && el.year < 1930) {
+        acc.somePublishedBefore1930 = true;
+      }
+
+      if (el.rating >= 4.5) {
+        acc.highlyRated.push(el);
+      }
+
+      acc.bookLabels.push(`${el.title} (${el.year}) by ${el.author}`);
+
+      acc.average += el.rating;
+      if (array.length === index + 1) {
+        acc.average = acc.average / array.length;
+      }
+
+      return acc;
+    },
+    {
+      somePublishedBefore1930: null,
+      allHaveGenre: true,
+      highlyRated: [],
+      bookLabels: [],
+      average: 0,
+      firstFantasy: null,
+    },
+  );
+
+  return reducedArray;
+}
+
+console.log("Task 5 ", highlyRatedItems(books));
