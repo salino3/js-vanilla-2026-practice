@@ -268,10 +268,14 @@ const orders = [
 // orderDetails: A list of strings: "User Name bought Qty x Product Name".
 
 function generateReport(orders, products, users) {
+  const productMap = Object.fromEntries(products.map((p) => [p.id, p]));
+  const userMap = Object.fromEntries(users.map((u) => [u.id, u])); // {1:  { id: 1, name: "Alice", premium: true } ... }
+
   const reducedData = orders.reduce(
     (acc, order) => {
-      const productFound = products.find((p) => p.id == order.productId) || {};
-      const userFound = users.find((u) => u.id == order.userId) || {};
+      // const productFound = products.find((p) => p.id == order.productId) || {};
+      const productFound = productMap[order.productId] || {};
+      const userFound = userMap[order.userId] || {};
 
       //
       acc.categoryCounts[productFound?.category] = acc?.categoryCounts[
