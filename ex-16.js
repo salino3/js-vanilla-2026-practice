@@ -277,8 +277,8 @@ function generateReport(orders, products, users) {
       acc.categoryCounts[productFound?.category] = acc?.categoryCounts[
         productFound.category
       ]
-        ? acc.categoryCounts[productFound.category] + 1
-        : 1;
+        ? acc.categoryCounts[productFound.category] + order.qty
+        : order.qty;
 
       //
       if (productFound.price > 100) {
