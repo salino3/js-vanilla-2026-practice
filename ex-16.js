@@ -232,3 +232,93 @@ function highlyRatedItems(array) {
 }
 
 console.log("Task 5 ", highlyRatedItems(books));
+
+//
+const products02 = [
+  { id: 101, name: "Laptop", price: 1200, category: "Electronics" },
+  { id: 102, name: "Mouse", price: 25, category: "Electronics" },
+  { id: 103, name: "Keyboard", price: 75, category: "Electronics" },
+  { id: 104, name: "Backpack", price: 50, category: "Fashion" },
+];
+
+const users02 = [
+  { id: 1, name: "Alice", premium: true },
+  { id: 2, name: "Bob", premium: false },
+];
+
+const orders = [
+  { orderId: 500, userId: 1, productId: 101, qty: 1 },
+  { orderId: 501, userId: 2, productId: 102, qty: 2 },
+  { orderId: 502, userId: 1, productId: 103, qty: 1 },
+  { orderId: 503, userId: 2, productId: 104, qty: 3 },
+];
+
+// Create a function generateReport(orders, products, users) that returns an object using one .reduce() on the orders array.
+
+// The output object should contain:
+
+// totalRevenue: The sum of all orders (price * qty).
+
+// premiumOrders: An object of names of users who are premium: true and placed an order.
+
+// categoryCounts: An object showing how many items were sold per category (e.g., { Electronics: 4, Fashion: 3 }).
+
+// expensiveItems: A list of product names where the unit price is greater than 100.
+
+// orderDetails: A list of strings: "User Name bought Qty x Product Name".
+
+function generateReport(orders, products, users) {
+  const reducedData = orders.reduce(
+    (acc, order) => {
+      const productFound = products.find((p) => p.id == order.productId) || {};
+      const userFound = users.find((u) => u.id == order.userId) || {};
+
+      //
+      acc.categoryCounts[productFound?.category] = acc?.categoryCounts[
+        productFound.category
+      ]
+        ? acc.categoryCounts[productFound.category] + 1
+        : 1;
+
+      //
+      if (productFound.price > 100) {
+        acc.expensiveItems.push(productFound.name);
+      }
+
+      //
+
+      if (
+        userFound.premium &&
+        productFound.name &&
+        !acc.premiumOrders[userFound.id]
+      ) {
+        acc.premiumOrders[userFound.id] = userFound.name;
+      }
+
+      //
+      if (userFound.name && productFound.name) {
+        acc.orderDetails.push(
+          `${userFound.name} bought ${order.qty} x ${productFound.name}`,
+        );
+      }
+
+      //
+      acc.totalRevenue += productFound.price
+        ? productFound.price * order.qty
+        : 0;
+
+      return acc;
+    },
+    {
+      totalRevenue: 0,
+      premiumOrders: {},
+      expensiveItems: [],
+      orderDetails: [],
+      categoryCounts: {},
+    },
+  );
+
+  return reducedData;
+}
+
+console.log("Task 6 ", generateReport(orders, products02, users02));
