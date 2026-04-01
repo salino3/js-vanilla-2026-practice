@@ -380,58 +380,31 @@ const department = {
 
 // highestSalary: The single highest salary found in the tree.
 
-function analyzeDepartment(node, result, calls) {
-  if (!calls) {
-    return {
-      node,
-      result,
-      calls: false,
-    };
+function analyzeDepartment(node) {
+  // 1. Start with the data from the current person (the node)
+  let result = {
+    totalSalary: node.salary || 0,
+    employeeCount: 1,
+    allManagers: node.manager ? [node.manager] : [],
+    highestSalary: node.salary || 0,
+  };
+
+  // 2. If they have a team, process each team member
+  if (node.team && node.team.length > 0) {
+    // Reduce to merge the results of all sub-teams into current result
+    result = node.team.reduce((acc, member) => {
+      const childData = analyzeDepartment(member); // Recursive Call
+
+      return {
+        totalSalary: acc.totalSalary + childData.totalSalary,
+        employeeCount: acc.employeeCount + childData.employeeCount,
+        allManagers: [...acc.allManagers, ...childData.allManagers],
+        highestSalary: Math.max(acc.highestSalary, childData.highestSalary),
+      };
+    }, result); // 'result' is the initial value containing the parent's data
   }
-  console.log("clog2", result.allManagers);
 
-  const newArray = [
-    ...result.allManagers,
-    ...(node.manager ? [node.manager] : []),
-  ];
-
-  console.log("clog1", result.employeeCount);
-  const newResult = {
-    totalSalary: (result.totalSalary += node.salary),
-    employeeCount: (result.employeeCount || 0) + (node.name ? 1 : 0),
-    allManagers: newArray,
-    highestSalary:
-      (result.highestSalary || 0) < node.salary
-        ? node.salary
-        : result.highestSalary,
-  };
-
-  //
-  console.log("clog3", {
-    node: node.team.length > 0 ? node.team : [],
-    result: newResult,
-    calls: node.team.length > 0 ? true : false,
-  });
-  return {
-    node:
-      node.team.length > 0
-        ? node.team.map((n) => analyzeDepartment(n, newResult, calls))
-        : [],
-    result: newResult,
-    calls: node.team.length > 0 ? true : false,
-  };
+  return result;
 }
 
-console.log(
-  "Task 7 ",
-  analyzeDepartment(
-    department,
-    {
-      totalSalary: 0,
-      employeeCount: 0,
-      allManagers: [],
-      highestSalary: 0,
-    },
-    true,
-  ),
-);
+console.log("Task 7 ", analyzeDepartment(department));
