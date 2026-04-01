@@ -466,6 +466,60 @@ const fileSystem = {
 
 // largestFile: The name of the single file with the largest size.
 
-function scanFolder(item) {}
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
+
+function scanFolder(item) {
+  let result = {
+    allTags: item.tags && item.tags.length > 0 ? item.tags : [],
+    fileCount: item.type === "file" ? 1 : 0,
+    totalSize: item.type === "file" ? item.size : 0,
+    largestFile: item.size || 0,
+    contents: item.contents || [],
+  };
+  if (
+    (item.contents && item.contents.length > 0) ||
+    (result.contents.length === 0 && result.allTags)
+  ) {
+    result =
+      item.contents && item.contents.length > 0
+        ? item.contents.reduce((acc, i) => {
+            const newItem = scanFolder(i);
+
+            //
+            return {
+              allTags:
+                newItem.type === "file"
+                  ? [...acc.allTags, ...[newItem.tags]].filter(onlyUnique)
+                  : acc.allTags,
+              fileCount:
+                newItem.type === "file" ? acc.fileCount + 1 : acc.fileCount,
+              totalSize:
+                newItem.type === "file"
+                  ? acc.totalSize + newItem.totalSize
+                  : acc.totalSize,
+              largestFile:
+                newItem.type === "file" ? acc.size + newItem.size : acc.size,
+            };
+          }, result)
+        : {
+            allTags:
+              item.type === "file"
+                ? [...result.allTags, ...[item.tags]].filter(onlyUnique)
+                : result.allTags,
+            fileCount:
+              item.type === "file" ? result.fileCount + 1 : result.fileCount,
+            totalSize:
+              item.type === "file"
+                ? result.totalSize + item.totalSize
+                : result.totalSize,
+            largestFile:
+              item.type === "file" ? result.size + item.size : result.size,
+          };
+  }
+
+  return result;
+}
 
 console.log("Task 8 ", scanFolder(fileSystem));
