@@ -406,24 +406,19 @@ function analyzeDepartment(node, result, calls) {
         : result.highestSalary,
   };
 
-  const recursiveResult =
-    // node && node.team.length > 0
-    //   ? node.team.map((el) =>
-    //       analyzeDepartment(node, newResult, node.team.length > 0),
-    //     )
-    //   :
-    false;
-
   //
   console.log("clog3", {
-    recursiveResult,
+    node: node.team.length > 0 ? node.team : [],
     result: newResult,
-    calls: !!recursiveResult,
+    calls: node.team.length > 0 ? true : false,
   });
   return {
-    recursiveResult,
+    node:
+      node.team.length > 0
+        ? node.team.map((n) => analyzeDepartment(n, newResult, calls))
+        : [],
     result: newResult,
-    calls: !!recursiveResult,
+    calls: node.team.length > 0 ? true : false,
   };
 }
 
@@ -440,29 +435,3 @@ console.log(
     true,
   ),
 );
-
-//     const reducedNode =
-// node.team &&
-// node.team.length > 0 &&
-// node.team.reduce(
-//   (acc, el) => {
-//     if (el.manager) {
-//       acc.allManagers.push(node.name);
-//     }
-//     acc.totalSalary += node.salary;
-//     if (acc.highestSalary < node.salary) {
-//       acc.highestSalary = node.salary;
-//     }
-
-//     if (el.team.length > 0) {
-//     }
-
-//     return acc;
-//   },
-//   {
-//     totalSalary: 0,
-//     employeeCount: 0,
-//     allManagers: [],
-//     highestSalary: 0,
-//   },
-// );
