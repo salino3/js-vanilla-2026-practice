@@ -326,3 +326,143 @@ function generateReport(orders, products, users) {
 }
 
 console.log("Task 6 ", generateReport(orders, products02, users02));
+
+//
+const department = {
+  name: "Engineering",
+  manager: "Elena",
+  salary: 150000,
+  team: [
+    {
+      name: "Frontend",
+      manager: "Lucas",
+      salary: 120000,
+      team: [
+        { name: "Sora", manager: null, salary: 90000, team: [] },
+        {
+          name: "Fullstack",
+          manager: "James",
+          salary: 85000,
+          team: [
+            {
+              name: "Fullstack",
+              manager: "Diego",
+              salary: 100000,
+              team: [
+                { name: "Ana", manager: null, salary: 90000, team: [] },
+                { name: "Kale", manager: null, salary: 85000, team: [] },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Backend",
+      manager: "Sarah",
+      salary: 130000,
+      team: [{ name: "Ravi", manager: null, salary: 95000, team: [] }],
+    },
+    { name: "DevOps", manager: "Mina", salary: 140000, team: [] },
+  ],
+};
+
+// Create a recursive function analyzeDepartment(node) that traverses this entire tree
+// and returns a single summary object.
+
+// The output object should contain:
+
+// totalSalary: The sum of every salary in the entire hierarchy.
+
+// employeeCount: The total number of people (Managers + Team members).
+
+// allManagers: A flat array of all names who are listed as a manager.
+
+// highestSalary: The single highest salary found in the tree.
+
+function analyzeDepartment(node, result, calls) {
+  if (!calls) {
+    return {
+      node,
+      result,
+      calls: false,
+    };
+  }
+  console.log("clog2", result.allManagers);
+
+  const newArray = [
+    ...result.allManagers,
+    ...(node.manager ? [node.manager] : []),
+  ];
+
+  console.log("clog1", result.employeeCount);
+  const newResult = {
+    totalSalary: (result.totalSalary += node.salary),
+    employeeCount: (result.employeeCount || 0) + (node.name ? 1 : 0),
+    allManagers: newArray,
+    highestSalary:
+      (result.highestSalary || 0) < node.salary
+        ? node.salary
+        : result.highestSalary,
+  };
+
+  const recursiveResult =
+    // node && node.team.length > 0
+    //   ? node.team.map((el) =>
+    //       analyzeDepartment(node, newResult, node.team.length > 0),
+    //     )
+    //   :
+    false;
+
+  //
+  console.log("clog3", {
+    recursiveResult,
+    result: newResult,
+    calls: !!recursiveResult,
+  });
+  return {
+    recursiveResult,
+    result: newResult,
+    calls: !!recursiveResult,
+  };
+}
+
+console.log(
+  "Task 7 ",
+  analyzeDepartment(
+    department,
+    {
+      totalSalary: 0,
+      employeeCount: 0,
+      allManagers: [],
+      highestSalary: 0,
+    },
+    true,
+  ),
+);
+
+//     const reducedNode =
+// node.team &&
+// node.team.length > 0 &&
+// node.team.reduce(
+//   (acc, el) => {
+//     if (el.manager) {
+//       acc.allManagers.push(node.name);
+//     }
+//     acc.totalSalary += node.salary;
+//     if (acc.highestSalary < node.salary) {
+//       acc.highestSalary = node.salary;
+//     }
+
+//     if (el.team.length > 0) {
+//     }
+
+//     return acc;
+//   },
+//   {
+//     totalSalary: 0,
+//     employeeCount: 0,
+//     allManagers: [],
+//     highestSalary: 0,
+//   },
+// );
