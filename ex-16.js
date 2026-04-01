@@ -408,3 +408,64 @@ function analyzeDepartment(node) {
 }
 
 console.log("Task 7 ", analyzeDepartment(department));
+
+//
+const fileSystem = {
+  name: "Root",
+  type: "folder",
+  contents: [
+    {
+      name: "Projects",
+      type: "folder",
+      contents: [
+        {
+          name: "index.html",
+          type: "file",
+          size: 500,
+          tags: ["web", "frontend"],
+        },
+        {
+          name: "App",
+          type: "folder",
+          contents: [
+            {
+              name: "main.js",
+              type: "file",
+              size: 1200,
+              tags: ["js", "frontend"],
+            },
+            {
+              name: "style.css",
+              type: "file",
+              size: 800,
+              tags: ["css", "frontend"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Backup",
+      type: "folder",
+      contents: [
+        { name: "data.zip", type: "file", size: 5000, tags: ["archive"] },
+        { name: "notes.txt", type: "file", size: 100, tags: ["text"] },
+      ],
+    },
+    { name: "config.json", type: "file", size: 200, tags: ["system"] },
+  ],
+};
+
+// totalSize: The sum of all file sizes in this folder and all sub-folders.
+
+// fileCount: The total number of files found (do not count folders).
+
+// allTags: A single array containing all unique tags found across all files.
+
+// (Hint: Use new Set() or check includes to keep it unique).
+
+// largestFile: The name of the single file with the largest size.
+
+function scanFolder(item) {}
+
+console.log("Task 8 ", scanFolder(fileSystem));
