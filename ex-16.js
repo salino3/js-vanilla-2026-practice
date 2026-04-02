@@ -573,26 +573,23 @@ function analyzeThread(comment) {
     totalLikes: comment.likes ?? 0,
     userStats: { [comment.author]: 1 },
     controversial: comment.likes > 0 ? [comment.id] : [],
+    author: comment.author,
     depth: 1,
     replies:
       comment.replies && comment.replies.length > 0 ? comment.replies : [],
   };
-  // console.log("clog2", result);
 
   if (comment.replies.length > 0) {
     result = comment.replies.reduce((acc, r) => {
       const childComment = analyzeThread(r);
-      // *
-      for (u in childComment.userStats) {
-        if (acc.userStats[u]) {
-          acc.userStats[u] += acc.userStats[u];
-        } else {
-          acc.userStats[u] = 1;
-        }
-        console.log("clog3", acc.userStats);
-      }
 
-      console.log("clog1", childComment);
+      if (acc.userStats[childComment.author]) {
+        acc.userStats[childComment.author] =
+          acc.userStats[childComment.author] + 1;
+      } else {
+        acc.userStats[childComment.author] = 1;
+      }
+      console.log("clog2", acc.userStats);
       return {
         totalLikes: (acc.totalLikes ?? 0) + childComment.totalLikes,
         userStats: acc.userStats,
@@ -602,8 +599,6 @@ function analyzeThread(comment) {
             : acc.controversial,
         depth: Math.max(acc.depth, childComment.depth + 1),
       };
-
-      return acc;
     }, result);
   }
 
