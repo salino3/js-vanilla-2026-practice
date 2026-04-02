@@ -527,7 +527,15 @@ const post = {
           text: "It's a bit confusing though.",
           author: "Bob",
           likes: 2,
-          replies: [],
+          replies: [
+            {
+              id: "r5",
+              text: "It's a bit...",
+              author: "Joe",
+              likes: 3,
+              replies: [],
+            },
+          ],
         },
         {
           id: "r3",
@@ -566,11 +574,25 @@ function analyzeThread(comment) {
     userStats: comment.author,
     controversial: comment.likes > 0 ? [comment.id] : [],
     depth: 1,
+    replies:
+      comment.replies && comment.replies.length > 0 ? comment.replies : [],
   };
+  // console.log("clog2", result);
 
   if (comment.replies.length > 0) {
     result = comment.replies.reduce((acc, r) => {
       const childComment = analyzeThread(r);
+      // *
+      console.log("clog1", acc.depth, Math.max(acc.depth, 2));
+      return {
+        totalLikes: (acc.totalLikes ?? 0) + childComment.totalLikes,
+        // userStats: acc.userStats,
+        controversial:
+          childComment.likes > 0
+            ? [...acc.controversial, ...childComment.id]
+            : acc.controversial,
+        depth: Math.max(acc.depth, childComment.depth + 1),
+      };
 
       return acc;
     }, result);
