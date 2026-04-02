@@ -551,7 +551,15 @@ const post = {
       text: "I prefer Python.",
       author: "Charlie",
       likes: -5,
-      replies: [],
+      replies: [
+        {
+          id: "r6",
+          text: "¡!",
+          author: "Alan",
+          likes: 2,
+          replies: [],
+        },
+      ],
     },
   ],
 };
@@ -583,13 +591,10 @@ function analyzeThread(comment) {
     result = comment.replies.reduce((acc, r) => {
       const childComment = analyzeThread(r);
 
-      if (acc.userStats[childComment.author]) {
-        acc.userStats[childComment.author] =
-          acc.userStats[childComment.author] + 1;
-      } else {
-        acc.userStats[childComment.author] = 1;
+      for (let author in childComment.userStats) {
+        acc.userStats[author] =
+          (acc.userStats[author] || 0) + childComment.userStats[author];
       }
-      console.log("clog2", acc.userStats);
       return {
         totalLikes: (acc.totalLikes ?? 0) + childComment.totalLikes,
         userStats: acc.userStats,
