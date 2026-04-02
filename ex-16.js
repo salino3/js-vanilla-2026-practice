@@ -571,7 +571,7 @@ const post = {
 function analyzeThread(comment) {
   let result = {
     totalLikes: comment.likes ?? 0,
-    userStats: comment.author,
+    userStats: { [comment.author]: 1 },
     controversial: comment.likes > 0 ? [comment.id] : [],
     depth: 1,
     replies:
@@ -583,10 +583,19 @@ function analyzeThread(comment) {
     result = comment.replies.reduce((acc, r) => {
       const childComment = analyzeThread(r);
       // *
-      console.log("clog1", acc.depth, Math.max(acc.depth, 2));
+      for (u in childComment.userStats) {
+        if (acc.userStats[u]) {
+          acc.userStats[u] += acc.userStats[u];
+        } else {
+          acc.userStats[u] = 1;
+        }
+        console.log("clog3", acc.userStats);
+      }
+
+      console.log("clog1", childComment);
       return {
         totalLikes: (acc.totalLikes ?? 0) + childComment.totalLikes,
-        // userStats: acc.userStats,
+        userStats: acc.userStats,
         controversial:
           childComment.likes > 0
             ? [...acc.controversial, ...childComment.id]
