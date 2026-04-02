@@ -64,6 +64,7 @@ function transformData(matches) {
       acc["totalPlayTime"] =
         (acc.totalPlayTime || 0) +
         value.reduce((acc, m) => {
+          console.log("clog1", m.players);
           highierTime = highierTime < m.duration ? m.duration : highierTime;
           return (acc += m.duration);
         }, 0);
