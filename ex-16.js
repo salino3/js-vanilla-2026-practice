@@ -532,7 +532,7 @@ const post = {
               id: "r5",
               text: "It's a bit...",
               author: "Joe",
-              likes: 3,
+              likes: -3,
               replies: [],
             },
           ],
@@ -578,7 +578,6 @@ const post = {
 
 function analyzeThread(comment) {
   let result = {
-    id: comment.id,
     totalLikes: comment.likes ?? 0,
     userStats: { [comment.author]: 1 },
     controversial: comment.likes < 0 ? [comment.id] : [],
@@ -599,10 +598,9 @@ function analyzeThread(comment) {
       }
 
       return {
-        id: childComment.id,
         totalLikes: (acc.totalLikes ?? 0) + childComment.totalLikes,
         userStats: acc.userStats,
-        controversial: [...acc.controversial, ...[childComment.id]],
+        controversial: [...acc.controversial, ...childComment.controversial],
         depth: Math.max(acc.depth, childComment.depth + 1),
       };
     }, result);
