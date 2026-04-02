@@ -57,12 +57,20 @@ function transformData(matches) {
     }),
   ).reduce(
     (acc, [key, value], index, array) => {
+      let highierTime = 0;
+
       acc.bySport[key.toLowerCase()] = value.map((m) => m.winner);
 
       acc["totalPlayTime"] =
         (acc.totalPlayTime || 0) +
-        value.reduce((acc, m) => (acc += m.duration), 0);
+        value.reduce((acc, m) => {
+          highierTime = highierTime < m.duration ? m.duration : highierTime;
+          return (acc += m.duration);
+        }, 0);
       console.log("clog1", value);
+
+      acc.longestMatch =
+        acc.longestMatch < highierTime ? highierTime : acc.longestMatch;
 
       return acc;
     },
