@@ -57,25 +57,16 @@ function transformData(matches) {
     }),
   ).reduce(
     (acc, [key, value], index, array) => {
-      console.log(
-        "clog1",
-        key,
-        value,
-        value.map((m) => m.duration),
-      );
-
-      console.log("clog3", [key.toLowerCase()][0]);
       acc.bySport[key.toLowerCase()] = value.map((m) => m.winner);
 
-      acc["totalPlayTime"] = value.map((m) => m.duration);
-
-      if (array.length === index + 1) {
-        acc.totalPlayTime = acc.totalPlayTime.reduce((acc, t) => (acc += t));
-      }
+      acc["totalPlayTime"] =
+        (acc.totalPlayTime || 0) +
+        value.reduce((acc, m) => (acc += m.duration), 0);
+      console.log("clog1", value);
 
       return acc;
     },
-    { bySport: {} },
+    { bySport: {}, playerRecord: {}, longestMatch: 0 },
   );
 
   return groupedTransformData;
