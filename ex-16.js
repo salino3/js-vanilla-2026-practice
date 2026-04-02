@@ -508,3 +508,75 @@ console.log("Task 8:", finalReport);
 // function onlyUnique(value, index, array) {
 //   return array.indexOf(value) === index;
 // }
+
+//
+const post = {
+  id: "p1",
+  text: "JavaScript is awesome!",
+  author: "DevDan",
+  likes: 50,
+  replies: [
+    {
+      id: "r1",
+      text: "I agree, especially recursion!",
+      author: "Alice",
+      likes: 10,
+      replies: [
+        {
+          id: "r2",
+          text: "It's a bit confusing though.",
+          author: "Bob",
+          likes: 2,
+          replies: [],
+        },
+        {
+          id: "r3",
+          text: "Just think bottom-up!",
+          author: "Alice",
+          likes: 5,
+          replies: [],
+        },
+      ],
+    },
+    {
+      id: "r4",
+      text: "I prefer Python.",
+      author: "Charlie",
+      likes: -5,
+      replies: [],
+    },
+  ],
+};
+
+// Create a recursive function analyzeThread(comment) that returns a single object.
+
+// The output object should contain:
+
+// totalLikes: The sum of likes from the post and all its nested replies.
+
+// userStats: An object showing how many times each author commented (e.g., { Alice: 2, Bob: 1, DevDan: 1, Charlie: 1 }).
+
+// controversial: An array of ids for any comment/post that has negative likes.
+
+// depth: The maximum level of nesting (The main post is level 1, its direct replies are level 2, etc.).
+
+function analyzeThread(comment) {
+  let result = {
+    totalLikes: comment.likes ?? 0,
+    userStats: comment.author,
+    controversial: comment.likes > 0 ? [comment.id] : [],
+    depth: 1,
+  };
+
+  if (comment.replies.length > 0) {
+    result = comment.replies.reduce((acc, r) => {
+      const childComment = analyzeThread(r);
+
+      return acc;
+    }, result);
+  }
+
+  return result;
+}
+
+console.log("Task 9 ", analyzeThread(post));
