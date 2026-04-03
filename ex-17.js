@@ -108,3 +108,44 @@ function transformData(matches) {
 }
 
 console.log("Task 1:", transformData(matches));
+
+//
+function transformData02(matches) {
+  const reducedMatch = matches.reduce(
+    (acc, match) => {
+      // 1. totalPlayTime (Simple sum)
+      acc.totalPlayTime += match.duration;
+
+      // 2. bySport (Grouping winners)
+      const sport = match.sport.toLowerCase();
+      if (!acc.bySport[sport]) {
+        acc.bySport[sport] = [];
+      }
+      acc.bySport[sport].push(match.winner);
+
+      // 3. playerRecord (Looping through the 2 players in the match)
+      match.players.forEach((player) => {
+        acc.playerRecord[player] = (acc.playerRecord[player] || 0) + 1;
+      });
+
+      // 4. longestMatch (Keeping track of the best ID)
+      if (match.duration > acc._maxDuration) {
+        acc._maxDuration = match.duration;
+        acc.longestMatch = match.id;
+      }
+
+      return acc;
+    },
+    {
+      totalPlayTime: 0,
+      bySport: {},
+      playerRecord: {},
+      longestMatch: null,
+      _maxDuration: 0,
+    },
+  );
+  const { _maxDuration, ...finalResult } = reducedMatch;
+  return finalResult;
+}
+
+console.log("Task 1 V2:", transformData02(matches));
