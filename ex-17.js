@@ -32,7 +32,7 @@ const matches = [
     sport: "Tennis",
     players: ["Djokovic", "Murray"],
     winner: "Djokovic",
-    duration: 150,
+    duration: 350,
   },
   {
     id: 6,
@@ -51,47 +51,60 @@ const matches = [
 
 // totalPlayTime: The sum of all duration values across all matches.
 
-//* playerRecord: An object showing how many matches each player/team participated in (win or lose).
+// playerRecord: An object showing how many matches each player/team participated in (win or lose).
 
 // Example: { Federer: 1, Nadal: 1, Lakers: 1, ... }
 
-//* longestMatch: The id of the match with the highest duration.
+// longestMatch: The id of the match with the highest duration.
 
 function transformData(matches) {
-  const reducedMatches = matches.reduce((acc, match) => {
-    return [...acc, ...match.players];
-  }, []);
-  console.log("clog5", reducedMatches);
+  let highierTime = {
+    value: 0,
+    id: 10,
+  };
+
+  const playerRecord = matches
+    .reduce((acc, match) => {
+      highierTime =
+        highierTime.value < match.duration
+          ? {
+              value: match.duration,
+              id: match.id,
+            }
+          : highierTime;
+
+      return [...acc, ...match.players];
+    }, [])
+    .reduce((acc, player) => {
+      acc[player] = (acc[player] || 0) + 1;
+
+      return acc;
+    }, {});
+
   const groupedTransformData = Object.entries(
     Object.groupBy(matches, (match) => {
       return match.sport;
     }),
   ).reduce(
     (acc, [key, value], index, array) => {
-      let highierTime = 0;
-      let idMatch = 0;
-
       acc.bySport[key.toLowerCase()] = value.map((m) => m.winner);
 
       acc["totalPlayTime"] =
         (acc.totalPlayTime || 0) +
         value.reduce((acc, m) => {
-          console.log("clog2", highierTime < m.duration ? m.id : idMatch);
-          highierTime = highierTime < m.duration ? m.duration : highierTime;
-          idMatch = highierTime < m.duration ? m.id : idMatch;
           return (acc += m.duration);
         }, 0);
-      console.log("clog1", value);
 
-      //   acc.longestMatch =
-      //     acc.longestMatch < highierTime ? highierTime : acc.longestMatch;
-      acc.idLongestMatch = idMatch;
       return acc;
     },
-    { bySport: {}, playerRecord: {}, idLongestMatch: 0 },
+    { bySport: {} },
   );
 
-  return groupedTransformData;
+  return {
+    ...groupedTransformData,
+    playerRecord,
+    longestMatch: highierTime.id,
+  };
 }
 
 console.log("Task 1:", transformData(matches));
