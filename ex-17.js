@@ -149,3 +149,74 @@ function transformData02(matches) {
 }
 
 console.log("Task 1 V2:", transformData02(matches));
+
+//
+// Simulated API Calls
+const fetchUser = (id) =>
+  new Promise((res) =>
+    setTimeout(() => res({ id, name: "Alex", role: "Developer" }), 500),
+  );
+
+const fetchPosts = (userId) =>
+  new Promise((res) =>
+    setTimeout(
+      () =>
+        res([
+          { id: 101, title: "JS Tips", likes: 10 },
+          { id: 102, title: "Async is Fun", likes: 25 },
+        ]),
+      800,
+    ),
+  );
+
+const fetchSettings = (userId) =>
+  new Promise((res) =>
+    setTimeout(() => res({ theme: "dark", notifications: true }), 300),
+  );
+
+// Fetches the User first (because you need the ID).
+
+// Fetches Posts and Settings at the same time (to save time!).
+
+// Returns a "Profile" Object that combines all three results.
+
+// Error Handling: Wrap everything in a try/catch block. If any call fails,
+
+// return a custom error message: "Failed to load dashboard".
+
+async function functionFetchData(userId) {
+  try {
+    const dataUser = await fetchUser(userId).then((res) => res);
+
+    const allData = await Promise.allSettled([
+      fetchPosts(dataUser.id),
+      fetchSettings(dataUser.id),
+    ]);
+
+    return allData.map((f) => f.value);
+  } catch (error) {
+    console.log("Failed to load dashboard");
+  }
+}
+
+async function getLength() {
+  const result = await functionFetchData(101);
+  return result.length;
+}
+
+async function processData() {
+  const length = await getLength();
+
+  const math = length * 5;
+  const message = `The result is ${math}`;
+
+  console.log(message);
+  return math;
+}
+
+processData();
+
+console.log(
+  "Task 2:",
+  functionFetchData(101).then((res) => console.log("Result:", res)),
+);
