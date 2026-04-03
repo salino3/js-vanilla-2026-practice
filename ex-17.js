@@ -278,3 +278,55 @@ function updatedLanguagesUser(user, languageToRemove) {
 }
 
 console.log("Task 4:", updatedLanguagesUser(userProfile, "Spanish"));
+
+//
+const inventory = [
+  { id: "p1", name: "Laptop", stock: 5, price: 1000 },
+  { id: "p2", name: "Mouse", stock: 10, price: 50 },
+  { id: "p3", name: "Keyboard", stock: 0, price: 80 }, // Out of stock!
+];
+
+const cart = [{ id: "p2", name: "Mouse", quantity: 1 }];
+
+// Write a function addToCart(productId) that returns a new state object containing both updated arrays.
+
+// Rules for the logic:
+
+// Check Stock: If the product's stock in inventory is 0, return the state unchanged (or log "Out of stock").
+
+// Update Inventory: Decrease the stock of the target product by 1.
+
+// Update Cart: * If the product is already in the cart, increase its quantity by 1.
+
+// If the product is not in the cart, add it as a new object: { id, name, quantity: 1 }.
+
+function addToCart(productId, inventory, cart) {
+  const productById = inventory.find((p) => p.id === productId);
+
+  if (productById.stock === 0) {
+    console.log("Out of stock - ", productId);
+    return {
+      inventory,
+      cart,
+    };
+  }
+
+  if (!productById) {
+    console.log("Product " + productId + " doe not esxist");
+    return {
+      inventory,
+      cart,
+    };
+  }
+
+  const updatedCart = [...cart, productById];
+  const updatedInventory = inventory.map((p) =>
+    p.id === productById.id ? { ...p, stock: p.stock - 1 } : p,
+  );
+  return {
+    updatedInventory,
+    updatedCart,
+  };
+}
+
+console.log("Task 5:", addToCart("p1", inventory, cart));
