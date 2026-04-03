@@ -286,7 +286,7 @@ const inventory = [
   { id: "p3", name: "Keyboard", stock: 0, price: 80 }, // Out of stock!
 ];
 
-const cart = [{ id: "p2", name: "Mouse", quantity: 1 }];
+const cart = [{ id: "p4", name: "Screen", price: 250 }];
 
 // Write a function addToCart(productId) that returns a new state object containing both updated arrays.
 
@@ -296,20 +296,10 @@ const cart = [{ id: "p2", name: "Mouse", quantity: 1 }];
 
 // Update Inventory: Decrease the stock of the target product by 1.
 
-// Update Cart: * If the product is already in the cart, increase its quantity by 1.
-
 // If the product is not in the cart, add it as a new object: { id, name, quantity: 1 }.
 
 function addToCart(productId, inventory, cart) {
   const productById = inventory.find((p) => p.id === productId);
-
-  if (productById.stock === 0) {
-    console.log("Out of stock - ", productId);
-    return {
-      inventory,
-      cart,
-    };
-  }
 
   if (!productById) {
     console.log("Product " + productId + " doe not esxist");
@@ -319,7 +309,16 @@ function addToCart(productId, inventory, cart) {
     };
   }
 
-  const updatedCart = [...cart, productById];
+  if (productById.stock === 0) {
+    console.log("Out of stock -", productId);
+    return {
+      inventory,
+      cart,
+    };
+  }
+
+  const { stock, ...newCartObj } = productById;
+  const updatedCart = [...cart, newCartObj];
   const updatedInventory = inventory.map((p) =>
     p.id === productById.id ? { ...p, stock: p.stock - 1 } : p,
   );
@@ -329,4 +328,4 @@ function addToCart(productId, inventory, cart) {
   };
 }
 
-console.log("Task 5:", addToCart("p1", inventory, cart));
+console.log("Task 5:", addToCart("p2", inventory, cart));
