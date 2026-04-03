@@ -220,3 +220,46 @@ console.log(
   "Task 2:",
   functionFetchData(101).then((res) => console.log("Result:", res)),
 );
+
+//
+const userProfile = {
+  id: "u123",
+  username: "dev_pro",
+  settings: {
+    theme: "dark",
+    notifications: true,
+    languages: ["English", "Spanish"],
+  },
+};
+
+// Level 1 Update: Create updatedUsername where the username is changed to "master_coder".
+
+// Nested Update: Create themeChanged where the theme inside settings is changed to "light".
+
+// Array inside Object: Add a language where "French" is added to the languages array inside the settings object.
+
+// The "Gotcha": Create toggleNotifications that flips the boolean value of notifications.
+
+function toggleNotifications(value, flipValue) {
+  return flipValue ? !value : value;
+}
+
+function updatedUsername(user, flipNotification) {
+  const updatedUsername = {
+    ...user,
+    settings: {
+      ...user.settings,
+      theme: "light",
+      notifications: toggleNotifications(
+        user.settings.notifications,
+        flipNotification,
+      ),
+      languages: [...user.settings.languages, "French"],
+    },
+    username: "master_coder",
+  };
+
+  return updatedUsername;
+}
+
+console.log("Task 3:", updatedUsername(userProfile, true));
