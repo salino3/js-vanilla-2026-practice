@@ -263,3 +263,18 @@ function updatedUsername(user, flipNotification) {
 }
 
 console.log("Task 3:", updatedUsername(userProfile, true));
+
+//
+function updatedLanguagesUser(user, languageToRemove) {
+  const updatedUser = {
+    ...user,
+    settings: {
+      ...user.settings,
+      languages: user.settings.languages.filter((l) => l !== languageToRemove),
+    },
+  };
+
+  return updatedUser;
+}
+
+console.log("Task 4:", updatedLanguagesUser(userProfile, "Spanish"));
