@@ -533,4 +533,30 @@ function updateTaskStatus(boardId, taskId, newStatus, boards) {
   return reduceBoards;
 }
 
-console.log("task 9", updateTaskStatus("b1", "t2", "completed", boards));
+console.log("task 9:", updateTaskStatus("b1", "t2", "completed", boards));
+
+function updateTaskStatusV2(boardId, taskId, newStatus, boards) {
+  return boards.map((board) => {
+    if (board.id !== boardId) return board;
+
+    return {
+      ...board,
+      tasks: board.tasks.map((task) =>
+        task.id === taskId ? { ...task, status: newStatus } : task,
+      ),
+    };
+  });
+}
+
+const testReferences = updateTaskStatusV2("b1", "t2", "completed", boards);
+
+console.log(
+  "clog4",
+  testReferences === boards,
+  testReferences[0] === boards[0],
+  testReferences[1] === boards[1],
+  testReferences[0].tasks[0] === boards[0].tasks[0],
+  testReferences[0].tasks[1] === boards[0].tasks[1],
+); // false, false, true, true, false
+
+console.log("task 9 V2:", updateTaskStatusV2("b1", "t2", "completed", boards));
