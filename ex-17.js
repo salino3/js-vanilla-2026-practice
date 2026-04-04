@@ -523,7 +523,12 @@ function updateTaskStatus(boardId, taskId, newStatus, boards) {
     return acc;
   }, []);
 
-  console.log("clog3", reduceBoards === boards); // false
+  console.log(
+    "clog3",
+    reduceBoards === boards,
+    reduceBoards[0] === boards[0],
+    reduceBoards[1] === boards[1],
+  ); // false, false , true
 
   return reduceBoards;
 }
