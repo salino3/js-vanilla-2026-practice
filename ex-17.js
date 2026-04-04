@@ -473,3 +473,57 @@ function filterDoubleValues(arrayData) {
 }
 
 console.log("Task 8:", filterDoubleValues(values));
+
+//
+const boards = [
+  {
+    id: "b1",
+    name: "To Do",
+    tasks: [
+      { id: "t1", text: "Buy Milk", status: "pending" },
+      { id: "t2", text: "Clean Room", status: "pending" },
+    ],
+  },
+  {
+    id: "b2",
+    name: "In Progress",
+    tasks: [{ id: "t3", text: "Code React", status: "active" }],
+  },
+];
+
+// Write a function updateTaskStatus(boardId, taskId, newStatus) that returns a new boards array.
+
+// Rules:
+
+// Immutability: Do not use .push(), .splice(), or direct assignment (e.g., task.status = 'done').
+
+// The Loop: You must use .map() to iterate through the boards.
+
+// The Nested Loop: Inside that .map(), if the boardId matches, you must use another .map()
+
+// on the tasks array to find and update the specific taskId.
+
+// No Change: If the boardId or taskId doesn't match, return the original objects to keep React
+
+// performance high (referential equality).
+
+function updateTaskStatus(boardId, taskId, newStatus, boards) {
+  const reduceBoards = boards.reduce(
+    (acc, board, index) => {
+      if (board.id === boardId) {
+        acc.boards[index].tasks = boards[index].tasks.map((task) =>
+          task.id === taskId ? { ...task, status: newStatus } : task,
+        );
+      }
+
+      return acc;
+    },
+    { boards: boards },
+  );
+
+  console.log("clog3", reduceBoards === boards); // false
+
+  return reduceBoards.boards;
+}
+
+console.log("task 9", updateTaskStatus("b1", "t2", "completed", boards));
