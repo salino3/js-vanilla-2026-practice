@@ -409,3 +409,29 @@ function completeTask(taskId, todo, done) {
 }
 
 console.log("Task 6:", completeTask("t1", todo, done));
+
+//
+function completeTaskV2(taskId, todoArray, doneArray) {
+  const result = todoArray.reduce(
+    (acc, task) => {
+      if (task.id === taskId) {
+        acc.movedTask = { ...task, completedAt: getDayString() };
+      } else {
+        acc.newTodo.push(task);
+      }
+      return acc;
+    },
+    { newTodo: [], movedTask: null },
+  );
+
+  if (!result.movedTask) {
+    return { todo: todoArray, done: doneArray };
+  }
+
+  return {
+    todo: result.newTodo,
+    done: [...doneArray, result.movedTask],
+  };
+}
+
+console.log("Task 6 V2:", completeTaskV2("t2", todo, done));
