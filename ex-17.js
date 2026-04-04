@@ -450,3 +450,26 @@ function removeItem(state, priority, taskName) {
 }
 
 console.log("Task 7:", removeItem(state, "high", "Fix Bug"));
+
+// Keep only unique values
+
+const values = [
+  "orange",
+  "apple",
+  "banana",
+  "kiwi",
+  "apple",
+  "banana",
+  "lemon",
+];
+
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
+
+function filterDoubleValues(arrayData) {
+  const filteredData = arrayData.filter(onlyUnique);
+  return filteredData;
+}
+
+console.log("Task 8:", filterDoubleValues(values));

@@ -505,11 +505,6 @@ delete finalReport._maxSize;
 console.log("Task 8:", finalReport);
 
 //
-// function onlyUnique(value, index, array) {
-//   return array.indexOf(value) === index;
-// }
-
-//
 const post = {
   id: "p1",
   text: "JavaScript is awesome!",
