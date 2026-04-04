@@ -329,3 +329,83 @@ function addToCart(productId, inventory, cart) {
 }
 
 console.log("Task 5:", addToCart("p2", inventory, cart));
+
+//
+const todo = [
+  { id: "t1", task: "Write Unit Tests", priority: "High" },
+  { id: "t2", task: "Fix Login Bug", priority: "Medium" },
+  { id: "t3", task: "Update Documentation", priority: "Low" },
+];
+
+const done = [
+  {
+    id: "t0",
+    task: "Setup Project",
+    priority: "High",
+    completedAt: "2023-10-01",
+  },
+];
+
+// Write a function completeTask(taskId) that returns a new state object.
+
+// Rules:
+
+// Find the task: Locate the task in the todo array.
+
+// Handle missing tasks: If the ID doesn't exist in todo, return the current state unchanged.
+
+// Immutably Remove: Create a new todo array without the completed task.
+
+// Immutably Add & Transform: Create a new done array that includes the task from step 1,
+
+// but add a new property completedAt: "2026-04-03" to that task object.
+
+function getDayString() {
+  let date = new Date();
+  let output =
+    String(date.getDate()).padStart(2, "0") +
+    "-" +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    date.getFullYear();
+
+  return output;
+}
+
+function completeTask(taskId, todo, done) {
+  const reducedTodos = todo.reduce(
+    (acc, task) => {
+      if (task.id === taskId) {
+        acc.task = task;
+      } else {
+        acc.todo.push(task);
+      }
+
+      return acc;
+    },
+    { task: {}, todo: [] },
+  );
+
+  if (!reducedTodos.task.id) {
+    return {
+      todo,
+      done,
+    };
+  }
+
+  const newDone = [...done];
+
+  newDone.push({
+    ...reducedTodos.task,
+    completedAt: getDayString(),
+  });
+
+  console.log("clog1", newDone === done); // false, different memory reference for respect immutability
+
+  return {
+    todo: reducedTodos.todo,
+    done: newDone,
+  };
+}
+
+console.log("Task 6:", completeTask("t1", todo, done));
