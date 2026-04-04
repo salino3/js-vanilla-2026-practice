@@ -435,3 +435,18 @@ function completeTaskV2(taskId, todoArray, doneArray) {
 }
 
 console.log("Task 6 V2:", completeTaskV2("t2", todo, done));
+
+//
+const state = {
+  high: ["Fix Bug", "Call Boss"],
+  low: ["Water Plants"],
+};
+
+function removeItem(state, priority, taskName) {
+  return {
+    ...state,
+    [priority]: state[priority].filter((task) => task !== taskName),
+  };
+}
+
+console.log("Task 7:", removeItem(state, "high", "Fix Bug"));
