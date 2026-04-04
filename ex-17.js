@@ -508,22 +508,24 @@ const boards = [
 // performance high (referential equality).
 
 function updateTaskStatus(boardId, taskId, newStatus, boards) {
-  const reduceBoards = boards.reduce(
-    (acc, board, index) => {
-      if (board.id === boardId) {
-        acc.boards[index].tasks = boards[index].tasks.map((task) =>
+  const reduceBoards = boards.reduce((acc, board, index) => {
+    if (board.id === boardId) {
+      acc[index] = {
+        ...board,
+        tasks: boards[index].tasks.map((task) =>
           task.id === taskId ? { ...task, status: newStatus } : task,
-        );
-      }
+        ),
+      };
+    } else {
+      acc[index] = board;
+    }
 
-      return acc;
-    },
-    { boards: boards },
-  );
+    return acc;
+  }, []);
 
   console.log("clog3", reduceBoards === boards); // false
 
-  return reduceBoards.boards;
+  return reduceBoards;
 }
 
 console.log("task 9", updateTaskStatus("b1", "t2", "completed", boards));
