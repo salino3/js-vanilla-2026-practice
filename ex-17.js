@@ -512,7 +512,7 @@ function updateTaskStatus(boardId, taskId, newStatus, boards) {
     if (board.id === boardId) {
       acc[index] = {
         ...board,
-        tasks: boards[index].tasks.map((task) =>
+        tasks: board.tasks.map((task) =>
           task.id === taskId ? { ...task, status: newStatus } : task,
         ),
       };
