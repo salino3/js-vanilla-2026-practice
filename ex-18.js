@@ -33,3 +33,22 @@ function countdownV2(n) {
 }
 
 console.log("Task 1 V2:", countdownV2(number));
+
+//
+// Write a function sum(arr) that calculates the total of all numbers in an array.
+
+// Example: sum([1, 2, 3, 4])
+
+// Hint: Think of the sum of an array as the first element plus the sum of the rest of the array.
+
+function sum(arr) {
+  if (arr.length === 0) {
+    return 0;
+  }
+
+  return arr[0] + sum(arr.slice(1));
+}
+
+console.log(sum([1, 2, 3, 4]));
+
+console.log("Task 2:", sum([1, 2, 3, 4]));
