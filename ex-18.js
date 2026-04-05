@@ -18,7 +18,7 @@ function countdown(n) {
   return countdown(n);
 }
 
-console.log("Task 1:", countdown(number));
+// console.log("Task 1:", countdown(number));
 
 // better version respecting immutability
 function countdownV2(n) {
@@ -32,7 +32,7 @@ function countdownV2(n) {
   return countdown(n - 1);
 }
 
-console.log("Task 1 V2:", countdownV2(number));
+// console.log("Task 1 V2:", countdownV2(number));
 
 //
 // Write a function sum(arr) that calculates the total of all numbers in an array.
@@ -52,3 +52,26 @@ function sum(arr) {
 console.log(sum([1, 2, 3, 4]));
 
 console.log("Task 2:", sum([1, 2, 3, 4]));
+
+//
+// Write a function isPalindrome(str) that returns true if a string reads the same forward and backward, and false otherwise.
+
+// Example: isPalindrome("racecar") → true.
+
+// Hint: Compare the first and last characters. If they match, strip them off and pass the remaining inner string back into the function.
+
+function isPalindrome(str) {
+  const normalizedStr = str.toLowerCase();
+
+  const length = normalizedStr.length;
+
+  if (length <= 1) {
+    return true;
+  }
+  if (normalizedStr[0] !== normalizedStr[length - 1]) {
+    return false;
+  }
+  return isPalindrome(normalizedStr.slice(1, length - 1));
+}
+
+console.log("Task 3:", isPalindrome("alslA"));
