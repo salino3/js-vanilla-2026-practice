@@ -17,7 +17,27 @@ const storeData = {
 };
 
 function totalPrice(data) {
-  // Solve the problem
+  if (Object.entries(data).length === 0) {
+    return data;
+  }
+
+  let price = 0;
+
+  for (item in data) {
+    if (data[item] && data[item].price) {
+      price += data[item].price;
+    } else {
+      if (Object.entries(data[item]).length === 0) {
+        return data[item];
+      }
+      return totalPrice(data[item]);
+    }
+    console.log("clog1", data[item]);
+  }
+
+  // return data;
 }
 
 console.log("Task 1:", totalPrice(storeData));
+
+//
