@@ -17,25 +17,19 @@ const storeData = {
 };
 
 function totalPrice(data) {
-  let price = 0;
+  let total = 0;
 
-  for (item in data) {
-    if (Object.entries(data).length === 0) {
-      return;
-    }
+  for (let key in data) {
+    const value = data[key];
 
-    if (data[item] && data[item].price) {
-      price += data[item].price;
-    } else {
-      console.log("clog1", data[item]);
-      if (Object.entries(data[item]).length === 0) {
-        return;
-      }
-      return totalPrice(data[item]);
+    if (value && typeof value.price === "number") {
+      total += value.price;
+    } else if (value && typeof value === "object") {
+      total += totalPrice(value);
     }
   }
 
-  return price;
+  return total;
 }
 
 console.log("Task 1:", totalPrice(storeData));
