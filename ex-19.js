@@ -86,7 +86,7 @@ console.log("Task 2:", findNameById(companyTree, 99));
 //
 const commentThread = {
   id: 1,
-  author: "Alice",
+  author: "Ana",
   text: "Recursion is cool!",
   replies: [
     {
@@ -126,6 +126,16 @@ const commentThread = {
 
 // Note: Keep an eye on how you merge the arrays from different recursive calls!
 
-function collectAllAuthors(comment) {}
+function collectAllAuthors(comment, authors = []) {
+  authors.push(comment.author);
+
+  if (comment.replies && comment.replies.length > 0) {
+    comment.replies.forEach((reply) => {
+      collectAllAuthors(reply, authors);
+    });
+  }
+
+  return authors;
+}
 
 console.log("Task 3:", collectAllAuthors(commentThread));
