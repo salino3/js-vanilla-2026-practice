@@ -49,3 +49,67 @@ function dashboardSmartHome(homeState) {
 }
 
 console.log("Task 1:", dashboardSmartHome(homeState));
+
+//
+const mallDirectory = [
+  {
+    id: "s1",
+    name: "TechWorld",
+    details: { open: true, rating: 4.5 },
+    categories: ["electronics", "gadgets"],
+  },
+  {
+    id: "s2",
+    name: "FashionHub",
+    details: { open: false, rating: 4.2 },
+    categories: ["clothing", "accessories"],
+  },
+];
+
+// Deep Update (The Object): Create a new array where TechWorld (id: "s1") is now closed
+
+// (open: false). Crucial: You must copy the details object, not just the top-level store object.
+
+// The Filter: Create a new array that removes the store with the id "s2" (FashionHub).
+
+// Deep Update (The Array): Create a new array where TechWorld gets a new category added: "gaming".
+
+//  The final categories for TechWorld should be ["electronics", "gadgets", "gaming"].
+
+function deepUpdateMallDirectory(
+  mallDirectory,
+  closeStores = [],
+  deleteStores = [],
+  addCategory = [],
+) {
+  if (
+    closeStores.length === 0 &&
+    deleteStores.length === 0 &&
+    addCategory.length === 0
+  ) {
+    return mallDirectory;
+  }
+
+  let updatedMallDirectory;
+
+  if (closeStores.length > 0) {
+    updatedMallDirectory = mallDirectory.map((store, index) =>
+      store.id === closeStores[index]
+        ? {
+            ...store,
+            details: {
+              ...store.details,
+              open: !store.details.open,
+            },
+          }
+        : store,
+    );
+  }
+
+  return updatedMallDirectory;
+}
+
+console.log(
+  "Task 2:",
+  deepUpdateMallDirectory(mallDirectory, ["s1"], ["s2"], [{ "s1": "gaming" }]),
+);
