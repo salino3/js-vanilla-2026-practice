@@ -135,3 +135,46 @@ console.log(
     "s1": "gaming",
   }),
 );
+
+//
+const companyData = {
+  companyName: "TechCorp",
+  lastUpdated: "2024-01-01",
+  employees: [
+    {
+      id: "u101",
+      name: "Alice",
+      role: "Admin",
+      access: {
+        canEdit: true,
+        canDelete: false,
+        projects: ["Project Alpha", "Project Beta"],
+      },
+    },
+    {
+      id: "u102",
+      name: "Bob",
+      role: "Editor",
+      access: {
+        canEdit: true,
+        canDelete: false,
+        projects: ["Project Alpha"],
+      },
+    },
+  ],
+};
+
+// Grant Global Permissions: The CEO wants everyone in the employees array to have
+// canDelete set to true in their access object.
+
+// Project Expansion: Alice (u101) has been assigned a new project: "Project Gamma".
+// Update her projects array without affecting Bob's.
+
+// Timestamp Update: Update the lastUpdated string at the top level to the current
+// date ("2026-04-08"), but ensure you return the entire companyData object structure.
+
+// Security Sweep: Remove "Bob" from the employees array entirely.
+
+function transformDataCompany(companyData) {}
+
+console.log("Task 3:", transformDataCompany(companyData));
