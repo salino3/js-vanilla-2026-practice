@@ -80,7 +80,7 @@ function deepUpdateMallDirectory(
   mallDirectory,
   closeStores = [],
   deleteStores = [],
-  addCategory = [],
+  addCategory = {},
 ) {
   if (
     closeStores.length === 0 &&
@@ -90,11 +90,12 @@ function deepUpdateMallDirectory(
     return mallDirectory;
   }
 
-  let updatedMallDirectory;
+  let updatedMallDirectory = mallDirectory;
 
+  //
   if (closeStores.length > 0) {
-    updatedMallDirectory = mallDirectory.map((store, index) =>
-      store.id === closeStores[index]
+    updatedMallDirectory = updatedMallDirectory.map((store) =>
+      closeStores.includes(store.id)
         ? {
             ...store,
             details: {
@@ -106,10 +107,31 @@ function deepUpdateMallDirectory(
     );
   }
 
+  //
+  if (deleteStores.length > 0) {
+    updatedMallDirectory = updatedMallDirectory.filter(
+      (store) => !deleteStores.includes(store.id),
+    );
+  }
+
+  //
+  if (Object.values(addCategory).length > 0) {
+    updatedMallDirectory = updatedMallDirectory.map((store) =>
+      addCategory[store.id]
+        ? {
+            ...store,
+            categories: [...store.categories, ...[addCategory[store.id]]],
+          }
+        : store,
+    );
+  }
+
   return updatedMallDirectory;
 }
 
 console.log(
   "Task 2:",
-  deepUpdateMallDirectory(mallDirectory, ["s1"], ["s2"], [{ "s1": "gaming" }]),
+  deepUpdateMallDirectory(mallDirectory, ["s1"], ["s2"], {
+    "s1": "gaming",
+  }),
 );
