@@ -238,4 +238,39 @@ function transformDataCompany(companyData) {
 }
 
 console.log("Task 3:", transformDataCompany(companyData));
-console.log("Task test:", companyData.lastUpdated);
+
+//
+const storeState = {
+  cart: [
+    { id: "p1", name: "Laptop", price: 1000, quantity: 1, category: "Tech" },
+    { id: "p2", name: "Mouse", price: 50, quantity: 2, category: "Tech" },
+    { id: "p3", name: "Monitor", price: 300, quantity: 1, category: "Tech" },
+  ],
+  discounts: {
+    Tech: 0.1, // 10% off
+    Food: 0.05, // 5% off
+  },
+  settings: {
+    currency: "USD",
+    appliedCoupons: [],
+  },
+};
+
+// Apply Category Discount: Create a new array of products where the price of any item in the
+// "Tech" category is reduced by the percentage defined in storeState.discounts.Tech.
+
+// Bulk Buy Bonus: If an item has a quantity of 2 or more, add a new property to that product
+// object: bonusGift: "Premium Sticker".
+
+// Calculate Grand Total: Add a new property to the top-level object called totalValue.
+// This should be the sum of all item prices multiplied by their quantities (after the discount is applied).
+
+// Update Settings: Change the currency to "EUR" and add "WELCOME2026" to the appliedCoupons array.
+
+// Clean Up: Remove the discounts object from the final result entirely (the CEO says it's sensitive data).
+
+function manageStoreState(storeState) {
+  // implement the solution
+}
+
+console.log("Task 4:", manageStoreState(storeState));
