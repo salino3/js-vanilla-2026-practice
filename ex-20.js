@@ -206,10 +206,35 @@ function projectExpansion(companyData, id, project) {
   };
 }
 
+//
+function securitySweep(companyData, id) {
+  return {
+    ...companyData,
+    employees: companyData.employees.filter((e) => e.id !== id),
+  };
+}
+
+//
+function getDayString() {
+  let date = new Date();
+  let output =
+    String(date.getDate()).padStart(2, "0") +
+    "-" +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    date.getFullYear();
+
+  return output;
+}
+
 function transformDataCompany(companyData) {
   let transformedData = canDeleteValue(companyData);
 
   transformedData = projectExpansion(companyData, "u101", "Project Gamma");
+
+  transformedData = securitySweep(companyData, "u102");
+
+  transformedData.lastUpdated = getDayString();
 
   return transformedData;
 }
