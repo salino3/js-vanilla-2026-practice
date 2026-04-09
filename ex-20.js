@@ -196,8 +196,10 @@ function projectExpansion(companyData, id, project) {
       e.id === id
         ? {
             ...e,
-            ...e.access,
-            projects: [...e.access.projects, ...[project]],
+            access: {
+              ...e.access,
+              projects: [...e.access.projects, ...[project]],
+            },
           }
         : e,
     ),
