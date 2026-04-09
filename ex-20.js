@@ -175,6 +175,41 @@ const companyData = {
 
 // Security Sweep: Remove "Bob" from the employees array entirely.
 
-function transformDataCompany(companyData) {}
+function canDeleteValue(companyData, value = true) {
+  return {
+    ...companyData,
+    employees: companyData.employees.map((e) => ({
+      ...e,
+      access: {
+        ...e.access,
+        canDelete: value,
+      },
+    })),
+  };
+}
+
+//
+function projectExpansion(companyData, id, project) {
+  return {
+    ...companyData,
+    employees: companyData.employees.map((e) =>
+      e.id === id
+        ? {
+            ...e,
+            ...e.access,
+            projects: [...e.access.projects, ...[project]],
+          }
+        : e,
+    ),
+  };
+}
+
+function transformDataCompany(companyData) {
+  let transformedData = canDeleteValue(companyData);
+
+  transformedData = projectExpansion(companyData, "u101", "Project Gamma");
+
+  return transformedData;
+}
 
 console.log("Task 3:", transformDataCompany(companyData));
