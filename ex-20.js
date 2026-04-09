@@ -230,9 +230,9 @@ function getDayString() {
 function transformDataCompany(companyData) {
   let transformedData = canDeleteValue(companyData);
 
-  transformedData = projectExpansion(companyData, "u101", "Project Gamma");
+  transformedData = projectExpansion(transformedData, "u101", "Project Gamma");
 
-  transformedData = securitySweep(companyData, "u102");
+  transformedData = securitySweep(transformedData, "u102");
 
   transformedData.lastUpdated = getDayString();
 
