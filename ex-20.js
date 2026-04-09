@@ -234,9 +234,8 @@ function transformDataCompany(companyData) {
 
   transformedData = securitySweep(transformedData, "u102");
 
-  transformedData.lastUpdated = getDayString();
-
-  return transformedData;
+  return { ...transformedData, lastUpdated: getDayString() };
 }
 
 console.log("Task 3:", transformDataCompany(companyData));
+console.log("Task test:", companyData.lastUpdated);
