@@ -279,7 +279,9 @@ function implementDiscount(storeState) {
     cart: storeState.cart.map((item) => ({
       ...item,
       price: discounts[item.category]
-        ? item.price - item.price * discounts[item.category]
+        ? parseFloat(
+            (item.price - item.price * discounts[item.category]).toFixed(2),
+          )
         : item.price,
     })),
   };
@@ -302,10 +304,10 @@ function bulkBuyBonus(storeState) {
 
 //
 function grandTotal(storeState) {
-  const totalValue = storeState.cart.reduce((acc, item) => {
-    acc += item.price * item.quantity;
-    return acc;
-  }, 0);
+  const totalValue = storeState.cart.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
 
   return { ...storeState, totalValue };
 }
@@ -330,8 +332,6 @@ function manageStoreState(storeState) {
   transformedData = implementDiscount(storeState);
 
   transformedData = bulkBuyBonus(transformedData);
-
-  transformedData = grandTotal(transformedData);
 
   transformedData = grandTotal(transformedData);
 
