@@ -342,3 +342,58 @@ function manageStoreState(storeState) {
 }
 
 console.log("Task 4:", manageStoreState(storeState));
+
+//
+// Goal: Return a new object where only that specific status is changed.
+
+// Hint: You'll need to spread the metadata, then spread the preferences, then .map()
+
+// the notifications. It's a test of how well you can keep track of your "braces" {}!
+
+const userProfile = {
+  id: 1,
+  metadata: {
+    lastLogin: "2026-04-01",
+    preferences: {
+      notifications: [
+        { type: "Email", status: true },
+        { type: "Security", status: true }, // <--- CHANGE THIS TO FALSE
+        { type: "Sms", status: false },
+      ],
+    },
+  },
+};
+
+function manageNotificationsStatus(userProfile, type) {
+  return {
+    ...userProfile,
+    metadata: {
+      ...userProfile.metadata,
+      preferences: {
+        ...userProfile.metadata.preferences,
+        notifications: userProfile.metadata.preferences.notifications.map(
+          (n) => (n.type === type ? { ...n, status: !n.status } : n),
+        ),
+      },
+    },
+  };
+}
+
+console.log("Task 5:", manageNotificationsStatus(userProfile, "Security"));
+
+//
+function manageNotificationsStatusV2(userProfile, type) {
+  const indexNotification =
+    userProfile.metadata.preferences.notifications.findIndex(
+      (n) => n.type === type,
+    );
+
+  const newObj = structuredClone(userProfile);
+
+  newObj.metadata.preferences.notifications[indexNotification].status =
+    !newObj.metadata.preferences.notifications[indexNotification].status;
+
+  return newObj;
+}
+
+console.log("Task 5 V2:", manageNotificationsStatusV2(userProfile, "Security"));
