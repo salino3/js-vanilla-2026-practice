@@ -276,7 +276,6 @@ function implementDiscount(storeState) {
   const { discounts } = storeState;
   return {
     ...storeState,
-
     cart: storeState.cart.map((item) => ({
       ...item,
       price: discounts[item.category]
@@ -288,14 +287,36 @@ function implementDiscount(storeState) {
 
 //
 function bulkBuyBonus(storeState) {
-  return;
+  return {
+    ...storeState,
+    cart: storeState.cart.map((item) =>
+      item.quantity > 1
+        ? {
+            ...item,
+            bonusGift: "Premium Sticker",
+          }
+        : item,
+    ),
+  };
+}
+
+//
+function grandTotal(storeState) {
+  const totalValue = storeState.cart.reduce((acc, item) => {
+    acc += item.price * item.quantity;
+    return acc;
+  }, 0);
+
+  return { ...storeState, totalValue };
 }
 
 function manageStoreState(storeState) {
   let transformedData;
   transformedData = implementDiscount(storeState);
 
-  // transformedData = bulkBuyBonus(transformedData);
+  transformedData = bulkBuyBonus(transformedData);
+
+  transformedData = grandTotal(transformedData);
 
   return transformedData;
 }
