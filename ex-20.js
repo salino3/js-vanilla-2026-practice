@@ -245,6 +245,8 @@ const storeState = {
     { id: "p1", name: "Laptop", price: 1000, quantity: 1, category: "Tech" },
     { id: "p2", name: "Mouse", price: 50, quantity: 2, category: "Tech" },
     { id: "p3", name: "Monitor", price: 300, quantity: 1, category: "Tech" },
+    { id: "p4", name: "Pasta", price: 2, quantity: 10, category: "Food" },
+    { id: "p5", name: "Beer", price: 3, quantity: 8, category: "Drink" },
   ],
   discounts: {
     Tech: 0.1, // 10% off
@@ -269,8 +271,21 @@ const storeState = {
 
 // Clean Up: Remove the discounts object from the final result entirely (the CEO says it's sensitive data).
 
+function implementDiscount(storeState) {
+  const { discounts } = storeState;
+  return storeState.cart.map((item) => ({
+    ...item,
+    price: discounts[item.category]
+      ? item.price - item.price * discounts[item.category]
+      : item.price,
+  }));
+}
+
 function manageStoreState(storeState) {
-  // implement the solution
+  let transformedData;
+  transformedData = implementDiscount(storeState);
+
+  return transformedData;
 }
 
 console.log("Task 4:", manageStoreState(storeState));
