@@ -271,19 +271,31 @@ const storeState = {
 
 // Clean Up: Remove the discounts object from the final result entirely (the CEO says it's sensitive data).
 
+//
 function implementDiscount(storeState) {
   const { discounts } = storeState;
-  return storeState.cart.map((item) => ({
-    ...item,
-    price: discounts[item.category]
-      ? item.price - item.price * discounts[item.category]
-      : item.price,
-  }));
+  return {
+    ...storeState,
+
+    cart: storeState.cart.map((item) => ({
+      ...item,
+      price: discounts[item.category]
+        ? item.price - item.price * discounts[item.category]
+        : item.price,
+    })),
+  };
+}
+
+//
+function bulkBuyBonus(storeState) {
+  return;
 }
 
 function manageStoreState(storeState) {
   let transformedData;
   transformedData = implementDiscount(storeState);
+
+  // transformedData = bulkBuyBonus(transformedData);
 
   return transformedData;
 }
