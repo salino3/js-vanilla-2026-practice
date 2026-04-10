@@ -310,15 +310,35 @@ function grandTotal(storeState) {
   return { ...storeState, totalValue };
 }
 
+//
+function updateSettings(storeState) {
+  return {
+    ...storeState,
+    settings: {
+      currency: "EUR",
+      appliedCoupons: [
+        ...storeState.settings.appliedCoupons,
+        ...["WELCOME2026"],
+      ],
+    },
+  };
+}
+
 function manageStoreState(storeState) {
   let transformedData;
+
   transformedData = implementDiscount(storeState);
 
   transformedData = bulkBuyBonus(transformedData);
 
   transformedData = grandTotal(transformedData);
 
-  return transformedData;
+  transformedData = grandTotal(transformedData);
+
+  transformedData = updateSettings(transformedData);
+
+  const { discounts, ...result } = transformedData;
+  return result;
 }
 
 console.log("Task 4:", manageStoreState(storeState));
