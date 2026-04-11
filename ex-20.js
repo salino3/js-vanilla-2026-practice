@@ -460,3 +460,70 @@ function userWorkloads(rawData) {
 }
 
 console.log("Task 6:", userWorkloads(rawData));
+
+//
+// Assume these functions represent API calls
+const fetchUsers = () =>
+  new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve([
+          { id: 1, name: "Alice" },
+          { id: 2, name: "Bob" },
+        ]),
+      500,
+    ),
+  );
+
+const fetchPosts = () =>
+  new Promise((resolve, reject) =>
+    // Simulate a random failure 20% of the time
+    Math.random() > 0.2
+      ? setTimeout(
+          () =>
+            resolve([
+              { userId: 1, content: "Hello!" },
+              { userId: 2, content: "JS is cool" },
+            ]),
+          800,
+        )
+      : setTimeout(() => reject(new Error("Posts API Failed")), 800),
+  );
+
+const fetchTestError = () =>
+  new Promise((_, reject) =>
+    setTimeout(() => reject(new Error("Test API Failed")), 800),
+  );
+
+// Parallel Fetching: Use Promise.all or Promise.allSettled to fetch both Users and Posts at the same time
+// (don't wait for users to finish before starting posts).
+// possible status: 'fulfilled', 'rejected'
+
+// The "Stitch": Once both return, return a single array where each user has
+// a posts array attached to them.
+
+// Error Handling: If fetchPosts fails, the function should not crash. Instead, it should return
+// the users with an empty posts: [] array and a new property postError: true.
+
+// Timeout Protection: If the whole operation takes longer than 2 seconds,
+// reject the promise with "Request Timed Out".
+
+async function fetchingUsersPosts() {
+  try {
+    const promises = await Promise.allSettled([
+      fetchUsers(),
+      fetchPosts(),
+      fetchTestError(),
+    ]);
+
+    return promises.map((p) =>
+      p.status === "fulfilled" ? p.value : [p.reason],
+    );
+  } catch (err) {
+    console.error("Critical Failure", err);
+  }
+}
+
+fetchingUsersPosts().then((data) => {
+  console.log("Task 7 Result:", data);
+});
