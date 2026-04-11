@@ -516,9 +516,18 @@ async function fetchingUsersPosts() {
       fetchTestError(),
     ]);
 
-    return promises.map((p) =>
-      p.status === "fulfilled" ? p.value : [p.reason],
+    console.log(
+      "Promises:",
+      promises.map((p) => (p.status === "fulfilled" ? p.value : [p.reason])),
     );
+
+    const users = promises[0].status === "fulfilled" ? promises[0].value : [];
+    const posts = promises[1].status === "fulfilled" ? promises[1].value : [];
+
+    return users.map((user) => ({
+      ...user,
+      posts: posts.filter((p) => p.userId === user.id),
+    }));
   } catch (err) {
     console.error("Critical Failure", err);
   }
