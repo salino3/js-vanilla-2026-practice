@@ -425,8 +425,18 @@ const rawData = {
 // Immutability Check: Ensure rawData remains untouched.
 
 function userWorkloads(rawData) {
-  const userWorkloads = rawData.users.map((user) => {
-    const assignedTasks = rawData.tasks.filter((t) => t.userId === user.id);
+  const userWorkloads = rawData.users.map((user, i, arr) => {
+    let highPriority = [];
+    const assignedTasks = rawData.tasks.filter((t) => {
+      if (t.priority === "High") {
+        highPriority.push({ [user.name]: t });
+      }
+      return t.userId === user.id;
+    });
+    if (arr.length - 1 === i && highPriority.length > 0) {
+      console.log("clog1", highPriority);
+      user["urgentReport"] = highPriority;
+    }
 
     return {
       ...user,
