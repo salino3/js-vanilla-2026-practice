@@ -508,7 +508,7 @@ const fetchTestError = () =>
 // Timeout Protection: If the whole operation takes longer than 2 seconds,
 // reject the promise with "Request Timed Out".
 
-async function fetchingUsersPosts() {
+async function fetchingUsersPostsAllSettled() {
   try {
     const promises = await Promise.allSettled([
       fetchUsers(),
@@ -533,6 +533,45 @@ async function fetchingUsersPosts() {
   }
 }
 
-fetchingUsersPosts().then((data) => {
+fetchingUsersPostsAllSettled().then((data) => {
   console.log("Task 7 Result:", data);
 });
+
+//
+const timeout = (ms) =>
+  new Promise((_, reject) =>
+    setTimeout(() => reject(new Error("Request Timed Out")), ms),
+  );
+
+async function fetchingUsersPostsRace() {
+  // 1. Wrap logic in a try/catch because Promise.race will throw error
+  // if the 'timeout()' wins  the race.
+  try {
+    const mainLogic = (async () => {
+      const promises = await Promise.allSettled([
+        fetchUsers(),
+        fetchPosts(),
+        fetchTestError(),
+      ]);
+
+      const users = promises[0].status === "fulfilled" ? promises[0].value : [];
+      const posts = promises[1].status === "fulfilled" ? promises[1].value : [];
+
+      return users.map((user) => ({
+        ...user,
+        posts: posts.filter((p) => p.userId === user.id),
+      }));
+    })();
+
+    // 2. THE RACE: 'mainLogic' logic vs. a 2000ms timer
+    // If the timeout() rejects first, the catch block triggers.
+    // timers promises start all in parallel
+    return await Promise.race([mainLogic, timeout(2000)]);
+  } catch (err) {
+    console.error("Critical Failure:", err.message);
+  }
+}
+
+fetchingUsersPostsRace()
+  .then((data) => console.log("Task 8 Result:", data))
+  .catch((err) => console.log("Caught outside:", err.message));
