@@ -407,7 +407,7 @@ const rawData = {
   tasks: [
     { taskId: "t1", userId: 1, title: "Fix Login Bug", priority: "High" },
     { taskId: "t2", userId: 2, title: "New Logo", priority: "Low" },
-    { taskId: "t3", userId: 1, title: "Update README", priority: "Medium" },
+    { taskId: "t3", userId: 1, title: "Update README", priority: "Low" },
   ],
 };
 
@@ -425,29 +425,38 @@ const rawData = {
 // Immutability Check: Ensure rawData remains untouched.
 
 function userWorkloads(rawData) {
-  const userWorkloads = rawData.users.map((user, i, arr) => {
-    let highPriority = [];
-    const assignedTasks = rawData.tasks.filter((t) => {
-      if (t.priority === "High") {
-        highPriority.push({ [user.name]: t });
-      }
-      return t.userId === user.id;
-    });
-    if (arr.length - 1 === i && highPriority.length > 0) {
-      console.log("clog1", highPriority);
-      user["urgentReport"] = highPriority;
-    }
+  const { userWorkloads, globalUrgentReport } = rawData.tasks.reduce(
+    (acc, task) => {
+      const user = acc.userWorkloads.find((u) => u.id === task.userId);
 
-    return {
-      ...user,
-      assignedTasks: assignedTasks,
-      taskCount: assignedTasks.length,
-    };
-  });
+      if (user) {
+        user.assignedTasks.push(task);
+        user.taskCount++;
+
+        if (task.priority === "High") {
+          acc.globalUrgentReport.push({
+            ...task,
+            userName: user.name,
+          });
+        }
+      }
+
+      return acc;
+    },
+    {
+      // Starting values respecting immutability
+      userWorkloads: rawData.users.map((u) => ({
+        ...u,
+        assignedTasks: [],
+        taskCount: 0,
+      })),
+      globalUrgentReport: [],
+    },
+  );
 
   console.log("Immutability Check:", userWorkloads === rawData); // false
 
-  return userWorkloads;
+  return { userWorkloads, globalUrgentReport };
 }
 
 console.log("Task 6:", userWorkloads(rawData));
