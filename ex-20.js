@@ -397,3 +397,45 @@ function manageNotificationsStatusV2(userProfile, type) {
 }
 
 console.log("Task 5 V2:", manageNotificationsStatusV2(userProfile, "Security"));
+
+//
+const rawData = {
+  users: [
+    { id: 1, name: "Alice", department: "Engineering" },
+    { id: 2, name: "Bob", department: "Design" },
+  ],
+  tasks: [
+    { taskId: "t1", userId: 1, title: "Fix Login Bug", priority: "High" },
+    { taskId: "t2", userId: 2, title: "New Logo", priority: "Low" },
+    { taskId: "t3", userId: 1, title: "Update README", priority: "Medium" },
+  ],
+};
+
+// Merge Data: Create a new array called userWorkloads. Each object in this
+// array should represent a user and include a new property assignedTasks
+// which is an array of their specific task objects.
+
+// Add Metadata: For each user in userWorkloads, add a taskCount property
+// representing how many tasks they have.
+
+// Filter High Priority: Create a separate list called urgentReport that only
+// contains tasks with "High" priority, but attach the user's name to each
+// task object in that list.
+
+// Immutability Check: Ensure rawData remains untouched.
+
+function userWorkloads(rawData) {
+  const userWorkloads = rawData.users.map((user) => {
+    const assignedTasks = rawData.tasks.filter((t) => t.userId === user.id);
+
+    return {
+      ...user,
+      assignedTasks: assignedTasks,
+      taskCount: assignedTasks.length,
+    };
+  });
+
+  return userWorkloads;
+}
+
+console.log("Task 6:", userWorkloads(rawData));
