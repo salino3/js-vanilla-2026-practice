@@ -445,6 +445,8 @@ function userWorkloads(rawData) {
     };
   });
 
+  console.log("Immutability Check:", userWorkloads === rawData); // false
+
   return userWorkloads;
 }
 
