@@ -86,3 +86,35 @@ function transformData(transactions) {
 }
 
 console.log("Task 1:", transformData(transactions));
+
+//
+function transformDataV2(transactions) {
+  const seenIds = new Set();
+
+  const result = transactions.reduce(
+    (acc, item) => {
+      if (seenIds.has(item.id) || item.status !== "complete") {
+        return acc;
+      }
+
+      seenIds.add(item.id);
+
+      acc.totalRevenue += item.total;
+      acc.uniqueCustomers.add(
+        item.customer.charAt(0).toUpperCase() +
+          item.customer.slice(1).toLowerCase(),
+      );
+      acc.allProducts.push(...item.items);
+
+      return acc;
+    },
+    { totalRevenue: 0, uniqueCustomers: new Set(), allProducts: [] },
+  );
+
+  // Final Step: Convert Set to Array
+  result.uniqueCustomers = Array.from(result.uniqueCustomers);
+
+  return result;
+}
+
+console.log("Task 1 V2:", transformDataV2(transactions));
