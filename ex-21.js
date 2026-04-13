@@ -181,65 +181,48 @@ const rates = { EUR: 1.1, USD: 1.0 };
 
 function generateReport(events) {
   const seenIds = new Set();
-  const reducedEvents = events.reduce(
-    (acc, event) => {
-      if (seenIds.has(event.session) || !event.details) {
-        return acc;
-      }
 
-      let transformedEvent = {
-        ...event,
-        details:
-          event.details.currency === "USD"
-            ? event.details.price
-            : event.details.price * rates.USD,
+  const report = events.reduce((acc, event) => {
+    if (!event.details || seenIds.has(event.session)) return acc;
+    seenIds.add(event.session);
+
+    const { region, platform, details } = event;
+    const { item, price, currency } = details;
+
+    if (!acc[region]) {
+      acc[region] = {
+        totalRevenueUSD: 0,
+        platforms: new Set(),
+        itemCounts: {}, // Helper to track frequency per region
+        topSellingItem: "",
       };
+    }
 
-      acc.regions[event.region] =
-        acc.regions[event.region] && acc.regions[event.region]?.length > 0
-          ? [...acc.regions[event.region], ...[transformedEvent]]
-          : [transformedEvent];
+    const target = acc[region];
 
-      if (acc.regions[event.region].platforms) {
-        if (
-          !acc.regions[event.region].platforms.includes(
-            transformedEvent.platform,
-          )
-        ) {
-          acc.regions[event.region].platforms.push(transformedEvent.platform);
-        }
-      } else {
-        acc.regions[event.region].platforms = [transformedEvent.platform];
-      }
+    const priceInUSD = price * (rates[currency] || 1);
+    target.totalRevenueUSD += priceInUSD;
 
-      //
-      if (acc.topSellingItem[event.details.item]) {
-        acc.topSellingItem[event.details.item]++;
-      } else {
-        acc.topSellingItem[event.details.item] = 1;
-      }
+    target.platforms.add(platform);
 
-      return acc;
-    },
-    { regions: {}, topSellingItem: {} },
+    target.itemCounts[item] = (target.itemCounts[item] || 0) + 1;
+
+    const currentTopCount = target.itemCounts[target.topSellingItem] || 0;
+    if (target.itemCounts[item] > currentTopCount) {
+      target.topSellingItem = item;
+    }
+
+    return acc;
+  }, {});
+
+  return Object.fromEntries(
+    Object.entries(report).map(
+      ([region, { itemCounts, platforms, ...metrics }]) => [
+        region,
+        { ...metrics, platforms: Array.from(platforms) },
+      ],
+    ),
   );
-
-  //
-  let sellingItem = Object.entries(reducedEvents.topSellingItem).reduce(
-    (acc, [key, value], index, arr) => {
-      if (acc.num < value) {
-        acc = {
-          name: key,
-          num: value,
-        };
-      }
-
-      return arr.length - 1 === index ? acc.name : acc;
-    },
-    { name: "", num: 0 },
-  );
-
-  return { ...reducedEvents, topSellingItem: sellingItem };
 }
 
 console.log("Task 2:", generateReport(events));
