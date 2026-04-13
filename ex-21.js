@@ -118,3 +118,128 @@ function transformDataV2(transactions) {
 }
 
 console.log("Task 1 V2:", transformDataV2(transactions));
+
+//
+const events = [
+  {
+    session: "S1",
+    region: "US",
+    platform: "Web",
+    details: { item: "Shoes", price: 100, currency: "USD" },
+  },
+  {
+    session: "S2",
+    region: "EU",
+    platform: "App",
+    details: { item: "Hat", price: 50, currency: "EUR" },
+  },
+  {
+    session: "S1",
+    region: "US",
+    platform: "Web",
+    details: { item: "Shoes", price: 100, currency: "USD" },
+  }, // Duplicate
+  {
+    session: "S3",
+    region: "US",
+    platform: "Web",
+    details: { item: "Jacket", price: 200, currency: "USD" },
+  },
+  {
+    session: "S4",
+    region: "EU",
+    platform: "Web",
+    details: { item: "Shoes", price: 80, currency: "EUR" },
+  },
+  { session: "S5", region: "AS", platform: "App", details: null }, // Corrupted data
+  {
+    session: "S6",
+    region: "EU",
+    platform: "App",
+    details: { item: "Gloves", price: 30, currency: "EUR" },
+  },
+];
+
+// Conversion rates (to USD)
+const rates = { EUR: 1.1, USD: 1.0 };
+
+// Write a function generateReport(events) that returns a single object structured by Region.
+
+//X For each region, calculate:
+
+//X totalRevenueUSD: The sum of all prices converted to USD using the rates object.
+
+//X platforms: An array of unique platforms used in that region (e.g., ["Web", "App"]).
+
+// topSellingItem: The name of the item that appeared most frequently in that region.
+
+// Data Integrity:
+
+//X Skip any event where details is null.
+
+//X Ignore duplicate session IDs.
+
+function generateReport(events) {
+  const seenIds = new Set();
+  const reducedEvents = events.reduce(
+    (acc, event) => {
+      if (seenIds.has(event.session) || !event.details) {
+        return acc;
+      }
+
+      let transformedEvent = {
+        ...event,
+        details:
+          event.details.currency === "USD"
+            ? event.details.price
+            : event.details.price * rates.USD,
+      };
+
+      acc.regions[event.region] =
+        acc.regions[event.region] && acc.regions[event.region]?.length > 0
+          ? [...acc.regions[event.region], ...[transformedEvent]]
+          : [transformedEvent];
+
+      if (acc.regions[event.region].platforms) {
+        if (
+          !acc.regions[event.region].platforms.includes(
+            transformedEvent.platform,
+          )
+        ) {
+          acc.regions[event.region].platforms.push(transformedEvent.platform);
+        }
+      } else {
+        acc.regions[event.region].platforms = [transformedEvent.platform];
+      }
+
+      //
+      if (acc.topSellingItem[event.details.item]) {
+        acc.topSellingItem[event.details.item]++;
+      } else {
+        acc.topSellingItem[event.details.item] = 1;
+      }
+
+      return acc;
+    },
+    { regions: {}, topSellingItem: {} },
+  );
+
+  //
+  let sellingItem = Object.entries(reducedEvents.topSellingItem).reduce(
+    (acc, [key, value], index, arr) => {
+      if (acc.num < value) {
+        acc = {
+          name: key,
+          num: value,
+        };
+      }
+
+      return arr.length - 1 === index ? acc.name : acc;
+    },
+    { name: "", num: 0 },
+  );
+
+  return { ...reducedEvents, topSellingItem: sellingItem };
+}
+
+console.log("Task 2:", generateReport(events));
