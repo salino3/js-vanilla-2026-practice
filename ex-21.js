@@ -295,3 +295,74 @@ console.log(
   getCategoryValue(inventory, "Accessories"),
   discountedInventory(inventory),
 );
+
+//
+const users = [
+  { id: "u1", name: "Alice", joinDate: "2023-01-10" },
+  { id: "u2", name: "Bob", joinDate: "2023-05-15" },
+  { id: "u3", name: "Charlie", joinDate: "2024-02-01" },
+];
+
+const posts = [
+  {
+    postId: "p101",
+    authorId: "u2",
+    content: "Love my new mechanical keyboard!",
+  },
+  { postId: "p102", authorId: "u1", content: "Just finished a marathon 🏃‍♀️" },
+  {
+    postId: "p103",
+    authorId: "u2",
+    content: "Anyone tried that new ramen spot?",
+  },
+  {
+    postId: "p104",
+    authorId: "u4",
+    content: "Ghost post from an unknown user.",
+  },
+];
+
+//
+// Hydrate Posts: Create a function getHydratedPosts(users, posts) that returns an array of posts, but instead of just an authorId, each post should have an authorName property.
+
+// Constraint: If the author isn't found in the users array, set authorName to "Unknown Author".
+
+// User Activity Map: Create an object where the keys are user names and the values are the number of posts they have written.
+
+// Example Output: { Alice: 1, Bob: 2, Charlie: 0 }
+
+// The "Power User": Find the name of the user who has written the most posts.
+
+function getHydratedPosts(users, posts) {
+  return posts.map((post) => ({
+    ...post,
+    authorName:
+      users.find((u) => u.id === post.authorId)?.name || "Unknown Author",
+  }));
+}
+
+//
+function userActivityMap(users, posts) {
+  return users.reduce((acc, user) => {
+    const postCount = posts.filter((post) => post.authorId === user.id).length;
+
+    acc[user.name] = postCount;
+    return acc;
+  }, {});
+}
+
+//
+function getPowerUser(users, posts) {
+  const activity = userActivityMap(users, posts);
+
+  return Object.keys(activity).reduce((a, b) =>
+    activity[a] > activity[b] ? a : b,
+  );
+}
+
+console.log(
+  "Task 4:",
+  getHydratedPosts(users, posts),
+  userActivityMap(users, posts),
+  getPowerUser(users, posts),
+);
