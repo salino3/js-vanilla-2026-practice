@@ -366,3 +366,28 @@ console.log(
   userActivityMap(users, posts),
   getPowerUser(users, posts),
 );
+
+// ---
+console.log("------------------------");
+const zipMap = (arr1, arr2, callback) => {
+  const maxLength = Math.max(arr1.length, arr2.length);
+
+  return Array.from({ length: maxLength }).map((_, index) => {
+    return callback(arr1[index], arr2[index], index, arr1, arr2);
+  });
+};
+
+const persons = ["Alice", "Bob", "Charlie", "Ana"];
+const badges = ["🏆 Gold", "🥈 Silver", "🥉 Bronze"];
+
+const userBadges = zipMap(
+  persons,
+  badges,
+  (user, badge, i, allUsers, allBadges) => {
+    console.log(`Processing ${user}. Total users: ${allUsers.length}`);
+    console.log(`Processing ${badge}. Total users: ${allBadges.length}`);
+    return `Rank ${i + 1}: ${user} won a ${badge || "Participation Trophy"}`;
+  },
+);
+
+console.log(userBadges);
