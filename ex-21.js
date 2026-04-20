@@ -247,10 +247,51 @@ const inventory = [
 ];
 
 // Find Out of Stock: Write a function getOutOfStock(data) that returns an array of just the names of products
-// where stock is 0.Calculate Category Value: Write a function getCategoryValue(data, categoryName) that calculates
-// the total value of all items in a specific category (Price $\times$ Stock).Apply Discount: Create a new array
+// where stock is 0. Calculate Category Value: Write a function getCategoryValue(data, categoryName) that calculates
+// the total value of all items in a specific category (Price $\times$ Stock). Apply Discount: Create a new array
 // called discountedInventory where every item priced over $1,000 gets a 10% discount. Note: Don't mutate the original array!
 
-function getOutOfStock(data) {}
+//
+function getOutOfStock(data) {
+  const newData = data.flatMap((product) =>
+    product.items.reduce(
+      (acc, item) => (item.stock === 0 ? [...acc, item.name] : acc),
+      [],
+    ),
+  );
 
-console.log("Task 3:", getOutOfStock(inventory));
+  return newData;
+}
+
+//
+function getCategoryValue(data, categoryName) {
+  const category = data.find((cat) => cat.category === categoryName);
+  if (!category) return 0;
+
+  return category.items.reduce((total, item) => {
+    return total + item.price * item.stock;
+  }, 0);
+}
+
+//
+function discountedInventory(data, over = 1000, percentageDiscount = 10) {
+  const newData = data.map((product) => ({
+    ...product,
+    items: product.items.map((item) => ({
+      ...item,
+      price:
+        item.price > over
+          ? item.price - (item.price / 100) * percentageDiscount
+          : item.price,
+    })),
+  }));
+
+  return newData;
+}
+
+console.log(
+  "Task 3:",
+  getOutOfStock(inventory),
+  getCategoryValue(inventory, "Accessories"),
+  discountedInventory(inventory),
+);
