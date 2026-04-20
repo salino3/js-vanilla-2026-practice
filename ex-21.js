@@ -391,3 +391,23 @@ const userBadges = zipMap(
 );
 
 console.log(userBadges);
+
+//
+const cities = ["Tokyo", "London", "New York", "Berlin", "Paris"];
+const temps = [22, 15, 18];
+
+// The String: Return a string: "City: Tokyo | Temp: 22°C".
+
+// Missing Data: If the temperature is missing, return "City: [Name] | Temp: Data Pending".
+
+// The Progress Tracker: Using the 'i' and the allCities.length, add a console.log inside the
+// callback that tells us the percentage of completion.
+
+// Example: "Progress: 20%", "Progress: 40%", etc.
+
+// The "End of Report" Logic: If the current city is the last one in the array, add the text
+// " (End of Report)" to the end of that specific string.
+
+function weatherCities(cities, temps) {}
+
+console.log("Task 5:", weatherCities(cities, temps));
