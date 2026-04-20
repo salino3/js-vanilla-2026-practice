@@ -226,3 +226,31 @@ function generateReport(events) {
 }
 
 console.log("Task 2:", generateReport(events));
+
+//
+const inventory = [
+  {
+    category: "Laptops",
+    items: [
+      { id: 101, name: "MacBook Pro", price: 2500, stock: 5 },
+      { id: 102, name: "Dell XPS", price: 1500, stock: 0 },
+      { id: 103, name: "ThinkPad X1", price: 1800, stock: 12 },
+    ],
+  },
+  {
+    category: "Accessories",
+    items: [
+      { id: 201, name: "Mechanical Keyboard", price: 150, stock: 25 },
+      { id: 202, name: "Wireless Mouse", price: 50, stock: 40 },
+    ],
+  },
+];
+
+// Find Out of Stock: Write a function getOutOfStock(data) that returns an array of just the names of products
+// where stock is 0.Calculate Category Value: Write a function getCategoryValue(data, categoryName) that calculates
+// the total value of all items in a specific category (Price $\times$ Stock).Apply Discount: Create a new array
+// called discountedInventory where every item priced over $1,000 gets a 10% discount. Note: Don't mutate the original array!
+
+function getOutOfStock(data) {}
+
+console.log("Task 3:", getOutOfStock(inventory));
