@@ -408,6 +408,21 @@ const temps = [22, 15, 18];
 // The "End of Report" Logic: If the current city is the last one in the array, add the text
 // " (End of Report)" to the end of that specific string.
 
-function weatherCities(cities, temps) {}
+function weatherCities(cities, temps) {
+  const lengthReport = Math.max(cities.length, temps.length);
+
+  const result = zipMap(cities, temps, (city, temp, i) => {
+    let data = `City: ${city} | Temp: ${temp ?? "Data Pending"} - Progress: ${
+      i + 1 === lengthReport
+        ? "(End of Report)"
+        : (100 / lengthReport) * (i + 1) + "%"
+    }`;
+    console.log(data);
+
+    return { [city]: data };
+  });
+
+  return result;
+}
 
 console.log("Task 5:", weatherCities(cities, temps));
