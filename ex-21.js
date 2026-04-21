@@ -422,7 +422,7 @@ function weatherCities(cities, temps) {
     return { [city]: data };
   });
 
-  return result;
+  return Object.assign({}, ...result);
 }
 
 console.log("Task 5:", weatherCities(cities, temps));
