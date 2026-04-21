@@ -377,6 +377,27 @@ const zipMap = (arr1, arr2, callback) => {
   });
 };
 
+console.log("------------------------");
+
+// This function takes many arrays, then the callback at the end
+const ultraZip = (...args) => {
+  const callback = args.pop(); // The last argument is the function
+  const arrays = args; // The rest are all our arrays
+
+  const maxLength = Math.max(...arrays.map((a) => a.length));
+
+  return Array.from({ length: maxLength }).map((_, i) => {
+    // We pass an array of all items at index 'i' to the callback
+    const currentItems = arrays.map((a) => a[i]);
+    return callback(...currentItems, i, arrays);
+  });
+};
+
+// Usage:
+ultraZip(products, quantities, prices, (product, qty, price, i) => {
+  // All three arrays are zipped automatically!
+});
+
 const persons = ["Alice", "Bob", "Charlie", "Ana"];
 const badges = ["🏆 Gold", "🥈 Silver", "🥉 Bronze"];
 
