@@ -426,3 +426,42 @@ function weatherCities(cities, temps) {
 }
 
 console.log("Task 5:", weatherCities(cities, temps));
+
+//
+const products = ["Wireless Mouse", "USB-C Cable", "Gaming Monitor", "Webcam"];
+const quantities = [2, 5, 1]; // Note: Webcam is missing a quantity
+const prices = [50, 15, 400, 80];
+
+// Object Structure: Each item in the resulting array should be an object with these keys:
+// product, totalPrice, and status.
+
+// The Calculation: totalPrice should be the unit price multiplied by the quantity.
+
+// Constraint: If the quantity is missing, default it to 0.
+
+// The Status Logic: * If the total price is over $100, the status is "Priority Shipping".
+
+// Otherwise, the status is "Standard Shipping".
+
+// The Progress Log: Use the allProducts (arr1) argument inside the callback to log:
+
+// "Processing item X of Y..."
+
+function processProductsStructure(products, quantities, prices) {
+  const result = zipMap(products, prices, (product, price, i, allProduct) => {
+    const quantity = quantities[i] ?? 0;
+    console.log(
+      `Processing item ${i + 1} of ${allProduct.length}${i + 1 !== allProduct.length ? "..." : ""}`,
+    );
+    return {
+      product,
+      totalPrice: quantity * price,
+      status:
+        quantity * price > 100 ? "Priority Shipping" : "Standard Shipping",
+    };
+  });
+
+  return result;
+}
+
+console.log("Task 6:", processProductsStructure(products, quantities, prices));
