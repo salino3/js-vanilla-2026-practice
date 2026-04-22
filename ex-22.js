@@ -96,16 +96,26 @@ function functionOrders(orders) {
     return acc;
   }, 0);
 
-  const reducedCateroies = ultraZipMap(
-    orders.map((order) => order.items),
-    (arr) => arr.map((item) => item.category),
-  ).flat(Infinity);
+  // Version 1
+  //   const reducedCateroies = ultraZipMap(
+  //     orders.map((order) => order.items),
+  //     (arr) => arr.map((item) => item.category),
+  //   ).flat(Infinity);
 
-  const categoryTally = {};
+  //   const categoryTally = {};
 
-  reducedCateroies.forEach((element) => {
-    categoryTally[element] = (categoryTally[element] || 0) + 1;
-  });
+  //   reducedCateroies.forEach((element) => {
+  //     categoryTally[element] = (categoryTally[element] || 0) + 1;
+  //   });
+
+  // Version 2
+  //  Category Tally (flatMap + reduce)
+  const categoryTally = orders
+    .flatMap((order) => order.items)
+    .reduce((tally, item) => {
+      tally[item.category] = (tally[item.category] || 0) + 1;
+      return tally;
+    }, {});
 
   return { result, totalRevenue, totalItems, categoryTally };
 }
