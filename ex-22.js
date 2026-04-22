@@ -121,3 +121,52 @@ function functionOrders(orders) {
 }
 
 console.log("Task 1:", functionOrders(orders));
+
+//
+const employees = [
+  { id: 1, name: "Sarah", deptId: "ENG", salary: 95000 },
+  { id: 2, name: "Mike", deptId: "MKT", salary: 70000 },
+  { id: 3, name: "Elena", deptId: "ENG", salary: 120000 },
+  { id: 4, name: "John", deptId: "HR", salary: 55000 },
+  { id: 5, name: "Amira", deptId: "ENG", salary: 105000 },
+  { id: 6, name: "Tom", deptId: "MKT", salary: 85000 },
+];
+
+const departments = {
+  ENG: "Engineering",
+  MKT: "Marketing",
+  HR: "Human Resources",
+};
+
+// Map & Lookup: Create an array of objects called enrichedEmployees. Each object should contain
+// the employee's name and their full department name (e.g., { name: "Sarah", department: "Engineering" }).
+
+// Filter: Find all employees who earn more than 100,000.
+
+// Reduce (Grouping): Create an object where the keys are the Department IDs and the values are
+// the sum of salaries for that department.
+
+// Desired Output: { ENG: 320000, MKT: 155000, HR: 55000 }
+
+// Advanced (Chaining): Find the average salary of the "Engineering" department only. (Do this by filtering
+//     for ENG first, then reducing to get the sum, then dividing by the filtered array's length).
+
+function functionEmployees(employees, departments) {
+  const enrichedEmployees = employees.map((employee) => ({
+    name: employee.name,
+    department: departments[employee.deptId],
+  }));
+
+  const richerEmployees = employees.filter(
+    (employee) => employee.salary > 100000,
+  );
+
+  const reducedGroupped = employees.reduce((acc, worker) => {
+    acc[worker.deptId] = (acc[worker.deptId] ?? 0) + worker.salary;
+    return acc;
+  }, {});
+
+  return { enrichedEmployees, richerEmployees, reducedGroupped };
+}
+
+console.log("Task 2:", functionEmployees(employees, departments));
