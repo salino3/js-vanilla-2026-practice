@@ -51,7 +51,26 @@ const orders = [
 
 // Desired Output Format: { Electronics: 4, Books: 1, ... }
 
+// ultraZipMap
+const ultraZipMap = (...args) => {
+  // 1. Extract the callback
+  const callback = args.slice(-1)[0];
+
+  // 2. Everything else is our data
+  const arrays = args.slice(0, -1);
+
+  const maxLength = Math.max(...arrays.map((a) => a.length));
+
+  return Array.from({ length: maxLength }).map((_, i) => {
+    // Pass an array of all items at index 'i' to the callback
+    const currentItems = arrays.map((a) => a[i]);
+    return callback(...currentItems, i, arrays);
+  });
+};
+
 function functionOrders(orders) {
+  let totalItems = 0;
+
   const result = orders
     .filter((order) => order.status === "delivered" && !!order.customer.member)
     .map(
@@ -62,7 +81,6 @@ function functionOrders(orders) {
         )}`,
     );
 
-  let totalItems = 0;
   const totalRevenue = orders.reduce((acc, order) => {
     if (order.items.length > 0) {
       acc += order.items.reduce((acc, item) => {
@@ -78,7 +96,20 @@ function functionOrders(orders) {
     return acc;
   }, 0);
 
-  return { result, totalRevenue, totalItems };
+  const reducedCateroies = ultraZipMap(
+    orders.map((order) => order.items),
+    (arr, i) => {
+      return arr.map((item) => item.category);
+    },
+  ).flat(Infinity);
+
+  const categoryTally = {};
+
+  reducedCateroies.forEach((element) => {
+    categoryTally[element] = (categoryTally[element] || 0) + 1;
+  });
+
+  return { result, totalRevenue, totalItems, categoryTally };
 }
 
 console.log("Task 1:", functionOrders(orders));
