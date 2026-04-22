@@ -151,6 +151,27 @@ const departments = {
 // Advanced (Chaining): Find the average salary of the "Engineering" department only. (Do this by filtering
 //     for ENG first, then reducing to get the sum, then dividing by the filtered array's length).
 
+//
+function averageSalaryDepartament(
+  employees,
+  departments,
+  departament = "Engineering",
+) {
+  const reducedData = employees.reduce((acc, worker, i, workers) => {
+    if (departament === departments[worker.deptId]) {
+      acc = acc += worker.salary;
+    }
+
+    if (workers.length === i + 1) {
+      return Number((acc / workers.length).toFixed(2));
+    }
+
+    return acc;
+  }, 0);
+
+  return reducedData;
+}
+
 function functionEmployees(employees, departments) {
   const enrichedEmployees = employees.map((employee) => ({
     name: employee.name,
@@ -166,7 +187,18 @@ function functionEmployees(employees, departments) {
     return acc;
   }, {});
 
-  return { enrichedEmployees, richerEmployees, reducedGroupped };
+  const averageSalaryForEngineering = averageSalaryDepartament(
+    employees,
+    departments,
+    departments.ENG,
+  );
+
+  return {
+    enrichedEmployees,
+    richerEmployees,
+    reducedGroupped,
+    averageSalaryForEngineering,
+  };
 }
 
 console.log("Task 2:", functionEmployees(employees, departments));
