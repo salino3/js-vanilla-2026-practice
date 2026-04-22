@@ -62,7 +62,23 @@ function functionOrders(orders) {
         )}`,
     );
 
-  return result;
+  let totalItems = 0;
+  const totalRevenue = orders.reduce((acc, order) => {
+    if (order.items.length > 0) {
+      acc += order.items.reduce((acc, item) => {
+        totalItems++;
+        acc += item.price;
+
+        return acc;
+      }, 0);
+    } else {
+      return acc;
+    }
+
+    return acc;
+  }, 0);
+
+  return { result, totalRevenue, totalItems };
 }
 
 console.log("Task 1:", functionOrders(orders));
