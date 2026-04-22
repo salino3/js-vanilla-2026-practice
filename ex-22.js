@@ -98,9 +98,7 @@ function functionOrders(orders) {
 
   const reducedCateroies = ultraZipMap(
     orders.map((order) => order.items),
-    (arr, i) => {
-      return arr.map((item) => item.category);
-    },
+    (arr) => arr.map((item) => item.category),
   ).flat(Infinity);
 
   const categoryTally = {};
