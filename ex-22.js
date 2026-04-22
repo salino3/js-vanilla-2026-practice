@@ -208,3 +208,58 @@ function functionEmployees(employees, departments) {
 }
 
 console.log("Task 2:", functionEmployees(employees, departments));
+
+//
+const books = [
+  {
+    id: 1,
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    genres: ["Classic", "Drama"],
+    available: true,
+    rating: 4.2,
+  },
+  {
+    id: 2,
+    title: "1984",
+    author: "George Orwell",
+    genres: ["Dystopian", "Sci-Fi"],
+    available: false,
+    rating: 4.8,
+  },
+  {
+    id: 3,
+    title: "The Hobbit",
+    author: "J.R.R. Tolkien",
+    genres: ["Fantasy", "Adventure"],
+    available: true,
+    rating: 4.9,
+  },
+  {
+    id: 4,
+    title: "Brave New World",
+    author: "Aldous Huxley",
+    genres: ["Dystopian", "Classic"],
+    available: true,
+    rating: 4.5,
+  },
+];
+
+// Format: Create an array of strings: "TITLE by AUTHOR".
+
+// Search: Find all books that have the genre "Dystopian".
+
+// The "Genre Map": Create an object where each key is a Genre, and the value is an array of
+// book titles belonging to that genre.
+
+// Expected Output Snippet: { Classic: ["The Great Gatsby", "Brave New World"], ... }
+
+// Hint: You'll need forEach or reduce + flatMap for this.
+
+// Rating Average: Find the average rating of only the available books.
+
+function theLibrarySystem(books) {
+  return '"Solve the task 3"';
+}
+
+console.log("Task 3:", theLibrarySystem(books));
