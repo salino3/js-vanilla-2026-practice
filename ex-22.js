@@ -300,3 +300,37 @@ function theLibrarySystem(books) {
 }
 
 console.log("Task 3:", theLibrarySystem(books));
+
+//
+const currentStock = {
+  "PROD_001": 15, // Apple
+  "PROD_002": 5, // Banana
+  "PROD_003": 0, // Orange
+};
+
+const incomingShipment = [
+  { id: "PROD_001", quantity: 10, category: "Fruit" },
+  { id: "PROD_003", quantity: 20, category: "Fruit" },
+  { id: "PROD_004", quantity: 50, category: "Vegetable" }, // New Item!
+];
+
+// Create a function syncWarehouse(stock, shipment) that returns a single object containing:
+
+// Updated Inventory: A new object (don't mutate the original) showing the total quantity
+//    of every item after the shipment is added.
+
+// Summary Analytics:
+
+// totalItemsInWarehouse: The sum of all quantities in the updated inventory.
+
+// newProductsAdded: An array of IDs for products that were not in the original
+// currentStock but arrived in the incomingShipment.
+
+// Category Count: Use the shipment array to count how many units (quantity) of each
+// category were added.
+
+function syncWarehouse(stock, shipment) {
+  return "complete the task";
+}
+
+console.log("Task 4:", syncWarehouse(stock, shipment));
