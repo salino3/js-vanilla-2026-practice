@@ -274,7 +274,7 @@ function theLibrarySystem(books) {
       genresArr.length > 0 &&
       genresArr.forEach((genre) => {
         if (acc[genre]) {
-          acc[genre] = [...acc[genre], ...[book.title]];
+          acc[genre].push(book.title);
         } else {
           acc[genre] = [book.title];
         }
