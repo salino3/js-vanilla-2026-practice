@@ -268,10 +268,35 @@ function theLibrarySystem(books) {
   );
 
   const genreMap = books.reduce((acc, book) => {
+    const genresArr = book.genres ?? [];
+
+    genresArr &&
+      genresArr.length > 0 &&
+      genresArr.forEach((genre) => {
+        if (acc[genre]) {
+          acc[genre] = [...acc[genre], ...[book.title]];
+        } else {
+          acc[genre] = [book.title];
+        }
+      });
+
     return acc;
   }, {});
 
-  return { titlesBySuthors, searchingDystopian, genreMap };
+  let ratingAverageAvailableBooks = books.filter((book) => book.available);
+
+  ratingAverageAvailableBooks =
+    ratingAverageAvailableBooks.reduce(
+      (acc, availabledBook) => (acc += availabledBook.rating),
+      0,
+    ) / ratingAverageAvailableBooks.length ?? 0;
+
+  return {
+    titlesBySuthors,
+    searchingDystopian,
+    genreMap,
+    ratingAverageAvailableBooks: Number(ratingAverageAvailableBooks.toFixed(2)),
+  };
 }
 
 console.log("Task 3:", theLibrarySystem(books));
