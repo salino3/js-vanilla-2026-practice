@@ -303,15 +303,15 @@ console.log("Task 3:", theLibrarySystem(books));
 
 //
 const currentStock = {
-  "PROD_001": 15, // Apple
-  "PROD_002": 5, // Banana
-  "PROD_003": 0, // Orange
+  "PROD_001": 15,
+  "PROD_002": 5,
+  "PROD_003": 0,
 };
 
 const incomingShipment = [
   { id: "PROD_001", quantity: 10, category: "Fruit" },
   { id: "PROD_003", quantity: 20, category: "Fruit" },
-  { id: "PROD_004", quantity: 50, category: "Vegetable" }, // New Item!
+  { id: "PROD_004", quantity: 50, category: "Vegetable" },
 ];
 
 // Create a function syncWarehouse(stock, shipment) that returns a single object containing:
