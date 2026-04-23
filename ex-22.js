@@ -259,7 +259,19 @@ const books = [
 // Rating Average: Find the average rating of only the available books.
 
 function theLibrarySystem(books) {
-  return '"Solve the task 3"';
+  const titlesBySuthors = books.map((book) => {
+    return `${book.title} by ${book.author}`;
+  });
+
+  const searchingDystopian = books.filter((book) =>
+    book.genres.includes("Dystopian"),
+  );
+
+  const genreMap = books.reduce((acc, book) => {
+    return acc;
+  }, {});
+
+  return { titlesBySuthors, searchingDystopian, genreMap };
 }
 
 console.log("Task 3:", theLibrarySystem(books));
