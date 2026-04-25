@@ -330,15 +330,18 @@ const incomingShipment = [
 // category were added.
 
 function syncWarehouse(stock, shipment) {
+  let totalItemsInWarehouse = 0;
+
   const updatedInventory = shipment.reduce((acc, item) => {
     let newQuantity = (item.quantity ?? 0) + (stock[item.id] ?? 0);
     item.quantity = newQuantity;
     acc.push(item);
+    totalItemsInWarehouse += newQuantity;
 
     return acc;
   }, []);
 
-  return updatedInventory;
+  return { updatedInventory, totalItemsInWarehouse };
 }
 
 console.log("Task 4:", syncWarehouse(currentStock, incomingShipment));
