@@ -330,7 +330,73 @@ const incomingShipment = [
 // category were added.
 
 function syncWarehouse(stock, shipment) {
-  return "complete the task";
+  const updatedStock = { ...stock };
+  const newProductsAdded = [];
+
+  const categoryTally = shipment.reduce((tally, item) => {
+    if (!(item.id in stock)) {
+      newProductsAdded.push(item.id);
+    }
+
+    updatedStock[item.id] = (updatedStock[item.id] ?? 0) + item.quantity;
+
+    tally[item.category] = (tally[item.category] ?? 0) + item.quantity;
+
+    return tally;
+  }, {});
+
+  const totalItemsInWarehouse = Object.values(updatedStock).reduce(
+    (sum, qty) => sum + qty,
+    0,
+  );
+
+  return {
+    updatedStock,
+    totalItemsInWarehouse,
+    newProductsAdded,
+    categoryTally,
+  };
 }
 
-console.log("Task 4:", syncWarehouse(stock, shipment));
+console.log("Task 4:", syncWarehouse(currentStock, incomingShipment));
+
+//
+const currentCatalog = {
+  "apple": 1.5,
+  "banana": 0.5,
+  "cherry": 3.0,
+};
+
+const priceUpdates = [
+  { name: "apple", newPrice: 1.75 },
+  { name: "banana", newPrice: 0.4 },
+  { name: "dragonfruit", newPrice: 5.0 },
+];
+
+// Write a function updateStore(catalog, updates) that returns a result object containing:
+// updatedCatalog: An object containing all items with their latest prices.
+
+// changedCount: The number of items whose prices were actually modified
+// (existing items only).
+
+// newItems: An array of names for items that didn't exist in the original catalog.
+
+function updateStore(catalog, updates) {
+  const updatedCatalog = { ...catalog };
+  const newItems = [];
+  let changedCount = 0;
+
+  updates.forEach((item) => {
+    if (item.name in catalog) {
+      changedCount++;
+    } else {
+      newItems.push(item.name);
+    }
+
+    updatedCatalog[item.name] = item.newPrice;
+  });
+
+  return { updatedCatalog, changedCount, newItems };
+}
+
+console.log("Task 5:", updateStore(currentCatalog, priceUpdates));
