@@ -330,18 +330,32 @@ const incomingShipment = [
 // category were added.
 
 function syncWarehouse(stock, shipment) {
-  let totalItemsInWarehouse = 0;
+  const updatedStock = { ...stock };
+  const newProductsAdded = [];
 
-  const updatedInventory = shipment.reduce((acc, item) => {
-    let newQuantity = (item.quantity ?? 0) + (stock[item.id] ?? 0);
-    item.quantity = newQuantity;
-    acc.push(item);
-    totalItemsInWarehouse += newQuantity;
+  const categoryTally = shipment.reduce((tally, item) => {
+    if (!(item.id in stock)) {
+      newProductsAdded.push(item.id);
+    }
 
-    return acc;
-  }, []);
+    updatedStock[item.id] = (updatedStock[item.id] ?? 0) + item.quantity;
 
-  return { updatedInventory, totalItemsInWarehouse };
+    tally[item.category] = (tally[item.category] ?? 0) + item.quantity;
+
+    return tally;
+  }, {});
+
+  const totalItemsInWarehouse = Object.values(updatedStock).reduce(
+    (sum, qty) => sum + qty,
+    0,
+  );
+
+  return {
+    updatedStock,
+    totalItemsInWarehouse,
+    newProductsAdded,
+    categoryTally,
+  };
 }
 
 console.log("Task 4:", syncWarehouse(currentStock, incomingShipment));
