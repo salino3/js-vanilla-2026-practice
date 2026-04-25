@@ -382,30 +382,21 @@ const priceUpdates = [
 // newItems: An array of names for items that didn't exist in the original catalog.
 
 function updateStore(catalog, updates) {
-  const catalogCopy = { ...catalog };
+  const updatedCatalog = { ...catalog };
   const newItems = [];
-  const catalogArray = [];
-  for (item in catalog) {
-    catalogArray.push({ [item]: catalog[item] });
-  }
-  console.log("clog1", catalogArray);
-  const updatedCatalog = updates.reduce((acc, item, i, array) => {
+  let changedCount = 0;
+
+  updates.forEach((item) => {
     if (item.name in catalog) {
-      acc[item.name] = item.newPrice;
-      delete catalogCopy[item.name];
+      changedCount++;
     } else {
       newItems.push(item.name);
     }
-    acc[item.name] = item.newPrice;
 
-    if (array.length === i + 1) {
-      return { ...acc, ...catalogCopy };
-    }
+    updatedCatalog[item.name] = item.newPrice;
+  });
 
-    return acc;
-  }, {});
-
-  return { updatedCatalog, newItems };
+  return { updatedCatalog, changedCount, newItems };
 }
 
 console.log("Task 5:", updateStore(currentCatalog, priceUpdates));
