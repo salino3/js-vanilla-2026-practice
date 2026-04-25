@@ -359,3 +359,53 @@ function syncWarehouse(stock, shipment) {
 }
 
 console.log("Task 4:", syncWarehouse(currentStock, incomingShipment));
+
+//
+const currentCatalog = {
+  "apple": 1.5,
+  "banana": 0.5,
+  "cherry": 3.0,
+};
+
+const priceUpdates = [
+  { name: "apple", newPrice: 1.75 },
+  { name: "banana", newPrice: 0.4 },
+  { name: "dragonfruit", newPrice: 5.0 },
+];
+
+// Write a function updateStore(catalog, updates) that returns a result object containing:
+// updatedCatalog: An object containing all items with their latest prices.
+
+// changedCount: The number of items whose prices were actually modified
+// (existing items only).
+
+// newItems: An array of names for items that didn't exist in the original catalog.
+
+function updateStore(catalog, updates) {
+  const catalogCopy = { ...catalog };
+  const newItems = [];
+  const catalogArray = [];
+  for (item in catalog) {
+    catalogArray.push({ [item]: catalog[item] });
+  }
+  console.log("clog1", catalogArray);
+  const updatedCatalog = updates.reduce((acc, item, i, array) => {
+    if (item.name in catalog) {
+      acc[item.name] = item.newPrice;
+      delete catalogCopy[item.name];
+    } else {
+      newItems.push(item.name);
+    }
+    acc[item.name] = item.newPrice;
+
+    if (array.length === i + 1) {
+      return { ...acc, ...catalogCopy };
+    }
+
+    return acc;
+  }, {});
+
+  return { updatedCatalog, newItems };
+}
+
+console.log("Task 5:", updateStore(currentCatalog, priceUpdates));
