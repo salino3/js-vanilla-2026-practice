@@ -400,3 +400,24 @@ function updateStore(catalog, updates) {
 }
 
 console.log("Task 5:", updateStore(currentCatalog, priceUpdates));
+
+//
+const library = [
+  {
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    pages: 180,
+    isRead: true,
+  },
+  { title: "1984", author: "George Orwell", pages: 328, isRead: false },
+  { title: "The Hobbit", author: "J.R.R. Tolkien", pages: 310, isRead: true },
+];
+
+// Create a function called calculateAveragePages. It should return the average number of pages
+// across all books currently in your library.
+
+function calculateAveragePages(books) {
+  return books.reduce((acc, book) => (acc += book.pages), 0) / books.length;
+}
+
+console.log("Task 5:", calculateAveragePages(library));
