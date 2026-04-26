@@ -421,4 +421,23 @@ function calculateAveragePages(books) {
   return books.reduce((acc, book) => (acc += book.pages), 0) / books.length;
 }
 
-console.log("Task 5:", calculateAveragePages(library));
+console.log("Task 6:", calculateAveragePages(library));
+
+//
+// Create a function markAsRead(library, bookTitle).
+
+// Find the book with the matching title.
+
+// Return a new array where that specific book's isRead property is set to true.
+
+// The original library array must remain unchanged.
+
+// Constraint: Do not use .push() or direct assignment like library[0].isRead = true.
+
+function markAsRead(books, bookTitle) {
+  return books.map((book) =>
+    book.title === bookTitle ? { ...book, isRead: true } : book,
+  );
+}
+
+console.log("Task 7:", markAsRead(library, "1984"));
