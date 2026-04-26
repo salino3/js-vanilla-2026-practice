@@ -513,3 +513,67 @@ function getLibrarySummary(books) {
 }
 
 console.log("Task 9:", getLibrarySummary(complexLibrary));
+
+//
+const availableBooks = [
+  { id: 1, title: "The Great Gatsby", stock: 2 },
+  { id: 2, title: "1984", stock: 0 },
+  { id: 3, title: "The Hobbit", stock: 5 },
+];
+
+const reservations = [
+  { userId: 101, bookId: 1 }, // Gatsby
+  { userId: 102, bookId: 2 }, // 1984 (Out of stock!)
+  { userId: 103, bookId: 4 }, // Unknown Book (Not in availableBooks!)
+];
+
+// The Task: processReservations(inventory, requests)
+// Create a function that analyzes these two arrays and returns a Report Object with three specific lists:
+
+// confirmed: An array of titles for books that are in the inventory AND have stock > 0.
+
+// outOfStock: An array of titles for books that exist in the inventory but have stock: 0.
+
+// invalid: An array of bookId numbers for reservations that don't match any id in the inventory.
+
+// ultraZipMap
+const ultraZipMapReservations = (...args) => {
+  // 1. Extract the callback
+  const callback = args.slice(-1)[0];
+
+  // 2. Everything else is our data
+  const arrays = args.slice(0, -1);
+
+  const maxLength = Math.max(...arrays.map((a) => a.length));
+
+  return Array.from({ length: maxLength }).map((_, i) => {
+    // Pass an array of all items at index 'i' to the callback
+    const currentItems = arrays.map((a) => a[i]);
+    return callback(...currentItems, i, arrays);
+  });
+};
+
+function processReservations(inventory, requests) {
+  const confirmed = [];
+  const outOfStock = [];
+  const invalid = [];
+
+  ultraZipMapReservations(inventory, requests, (inv, req, i, arrs) => {
+    if (inv.stock > 0) {
+      confirmed.push(inv.title);
+    } else {
+      outOfStock.push(inv.title);
+    }
+    if (!(req.bookId in Object.assign({}, arrs[0]))) {
+      invalid.push(req.bookId);
+    }
+  });
+
+  return {
+    confirmed,
+    outOfStock,
+    invalid,
+  };
+}
+
+console.log("Task 10:", processReservations(availableBooks, reservations));
