@@ -448,11 +448,19 @@ const complexLibrary = [
     title: "1984",
     metadata: { reviews: 500, rating: 4.0 },
     isRead: false,
+    pages: 310,
   },
   {
     title: "The Hobbit",
     metadata: { reviews: 600, rating: 3.4 },
     isRead: true,
+    pages: 810,
+  },
+  {
+    title: "The Great Gatsby",
+    metadata: { reviews: 400, rating: 4.4 },
+    isRead: true,
+    pages: 240,
   },
 ];
 
@@ -475,3 +483,33 @@ function updateRating(books, bookTitle, newRating) {
 }
 
 console.log("Task 8:", updateRating(complexLibrary, "1984", 4.5));
+
+//
+// Your boss wants a "Summary Report" of the library, but they want it grouped by whether the books are "Short" (under 250 pages) or "Long" (250+ pages).
+
+// Create a function getLibrarySummary(books). It should return one single object that looks exactly like this:
+
+// {
+//   shortBooks: ["Title 1", "Title 2"], // Array of strings
+//   longBooks: ["Title 3"],             // Array of strings
+//   totalReviews: 1100                  // Sum of all reviews in metadata
+// }
+
+function getLibrarySummary(books) {
+  return books.reduce(
+    (acc, book) => {
+      acc[book.pages >= 250 ? "longBooks" : "shortBooks"].push(book.title);
+
+      acc.totalReviews += book.metadata.reviews;
+
+      return acc;
+    },
+    {
+      shortBooks: [],
+      longBooks: [],
+      totalReviews: 0,
+    },
+  );
+}
+
+console.log("Task 9:", getLibrarySummary(complexLibrary));
