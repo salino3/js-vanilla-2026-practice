@@ -417,6 +417,7 @@ const library = [
 // across all books currently in your library.
 
 function calculateAveragePages(books) {
+  if (books.length === 0) return 0;
   return books.reduce((acc, book) => (acc += book.pages), 0) / books.length;
 }
 
