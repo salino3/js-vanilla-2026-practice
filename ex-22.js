@@ -441,3 +441,37 @@ function markAsRead(books, bookTitle) {
 }
 
 console.log("Task 7:", markAsRead(library, "1984"));
+
+//
+const complexLibrary = [
+  {
+    title: "1984",
+    metadata: { reviews: 500, rating: 4.0 },
+    isRead: false,
+  },
+  {
+    title: "The Hobbit",
+    metadata: { reviews: 600, rating: 3.4 },
+    isRead: true,
+  },
+];
+
+// Update the rating inside the metadata object for the specific book.
+
+// Crucial: You must not mutate the original metadata object either.
+
+function updateRating(books, bookTitle, newRating) {
+  return books.map((book) =>
+    book.title === bookTitle
+      ? {
+          ...book,
+          metadata: {
+            ...book.metadata,
+            rating: newRating,
+          },
+        }
+      : book,
+  );
+}
+
+console.log("Task 8:", updateRating(complexLibrary, "1984", 4.5));
