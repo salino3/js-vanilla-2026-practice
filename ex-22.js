@@ -577,3 +577,37 @@ function processReservations(inventory, requests) {
 }
 
 console.log("Task 10:", processReservations(availableBooks, reservations));
+
+// Version 2 Task 10
+function processReservationsV02(inventory, requests) {
+  // 1. Create a Lookup Table (Dictionary) for O(1) access - 'Order of (1)' check with object and not iterate every time array
+  const inventoryMap = inventory.reduce((acc, book) => {
+    acc[book.id] = book;
+    return acc;
+  }, {});
+
+  return requests.reduce(
+    (report, req) => {
+      const book = inventoryMap[req.bookId];
+
+      if (!book) {
+        // It's not in our inventory map
+        report.invalid.push(req.bookId);
+      } else if (book.stock > 0) {
+        // Found it and it's in stock
+        report.confirmed.push(book.title);
+      } else {
+        // Found it but stock is 0
+        report.outOfStock.push(book.title);
+      }
+
+      return report;
+    },
+    { confirmed: [], outOfStock: [], invalid: [] },
+  );
+}
+
+console.log(
+  "Task 10 V2:",
+  processReservationsV02(availableBooks, reservations),
+);
