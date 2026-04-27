@@ -39,3 +39,18 @@ function letterCount(str) {
 }
 
 console.log("Task 1:", letterCount("Today is the greatest day ever!"));
+
+//
+// Write a function ArrayAddition(arr) that takes an array of numbers.
+
+// First, find the largest number in the array.
+
+// Determine if any combination of the other numbers in the array can be added up to equal the largest number.
+
+// Return true if they can, and false if not.
+
+function arrayAddition(arr) {
+  return "Solve the exercise";
+}
+
+console.log("Task 1:", arrayAddition([3, 5, -1, 8, 12]));
