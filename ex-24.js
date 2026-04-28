@@ -122,3 +122,41 @@ function calculateTotal(cart) {
 }
 
 console.log("Task 4:", calculateTotal(cart));
+
+//
+const users = [
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" },
+  { id: 3, name: "Charlie" },
+];
+
+const logins = [
+  { userId: 1, count: 5 },
+  { userId: 2, count: 10 },
+  { userId: 1, count: 2 },
+  { userId: 3, count: 1 },
+];
+
+// Write a function called mergeUserData that takes both arrays and returns a new array of objects. Each object in the new array should contain:
+
+// The id of the user.
+
+// The name of the user.
+
+// The totalLogins (the sum of all login counts for that specific ID).
+
+// If a user has no login records, their totalLogins should be 0.
+
+function mergeUserData(users, logins) {
+  const newLoginsData = {};
+  for (let i = 0; i < logins.length; i++) {
+    newLoginsData[logins[i].userId] =
+      (newLoginsData[logins[i].userId] ?? 0) + logins[i].count;
+  }
+  return users.map((user) => ({
+    ...user,
+    totalLogins: newLoginsData[user.id] ?? 0,
+  }));
+}
+
+console.log("Task 5:", mergeUserData(users, logins));
