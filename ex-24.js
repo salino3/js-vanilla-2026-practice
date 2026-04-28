@@ -50,7 +50,46 @@ console.log("Task 1:", letterCount("Today is the greatest day ever!"));
 // Return true if they can, and false if not.
 
 function arrayAddition(arr) {
-  return "Solve the exercise";
+  const largest = Math.max(...arr);
+  const numbers = arr.filter((num) => num !== largest);
+
+  function canSum(target, rest) {
+    if (rest.length === 0) return target === 0;
+
+    const first = rest[0];
+    const remaining = rest.slice(1);
+
+    // Option 1: Use the first number (subtract it from target)
+    // Option 2: Skip the first number (target remains the same)
+    return canSum(target - first, remaining) || canSum(target, remaining);
+  }
+
+  return canSum(largest, numbers);
 }
 
-console.log("Task 1:", arrayAddition([3, 5, -1, 8, 12]));
+console.log("Task 2:", arrayAddition([3, 5, -1, 8, 12]));
+
+function SimpleMode(arr) {
+  const nums = {};
+  let maxCount = 0;
+  let mode = -1;
+
+  for (let i = 0; i < arr.length; i++) {
+    nums[arr[i]] = (nums[arr[i]] ?? 0) + 1;
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    let currentNum = arr[i];
+    if (nums[currentNum] > maxCount) {
+      maxCount = nums[currentNum];
+      mode = currentNum;
+    }
+  }
+
+  return maxCount > 1 ? mode : -1;
+}
+
+// Test cases
+console.log(SimpleMode([10, 4, 5, 2, 4]));
+console.log(SimpleMode([5, 10, 10, 6, 5]));
+console.log(SimpleMode([1, 2, 3, 100]));
