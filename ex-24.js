@@ -93,3 +93,32 @@ function SimpleMode(arr) {
 console.log(SimpleMode([10, 4, 5, 2, 4]));
 console.log(SimpleMode([5, 10, 10, 6, 5]));
 console.log(SimpleMode([1, 2, 3, 100]));
+
+//
+// Write a function called calculateTotal that:
+
+// Takes an array of items as an argument.
+
+// Calculates the total cost for the entire cart.
+
+// Applies a 10% discount if the total cost is over $100.
+
+// Returns the final total as a number.
+
+const cart = [
+  { name: "Laptop Sleeve", price: 25, quantity: 1 },
+  { name: "Mechanical Keyboard", price: 80, quantity: 1 },
+  { name: "USB-C Cable", price: 15, quantity: 2 },
+];
+
+function calculateTotal(cart) {
+  const totalCost = cart.reduce((acc, product) => {
+    acc += product.price * product.quantity ?? 0;
+
+    return acc;
+  }, 0);
+
+  return totalCost > 100 ? totalCost - (totalCost / 100) * 10 : totalCost;
+}
+
+console.log("Task 4:", calculateTotal(cart));
