@@ -160,3 +160,31 @@ function mergeUserData(users, logins) {
 }
 
 console.log("Task 5:", mergeUserData(users, logins));
+
+//
+// The Challenge: "The Meeting Scheduler"
+// You are building a calendar app. You have an array of "booked" time slots, and you need to find out if a new meeting can fit without overlapping.
+
+// The Rules:
+
+// The function canSchedule takes two arguments: existingMeetings (array) and newMeeting (object).
+
+// Each meeting has a start and end time (as integers, e.g., 10 for 10:00 AM).
+
+// A meeting overlaps if the start time is before an existing end time AND the end time is after an existing start time.
+
+// Return true if it can be scheduled, false if there is a conflict.
+
+const existingMeetings = [
+  { start: 10, end: 12 },
+  { start: 15, end: 17 },
+];
+
+const newMeeting = { start: 11, end: 13 };
+const anotherMeeting = { start: 13, end: 14 };
+
+function canSchedule(existingMeetings, newMeeting) {
+  return "Solve the exercise";
+}
+
+console.log("Task 6:", canSchedule(existingMeetings, newMeeting));
