@@ -188,3 +188,21 @@ function canSchedule(existingMeetings, newMeeting) {
 }
 
 console.log("Task 6:", canSchedule(existingMeetings, newMeeting));
+
+//
+const person = {
+  name: "Alan",
+  surname: "Doe",
+  email: "doe@gmail.com",
+};
+
+let newPerson;
+
+for (data in person) {
+  const { [data]: key, ...rest } = person;
+  console.log("clog1", rest);
+  if (data === "surname") {
+    newPerson = { ...rest };
+  }
+}
+console.log("clog2", newPerson);
