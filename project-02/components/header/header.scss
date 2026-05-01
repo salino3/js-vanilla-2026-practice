@@ -1,4 +1,6 @@
-header {
+header-component {
+  display: block; // Custom elements are inline by default!
+  width: 100%;
   background-color: #333;
   color: aliceblue;
   padding: 1rem;

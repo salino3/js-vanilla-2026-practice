@@ -1,21 +1,19 @@
-header {
+header-component {
+  display: block;
+  width: 100%;
   background-color: #333;
   color: aliceblue;
   padding: 1rem;
 }
-header nav a {
+header-component nav a {
   color: white;
   text-decoration: none;
 }
-header nav a:hover {
+header-component nav a:hover {
   text-decoration: underline;
 }
 
 body {
   background-color: black;
   color: gray;
-}
-body header-component {
-  display: block;
-  width: 100%;
 }/*# sourceMappingURL=index.css.map */
