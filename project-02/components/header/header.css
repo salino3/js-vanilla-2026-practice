@@ -1,0 +1,12 @@
+header {
+  background-color: #333;
+  color: aliceblue;
+  padding: 1rem;
+}
+header nav a {
+  color: white;
+  text-decoration: none;
+}
+header nav a:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=header.css.map */

@@ -1,4 +1,11 @@
+@import "../components/header/header.scss";
+
 body {
   background-color: black;
   color: gray;
+
+  header-component {
+    display: block; // Custom elements are inline by default!
+    width: 100%;
+  }
 }
