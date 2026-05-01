@@ -1,0 +1,8 @@
+button-component .containerButtonComponent {
+  background-color: purple;
+}
+button-component .containerButtonComponent button {
+  background-color: transparent;
+  color: blue;
+  cursor: pointer;
+}/*# sourceMappingURL=button.css.map */

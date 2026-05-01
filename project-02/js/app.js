@@ -1,4 +1,5 @@
 import { Header } from "../components/header/header.js"; // Import class even is used in another file
+import { Button } from "../components/button/button.js";
 
 function renderCustomComponent(componentName, idElement) {
   const container = document.getElementById(idElement);
@@ -16,4 +17,10 @@ window.addEventListener("DOMContentLoaded", () => {
     "<header-component></header-component>",
     "app",
   );
+  console.log("Render:", window.render);
+  window.render = renderCustomComponent(
+    "<button-component></button-component>",
+    "btn",
+  );
+  console.log("Render 2:", window.render);
 });

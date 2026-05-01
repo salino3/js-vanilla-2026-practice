@@ -13,6 +13,15 @@ header-component nav a:hover {
   text-decoration: underline;
 }
 
+button-component .containerButtonComponent {
+  background-color: purple;
+}
+button-component .containerButtonComponent button {
+  background-color: transparent;
+  color: blue;
+  cursor: pointer;
+}
+
 body {
   background-color: black;
   color: gray;
