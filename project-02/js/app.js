@@ -1,17 +1,19 @@
 import { Header } from "../components/header/header.js"; // Import class even is used in another file
 
-window.render = (componentName = "header") => {
-  const container = document.getElementById("app");
-  if (!container) return console.error("Container #app not found!");
+function renderCustomComponent(componentName, idElement) {
+  const container = document.getElementById(idElement);
+  if (!container) return console.error(`Container #${idElement} not found!`);
 
-  if (componentName === "header") {
-    container.innerHTML = "<header-component></header-component>";
+  if (componentName && idElement) {
+    return (container.innerHTML = componentName);
   } else {
-    container.innerHTML = "<h1>Home</h1>";
+    return null;
   }
-};
+}
 
-// 4. Wait for the DOM and elements to be ready before the first render
 window.addEventListener("DOMContentLoaded", () => {
-  window.render();
+  window.render = renderCustomComponent(
+    "<header-component></header-component>",
+    "app",
+  );
 });
