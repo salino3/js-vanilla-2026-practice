@@ -50,3 +50,16 @@ function findProjectsBySkill(projectList, skillList) {
 }
 
 console.log("Task 1:", findProjectsBySkill(projects, searchSkills));
+
+// V2
+function findProjectsBySkillV2(projectList, skillList) {
+  return projectList
+    .filter((project) =>
+      project.team.some((worker) =>
+        worker.skills.some((skill) => skillList.includes(skill)),
+      ),
+    )
+    .map((project) => project.name);
+}
+
+console.log("Task 1 V2:", findProjectsBySkillV2(projects, searchSkills));
