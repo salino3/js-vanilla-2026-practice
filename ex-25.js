@@ -105,3 +105,32 @@ function getCategoryRevenue(products, sales) {
 }
 
 console.log("Task 2:", getCategoryRevenue(products, sales));
+
+//
+// The Task: "The Notification Center"
+// You have a list of user notifications. Some are "unread" and some are "read." You receive
+// an array of IDs representing notifications the user just clicked "Mark as Read" on.
+
+const notifications = [
+  { id: "n1", message: "New Comment", status: "unread", priority: "high" },
+  { id: "n2", message: "System Update", status: "unread", priority: "low" },
+  { id: "n3", message: "Friend Request", status: "read", priority: "medium" },
+  { id: "n4", message: "Security Alert", status: "unread", priority: "high" },
+];
+
+const readIds = ["n1", "n4"];
+
+// Write a function updateNotifications(notifications, readIds) that returns a new array where:
+
+// The status of notifications matching the IDs in readIds is changed to "read".
+
+// Crucially: The notifications that were not in readIds must remain exactly as they were.
+
+// The Twist: High-priority notifications ("high") should be moved to the front of the array,
+// regardless of whether they were just updated or not.
+
+function updateNotifications(notifications, readIds) {
+  return "Resolve the task..";
+}
+
+console.log("Task 3:", updateNotifications(notifications, readIds));
