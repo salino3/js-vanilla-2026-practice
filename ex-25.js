@@ -85,6 +85,23 @@ const sales = [
 // should be the category names, and the values should be the total revenue
 // (price × quantity) for that category.
 
-function getCategoryRevenue(products, sales) {}
+function getCategoryRevenue(products, sales) {
+  const productsMapped = new Map();
+
+  for (let i = 0; i < products.length; i++) {
+    productsMapped.set(products[i].id, products[i]);
+  }
+
+  const result = sales.reduce((acc, sale) => {
+    let value = productsMapped.get(sale.productId);
+
+    acc[value.category] =
+      (acc[value.category] ?? 0) + value.price * sale.quantity;
+
+    return acc;
+  }, {});
+
+  return result;
+}
 
 console.log("Task 2:", getCategoryRevenue(products, sales));
