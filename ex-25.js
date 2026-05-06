@@ -130,19 +130,16 @@ const readIds = ["n1", "n4"];
 // regardless of whether they were just updated or not.
 
 function updateNotifications(notifications, readIds) {
-  const newNotifications = [];
-
-  for (let i = 0; i < notifications.length; i++) {
-    let notification = notifications[i];
-
-    if (notification.priority === "high") {
-      newNotifications.unshift(notification);
-    } else {
-      newNotifications.push(notification);
-    }
-  }
-
-  return newNotifications;
+  return notifications
+    .map((n) => ({
+      ...n,
+      status: readIds.includes(n.id) ? "read" : n.status,
+    }))
+    .sort((a, b) => {
+      if (a.priority === "high" && b.priority !== "high") return -1;
+      if (a.priority !== "high" && b.priority === "high") return 1;
+      return 0; // Keep original relative order for others
+    });
 }
 
 console.log("Task 3:", updateNotifications(notifications, readIds));
