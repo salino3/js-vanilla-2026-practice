@@ -130,7 +130,19 @@ const readIds = ["n1", "n4"];
 // regardless of whether they were just updated or not.
 
 function updateNotifications(notifications, readIds) {
-  return "Resolve the task..";
+  const newNotifications = [];
+
+  for (let i = 0; i < notifications.length; i++) {
+    let notification = notifications[i];
+
+    if (notification.priority === "high") {
+      newNotifications.unshift(notification);
+    } else {
+      newNotifications.push(notification);
+    }
+  }
+
+  return newNotifications;
 }
 
 console.log("Task 3:", updateNotifications(notifications, readIds));
