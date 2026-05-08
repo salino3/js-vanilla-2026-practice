@@ -198,7 +198,7 @@ function calculateCartTotals(cart) {
       let finalPrice = item.discount
         ? item.price - (item.price / 100) * item.discount
         : item.price;
-      console.log("clog1", finalPrice);
+
       acc.subtotal += item.quantity * item.price;
       acc.finalTotal += item.quantity * finalPrice;
 
@@ -208,9 +208,11 @@ function calculateCartTotals(cart) {
         );
       }
 
+      acc.itemCount += item.quantity;
+
       return acc;
     },
-    { subtotal: 0, finalTotal: 0, totalDiscount: 0 },
+    { subtotal: 0, finalTotal: 0, totalDiscount: 0, itemCount: 0 },
   ));
 
   // return result;
