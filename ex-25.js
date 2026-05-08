@@ -217,3 +217,36 @@ function calculateCartTotals(cart) {
 }
 
 console.log("Task 4:", calculateCartTotals(shoppingCart));
+
+//
+const sessionLogs = [
+  { userId: "user_A", feature: "Dashboard", duration: 12 },
+  { userId: "user_B", feature: "Billing", duration: 5 },
+  { userId: "user_A", feature: "Analytics", duration: 45 },
+  { userId: "user_C", feature: "Dashboard", duration: 18 },
+  { userId: "user_B", feature: "Dashboard", duration: 22 },
+  { userId: "user_A", feature: "Dashboard", duration: 15 },
+  { userId: "user_C", feature: "Settings", duration: 8 },
+];
+
+// Write a function generateUserReport(logs) that processes the logs and returns an array of objects.
+
+// For each unique user, you need to calculate:
+
+// userId: The ID of the user.
+
+// totalDuration: The sum of all their session durations.
+
+// averageDuration: Their average session duration (rounded to one decimal place).
+
+// uniqueFeatures: An array of the unique features they accessed, sorted alphabetically
+//  (no duplicate features allowed!).
+
+// ⚠️ Sorting Rule: The final array of user objects must be sorted in descending order
+//  based on their totalDuration (the user with the most active time comes first).
+
+function generateUserReport(logs) {
+  return "Resolve the task";
+}
+
+console.log("Task 5:", generateUserReport(sessionLogs));
