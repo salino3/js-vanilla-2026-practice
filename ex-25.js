@@ -194,7 +194,7 @@ const shoppingCart = [
 
 function calculateCartTotals(cart) {
   return (result = cart.reduce(
-    (acc, item) => {
+    (acc, item, i) => {
       let finalPrice = item.discount
         ? item.price - (item.price / 100) * item.discount
         : item.price;
@@ -202,9 +202,15 @@ function calculateCartTotals(cart) {
       acc.subtotal += item.quantity * item.price;
       acc.finalTotal += item.quantity * finalPrice;
 
+      if (i + 1 === cart.length) {
+        acc.totalDiscount = Number(
+          (acc.subtotal - (acc.finalTotal ?? 0)).toFixed(2),
+        );
+      }
+
       return acc;
     },
-    { subtotal: 0, finalTotal: 0 },
+    { subtotal: 0, finalTotal: 0, totalDiscount: 0 },
   ));
 
   // return result;
