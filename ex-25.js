@@ -246,36 +246,38 @@ const sessionLogs = [
 //  based on their totalDuration (the user with the most active time comes first).
 
 function generateUserReport(logs) {
-  const uniqueFeatures = new Set();
+  const grouped = logs.reduce((acc, log) => {
+    if (!acc[log.userId]) {
+      acc[log.userId] = {
+        userId: log.userId,
+        totalDuration: 0,
+        sessionCount: 0,
+        featureSet: new Set(),
+      };
+    }
 
-  const result = logs.reduce(
-    (acc, log, i) => {
-      if (acc.users[log.userId]) {
-        acc.users[log.userId].totalDuration += log.duration;
-      } else {
-        acc.users[log.userId] = { totalDuration: log.duration };
-      }
+    acc[log.userId].totalDuration += log.duration;
+    acc[log.userId].sessionCount += 1;
+    acc[log.userId].featureSet.add(log.feature);
 
-      acc.counter[log.userId] = (acc.counter[log.userId] ?? 0) + 1;
-      uniqueFeatures.add(log.feature);
+    return acc;
+  }, {});
 
-      return acc;
-    },
-    { users: {}, counter: {} },
-  );
+  console.log("clog2", grouped);
+  const reportArray = Object.values(grouped).map((user) => {
+    return {
+      userId: user.userId,
+      totalDuration: user.totalDuration,
+      averageDuration: Number(
+        (user.totalDuration / user.sessionCount).toFixed(1),
+      ),
+      uniqueFeatures: Array.from(user.featureSet).sort((a, b) =>
+        a.localeCompare(b),
+      ),
+    };
+  });
 
-  for (let user in result.users) {
-    result.users[user].averageDuration = Number(
-      (result.users[user].totalDuration / result.counter[user]).toFixed(1),
-    );
-  }
-
-  const { counter, ...rest } = result;
-
-  return {
-    ...rest,
-    uniqueFeatures: [...uniqueFeatures].toSorted((a, b) => a.localeCompare(b)),
-  };
+  return reportArray.sort((a, b) => b.totalDuration - a.totalDuration);
 }
-// [user_A: 72, user_B: 27, user_C: 26]
+
 console.log("Task 5:", generateUserReport(sessionLogs));
