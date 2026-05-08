@@ -143,3 +143,71 @@ function updateNotifications(notifications, readIds) {
 }
 
 console.log("Task 3:", updateNotifications(notifications, readIds));
+
+//
+const shoppingCart = [
+  {
+    name: "Wireless Mouse",
+    price: 29.99,
+    quantity: 1,
+    category: "Electronics",
+  },
+  {
+    name: "Leather Journal",
+    price: 15.0,
+    quantity: 2,
+    category: "Books",
+    discount: 10,
+  }, // 10% off
+  {
+    name: "Mechanical Keyboard",
+    price: 89.99,
+    quantity: 1,
+    category: "Electronics",
+    discount: 15,
+  }, // 15% off
+  { name: "Water Bottle", price: 12.5, quantity: 3, category: "Home" },
+  {
+    name: "Socks (3-pack)",
+    price: 9.99,
+    quantity: 5,
+    category: "Apparel",
+    discount: 20,
+  }, // 20% off
+];
+
+// Write a function calculateCartTotals(cart) that returns a new object with the following
+// four properties:
+
+// subtotal: The total cost of all items before any discounts are applied
+//  (taking quantity into account).
+
+// totalDiscount: The total amount of money saved from the discounts.
+
+// finalTotal: The final price the user has to pay (subtotal - totalDiscount).
+
+// itemCount: The total number of physical items in the cart (the sum of all quantities).
+
+// ⚠️ Rule: Keep your decimal outputs rounded to two decimal places (e.g., 110.45).
+// Hint: You might want to use Number(value.toFixed(2)) to handle floating-point math
+// quirks in JavaScript.
+
+function calculateCartTotals(cart) {
+  return (result = cart.reduce(
+    (acc, item) => {
+      let finalPrice = item.discount
+        ? item.price - (item.price / 100) * item.discount
+        : item.price;
+      console.log("clog1", finalPrice);
+      acc.subtotal += item.quantity * item.price;
+      acc.finalTotal += item.quantity * finalPrice;
+
+      return acc;
+    },
+    { subtotal: 0, finalTotal: 0 },
+  ));
+
+  // return result;
+}
+
+console.log("Task 4:", calculateCartTotals(shoppingCart));
