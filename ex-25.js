@@ -246,7 +246,36 @@ const sessionLogs = [
 //  based on their totalDuration (the user with the most active time comes first).
 
 function generateUserReport(logs) {
-  return "Resolve the task";
-}
+  const uniqueFeatures = new Set();
 
+  const result = logs.reduce(
+    (acc, log, i) => {
+      if (acc.users[log.userId]) {
+        acc.users[log.userId].totalDuration += log.duration;
+      } else {
+        acc.users[log.userId] = { totalDuration: log.duration };
+      }
+
+      acc.counter[log.userId] = (acc.counter[log.userId] ?? 0) + 1;
+      uniqueFeatures.add(log.feature);
+
+      return acc;
+    },
+    { users: {}, counter: {} },
+  );
+
+  for (let user in result.users) {
+    result.users[user].averageDuration = Number(
+      (result.users[user].totalDuration / result.counter[user]).toFixed(1),
+    );
+  }
+
+  const { counter, ...rest } = result;
+
+  return {
+    ...rest,
+    uniqueFeatures: [...uniqueFeatures].toSorted((a, b) => a.localeCompare(b)),
+  };
+}
+// [user_A: 72, user_B: 27, user_C: 26]
 console.log("Task 5:", generateUserReport(sessionLogs));
