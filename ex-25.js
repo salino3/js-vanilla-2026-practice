@@ -199,8 +199,8 @@ function calculateCartTotals(cart) {
         ? item.price - (item.price / 100) * item.discount
         : item.price;
 
-      acc.subtotal += item.quantity * item.price;
-      acc.finalTotal += item.quantity * finalPrice;
+      acc.subtotal += Number((item.quantity * item.price).toFixed(2));
+      acc.finalTotal += Number((item.quantity * finalPrice).toFixed(2));
 
       if (i + 1 === cart.length) {
         acc.totalDiscount = Number(
@@ -214,8 +214,6 @@ function calculateCartTotals(cart) {
     },
     { subtotal: 0, finalTotal: 0, totalDiscount: 0, itemCount: 0 },
   ));
-
-  // return result;
 }
 
 console.log("Task 4:", calculateCartTotals(shoppingCart));
