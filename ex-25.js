@@ -281,3 +281,51 @@ function generateUserReport(logs) {
 }
 
 console.log("Task 5:", generateUserReport(sessionLogs));
+
+//
+const productsData = [
+  { id: "p1", name: "Wireless Mouse", price: 29.99, category: "Electronics" },
+  { id: "p2", name: "Yoga Mat", price: 45.0, category: "Fitness" },
+  { id: "p3", name: "Leather Journal", price: 15.5, category: "Stationery" },
+  {
+    id: "p4",
+    name: "Mechanical Keyboard",
+    price: 89.99,
+    category: "Electronics",
+  },
+  { id: "p5", name: "Running Shoes", price: 120.0, category: "Fitness" },
+];
+
+const orders = [
+  {
+    orderId: 101,
+    items: [
+      { productId: "p1", qty: 2 },
+      { productId: "p3", qty: 1 },
+    ],
+  },
+  {
+    orderId: 102,
+    items: [
+      { productId: "p2", qty: 1 },
+      { productId: "p5", qty: 2 },
+    ],
+  },
+  {
+    orderId: 103,
+    items: [
+      { productId: "p4", qty: 1 },
+      { productId: "p1", qty: 1 },
+    ],
+  },
+  { orderId: 104, items: [{ productId: "p3", qty: 3 }] },
+];
+
+// Write a function called calculateCategoryRevenue(products, orders) that
+// returns an object showing the total revenue for each category
+
+function calculateCategoryRevenue(products, orders) {
+  return "Solve the task";
+}
+
+console.log("Task 6:", calculateCategoryRevenue(productsData, orders));
