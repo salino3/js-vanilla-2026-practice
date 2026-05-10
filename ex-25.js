@@ -332,21 +332,15 @@ function calculateCategoryRevenue(products, orders) {
       acc[product.category] = 0;
     }
 
-    acc[product.category] += Number(
-      (
-        flattedOrders
-          .filter((item) => item.productId === product.id)
-          .reduce((acc, p) => acc + p.qty, 0) * product.price
-      ).toFixed(2),
-    );
+    const value = (acc[product.category] +=
+      flattedOrders
+        .filter((item) => item.productId === product.id)
+        .reduce((acc, p) => acc + p.qty, 0) * product.price);
+
+    acc[product.category] = Number(value.toFixed(2));
 
     return acc;
   }, {});
-
-  // OPTIONAL: Loop through the final totals and round them to 2 decimal places
-  for (const category in result) {
-    result[category] = Number(result[category].toFixed(2));
-  }
 
   return result;
 }
