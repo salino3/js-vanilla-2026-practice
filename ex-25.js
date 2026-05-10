@@ -325,7 +325,21 @@ const orders = [
 // returns an object showing the total revenue for each category
 
 function calculateCategoryRevenue(products, orders) {
-  return "Solve the task";
+  const flattedOrders = orders.map((o) => o.items).flat(Infinity);
+
+  const result = products.reduce((acc, product) => {
+    acc[product.category] = Number(
+      (
+        flattedOrders
+          .filter((item) => item.productId === product.id)
+          .reduce((acc, p) => acc + p.qty, 0) * product.price
+      ).toFixed(2),
+    );
+
+    return acc;
+  }, {});
+
+  return result;
 }
 
 console.log("Task 6:", calculateCategoryRevenue(productsData, orders));
