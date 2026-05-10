@@ -343,6 +343,11 @@ function calculateCategoryRevenue(products, orders) {
     return acc;
   }, {});
 
+  // OPTIONAL: Loop through the final totals and round them to 2 decimal places
+  for (const category in result) {
+    result[category] = Number(result[category].toFixed(2));
+  }
+
   return result;
 }
 console.log("Task 6:", calculateCategoryRevenue(productsData, orders));
