@@ -385,21 +385,35 @@ const students = [
 // average
 // subjectsCount
 
+// Bonus challenges:
+
+// Bonus 1: Return all students sorted by average (highest → lowest).
+
+// Bonus 2: Only include students whose average is greater than 80.
+
+// Bonus 3: Find the best student in Math only.
+
 function getTopStudent(students) {
-  const newStudentsData = students.reduce((acc, student) => {
-    acc.push({
-      name: student.name,
-      average: Number(
+  const newStudentsData = students
+    .reduce((acc, student) => {
+      const average = Number(
         (
           student.subjects.reduce((acc, item) => (acc += item.score), 0) /
           student.subjects.length
         ).toFixed(2),
-      ),
-      subjectsCount: student.subjects.length,
-    });
+      );
 
-    return acc;
-  }, []);
+      if (average > 80) {
+        acc.push({
+          name: student.name,
+          average: average,
+          subjectsCount: student.subjects.length,
+        });
+      }
+
+      return acc;
+    }, [])
+    .toSorted((a, b) => b.average - a.average);
   return newStudentsData;
 }
 
