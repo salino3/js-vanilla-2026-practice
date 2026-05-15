@@ -394,12 +394,24 @@ const students = [
 // Bonus 3: Find the best student in Math only.
 
 function getTopStudent(students) {
+  let bestMathStudent = {
+    id: null,
+    score: 0,
+  };
+
   const newStudentsData = students
     .reduce((acc, student) => {
       const average = Number(
         (
-          student.subjects.reduce((acc, item) => (acc += item.score), 0) /
-          student.subjects.length
+          student.subjects.reduce((acc, item) => {
+            if (item.subject === "Math" && bestMathStudent.score < item.score) {
+              bestMathStudent = {
+                id: student.id,
+                score: item.score,
+              };
+            }
+            return (acc += item.score);
+          }, 0) / student.subjects.length
         ).toFixed(2),
       );
 
@@ -413,8 +425,11 @@ function getTopStudent(students) {
 
       return acc;
     }, [])
-    .toSorted((a, b) => b.average - a.average);
-  return newStudentsData;
+    .toSorted((a, b) => {
+      return b.average - a.average;
+    });
+
+  return { bestMathStudent, newStudentsData };
 }
 
 console.log("Task 7:", getTopStudent(students));
