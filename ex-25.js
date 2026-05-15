@@ -433,3 +433,45 @@ function getDataStudent(students) {
 }
 
 console.log("Task 7:", getDataStudent(students));
+
+//
+// Return the length of the longest sequence of consecutive numbers.
+
+// A sequence means numbers that follow each other with no gaps.
+
+// Input:
+// [100, 4, 200, 1, 3, 2]
+
+// Output:
+// 4
+
+function longestConsecutive(nums) {
+  const newNumsData = nums.toSorted((a, b) => a - b);
+
+  return newNumsData.reduce(
+    (acc, num, i, arr) => {
+      const consecutiveNumber = arr[i + 1];
+
+      let check = num + 1 === consecutiveNumber;
+
+      if (!check) {
+        acc.pass = false;
+      }
+
+      if (acc.pass) {
+        if (!!consecutiveNumber) {
+          acc.biggerNumber = num + 1;
+
+          return acc;
+        } else {
+          acc.biggerNumber = num + 1;
+          return acc;
+        }
+      }
+      return acc;
+    },
+    { biggerNumber: newNumsData[0], pass: true },
+  );
+}
+
+console.log("Task 8:", longestConsecutive([100, 4, 5, 7, -1, 0, 200, 1, 3, 2]));
