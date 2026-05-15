@@ -393,7 +393,7 @@ const students = [
 
 // Bonus 3: Find the best student in Math only.
 
-function getTopStudent(students) {
+function getDataStudent(students) {
   let bestMathStudent = {
     id: null,
     score: 0,
@@ -432,4 +432,4 @@ function getTopStudent(students) {
   return { bestMathStudent, newStudentsData };
 }
 
-console.log("Task 7:", getTopStudent(students));
+console.log("Task 7:", getDataStudent(students));
