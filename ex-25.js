@@ -345,3 +345,62 @@ function calculateCategoryRevenue(products, orders) {
   return result;
 }
 console.log("Task 6:", calculateCategoryRevenue(productsData, orders));
+
+//
+const students = [
+  {
+    id: 1,
+    name: "Alice",
+    subjects: [
+      { subject: "Math", score: 85 },
+      { subject: "Biology", score: 92 },
+      { subject: "Chemistry", score: 78 },
+    ],
+  },
+  {
+    id: 2,
+    name: "Bob",
+    subjects: [
+      { subject: "Math", score: 95 },
+      { subject: "Biology", score: 88 },
+      { subject: "Chemistry", score: 91 },
+    ],
+  },
+  {
+    id: 3,
+    name: "Charlie",
+    subjects: [
+      { subject: "Math", score: 70 },
+      { subject: "Biology", score: 75 },
+      { subject: "Chemistry", score: 80 },
+    ],
+  },
+];
+
+// The function should:
+
+//* Calculate the average score of each student.
+//* Return an object with:
+// name
+// average
+// subjectsCount
+
+function getTopStudent(students) {
+  const newStudentsData = students.reduce((acc, student) => {
+    acc.push({
+      name: student.name,
+      average: Number(
+        (
+          student.subjects.reduce((acc, item) => (acc += item.score), 0) /
+          student.subjects.length
+        ).toFixed(2),
+      ),
+      subjectsCount: student.subjects.length,
+    });
+
+    return acc;
+  }, []);
+  return newStudentsData;
+}
+
+console.log("Task 7:", getTopStudent(students));
