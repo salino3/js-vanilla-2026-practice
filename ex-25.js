@@ -475,3 +475,31 @@ function longestConsecutive(nums) {
 }
 
 console.log("Task 8:", longestConsecutive([100, 4, 5, 7, -1, 0, 200, 1, 3, 2]));
+
+//
+function longestConsecutiveV2(nums) {
+  const set = new Set(nums);
+  let maxLength = 0;
+
+  for (const num of set) {
+    // only start counting if it's the beginning of a sequence
+    if (!set.has(num - 1)) {
+      let current = num;
+      let length = 1;
+
+      while (set.has(current + 1)) {
+        current++;
+        length++;
+      }
+
+      maxLength = Math.max(maxLength, length);
+    }
+  }
+
+  return maxLength;
+}
+
+console.log(
+  "Task 8 V2:",
+  longestConsecutiveV2([100, 4, 5, 7, -1, 0, 200, 1, 3, 2]),
+);
