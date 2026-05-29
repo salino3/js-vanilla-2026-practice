@@ -94,3 +94,32 @@ var Employee = /** @class */ (function () {
 }());
 var emp = new Employee(2000);
 console.log("emp", emp.salary); // Under the hood, this calls the getter, which returns _salary
+// ----
+var Game = /** @class */ (function () {
+    function Game() {
+        // Private backing field
+        this._score = 10;
+    }
+    Object.defineProperty(Game.prototype, "score", {
+        // GETTER: Triggered when we READ the property
+        //   ❌ A 'get' accessor cannot have parameters.
+        get: function () {
+            console.log("Getter triggered!");
+            return this._score;
+        },
+        // SETTER: Triggered when we ASSIGN something with '='
+        // a setter accessor MUST have parameter, and only one, no more. It can be value, object, array
+        set: function (multiplier) {
+            console.log("Setter triggered with multiplier:", multiplier);
+            this._score = this._score * multiplier;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Game;
+}());
+// --- HOW JAVASCRIPT DECIDES ---
+var myGame = new Game();
+console.log(myGame.score);
+myGame.score = 10;
+console.log(myGame.score);

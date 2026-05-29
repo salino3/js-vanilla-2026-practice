@@ -92,3 +92,32 @@ class Employee {
 
 const emp = new Employee(2000);
 console.log("emp", emp.salary); // Under the hood, this calls the getter, which returns _salary
+
+// ----
+class Game {
+  // Private backing field
+  private _score: number = 10;
+
+  // GETTER: Triggered when we READ the property
+  //   ❌ A 'get' accessor cannot have parameters.
+  get score(): number {
+    console.log("Getter triggered!");
+    return this._score;
+  }
+
+  // SETTER: Triggered when we ASSIGN something with '='
+  // a setter accessor MUST have parameter, and only one, no more. It can be value, object, array
+  set score(multiplier: number) {
+    console.log("Setter triggered with multiplier:", multiplier);
+    this._score = this._score * multiplier;
+  }
+}
+
+// --- HOW JAVASCRIPT DECIDES ---
+const myGame = new Game();
+
+console.log(myGame.score);
+
+myGame.score = 10;
+
+console.log(myGame.score);
