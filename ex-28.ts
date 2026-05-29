@@ -121,3 +121,69 @@ console.log(myGame.score);
 myGame.score = 10;
 
 console.log(myGame.score);
+
+// -----
+class MathUtils {
+  // A static property (a shared constant)
+  public static PI: number = 3.14159;
+
+  // A static method: it doesn't need 'this', it just takes inputs and returns output
+  public static convertCelsiusToFahrenheit(celsius: number): number {
+    return (celsius * 9) / 5 + 32;
+  }
+}
+
+// --- HOW TO USE IT ---
+// Notice: NO "new MathUtils()" needed! We call it directly on the Class name.
+const currentTemp = MathUtils.convertCelsiusToFahrenheit(25);
+console.log(currentTemp); // Output: 77
+console.log(MathUtils.PI); // Output: 3.14159
+
+// -------
+// The abstract class: a blueprint for blueprints
+abstract class EnemyShip {
+  // Common property for all enemy ships
+  constructor(
+    public health: number,
+    public name: string,
+  ) {}
+
+  // A regular method: all enemies share this exact behavior
+  public takeDamage(amount: number): void {
+    this.health -= amount;
+    console.log(
+      `${this.name} took ${amount} damage. Health is now ${this.health}`,
+    );
+  }
+
+  // ABSTRACT METHOD: No body {} here!
+  // Every subclass MUST implement their own unique version of this method.
+  public abstract attack(): void;
+}
+
+// --- SUBCLASSES IMPLEMENTATION ---
+
+class AlienScout extends EnemyShip {
+  // We must provide the actual implementation for the abstract attack() method
+  public attack(): void {
+    console.log(`${this.name} fires a fast green laser pulse!`);
+  }
+}
+
+class CapitalBoss extends EnemyShip {
+  // This subclass implements attack() in its own heavy way
+  public attack(): void {
+    console.log(`${this.name} charges and fires a giant plasma cannon!`);
+  }
+}
+
+// --- HOW TO USE IT ---
+// const ghost = new EnemyShip(100, "Ghost"); // ❌ ERROR: Cannot create an instance of an abstract class.
+
+const scout = new AlienScout(100, "Zarek");
+const boss = new CapitalBoss(1000, "Omega");
+
+scout.takeDamage(20); // Uses the shared method from the abstract parent
+scout.attack(); // Output: "Zarek fires a fast green laser pulse!"
+
+boss.attack(); // Output: "Omega charges and fires a giant plasma cannon!"
