@@ -1,8 +1,5 @@
-"use strict";
 // Richieste della classe:
 // Nome della classe: Spaceship
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Spaceship = void 0;
 // Proprietà private:
 // _name (una stringa con il nome della nave).
 // _fuel (un numero che rappresenta la percentuale di carburante rimasta, parte da 100).
@@ -78,4 +75,35 @@ var Spaceship = /** @class */ (function () {
     };
     return Spaceship;
 }());
-exports.Spaceship = Spaceship;
+console.log("#------------------------");
+// ***************
+// L'Esercizio: Il Processore di Pagamenti E-Commerce
+// Devi progettare l'architettura per un sistema che accetta diversi metodi di pagamento (Carta di Credito e PayPal) e che applica una tassa di conversione fissa per i pagamenti internazionali.
+// Parte 1: La Classe Statica (CurrencyConverter)
+// Crea una classe normale chiamata CurrencyConverter che funga da scatola degli attrezzi.
+// Deve avere una proprietà statica e pubblica chiamata USD_TO_EUR impostata sul valore fisso di 0.92.
+// Deve avere un metodo statico e pubblico chiamato convertToEur. Questo metodo deve ricevere un importo in dollari (amountInUsd: number) e restituire il valore convertito in Euro (moltiplicando l'importo per il tasso USD_TO_EUR).
+// Parte 2: La Classe Astratta (PaymentMethod)
+// Crea una classe astratta chiamata PaymentMethod. Questa classe è il modello base per tutti i tipi di pagamento.
+// Proprietà del Costruttore: Deve ricevere e inizializzare una proprietà pubblica amount (l'importo in Euro).
+// Metodo normale: Crea un metodo pubblico chiamato printReceipt. Questo metodo deve stampare in console un messaggio generico: "Receipt printed for the amount of €[amount]".
+// Metodo Astratto: Crea un metodo astratto e pubblico chiamato processPayment. Questo metodo non deve avere il corpo {} e non deve restituire nulla (void).
+// Parte 3: Le Sottoclassi Reali (CreditCard e PayPal)
+// Crea due classi che estendono la classe astratta PaymentMethod:
+// CreditCardPayment:
+// Deve implementare il metodo astratto processPayment().
+// Il metodo deve stampare in console: "Processing Credit Card payment of €[amount]...".
+// PayPalPayment:
+// Deve implementare il metodo astratto processPayment().
+// Il metodo deve stampare in console: "Redirecting to PayPal for the amount of €[amount]...".
+var CurrencyConverter = /** @class */ (function () {
+    function CurrencyConverter() {
+    }
+    CurrencyConverter.convertToEur = function (amountInUsd) {
+        return amountInUsd * this.USD_TO_EUR;
+    };
+    CurrencyConverter.USD_TO_EUR = 0.92;
+    return CurrencyConverter;
+}());
+var converter01 = CurrencyConverter.convertToEur(90);
+console.log(converter01);
