@@ -144,6 +144,41 @@ abstract class PaymentMethod {
   public abstract processPayment(): void;
 }
 
+//
+class CreditCardPayment extends PaymentMethod {
+  // In this case 'super' is redundant because there is not new parameters for 'constructor'
+  constructor(amount: number) {
+    super(amount);
+  }
+
+  public processPayment() {
+    console.log(`Processing Credit Card payment of €${this.amount}...`);
+  }
+}
+
+//
+class PayPalPayment extends PaymentMethod {
+  constructor(amount: number) {
+    super(amount);
+  }
+
+  public processPayment() {
+    console.log(`Redirecting to PayPal for the amount of €${this.amount}...`);
+  }
+}
+
 // --
-const converter01 = CurrencyConverter.convertToEur(90);
-console.log(converter01);
+// 1. Testing the Static Class (No "new" constructor)
+const usdAmount = 100;
+const eurAmount = CurrencyConverter.convertToEur(usdAmount);
+console.log(eurAmount); // Expected: 92
+
+// 2. Testing the Abstract Class and Inheritance
+// const test = new PaymentMethod(50); // ❌ This should throw an error if uncommented!
+
+const card = new CreditCardPayment(eurAmount);
+card.processPayment(); // Expected: "Processing Credit Card payment of €92..."
+card.printReceipt(); // Expected: "Receipt printed for the amount of €92"
+
+const paypal = new PayPalPayment(150);
+paypal.processPayment(); // Expected: "Redirecting to PayPal for the amount of €150..."

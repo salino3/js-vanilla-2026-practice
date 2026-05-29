@@ -1,5 +1,20 @@
 // Richieste della classe:
 // Nome della classe: Spaceship
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 // Proprietà private:
 // _name (una stringa con il nome della nave).
 // _fuel (un numero che rappresenta la percentuale di carburante rimasta, parte da 100).
@@ -115,6 +130,38 @@ var PaymentMethod = /** @class */ (function () {
     };
     return PaymentMethod;
 }());
+//
+var CreditCardPayment = /** @class */ (function (_super) {
+    __extends(CreditCardPayment, _super);
+    // In this case 'super' is redundant because there is not new parameters for 'constructor'
+    function CreditCardPayment(amount) {
+        return _super.call(this, amount) || this;
+    }
+    CreditCardPayment.prototype.processPayment = function () {
+        console.log("Processing Credit Card payment of \u20AC".concat(this.amount, "..."));
+    };
+    return CreditCardPayment;
+}(PaymentMethod));
+//
+var PayPalPayment = /** @class */ (function (_super) {
+    __extends(PayPalPayment, _super);
+    function PayPalPayment(amount) {
+        return _super.call(this, amount) || this;
+    }
+    PayPalPayment.prototype.processPayment = function () {
+        console.log("Redirecting to PayPal for the amount of \u20AC".concat(this.amount, "..."));
+    };
+    return PayPalPayment;
+}(PaymentMethod));
 // --
-var converter01 = CurrencyConverter.convertToEur(90);
-console.log(converter01);
+// 1. Testing the Static Class (No "new" constructor)
+var usdAmount = 100;
+var eurAmount = CurrencyConverter.convertToEur(usdAmount);
+console.log(eurAmount); // Expected: 92
+// 2. Testing the Abstract Class and Inheritance
+// const test = new PaymentMethod(50); // ❌ This should throw an error if uncommented!
+var card = new CreditCardPayment(eurAmount);
+card.processPayment(); // Expected: "Processing Credit Card payment of €92..."
+card.printReceipt(); // Expected: "Receipt printed for the amount of €92"
+var paypal = new PayPalPayment(150);
+paypal.processPayment(); // Expected: "Redirecting to PayPal for the amount of €150..."
