@@ -124,6 +124,7 @@ console.log("#------------------------");
 class CurrencyConverter {
   public static USD_TO_EUR: number = 0.92;
 
+  // Static methods can not access non-static properties
   public static convertToEur(amountInUsd: number): number {
     return amountInUsd * this.USD_TO_EUR;
   }
@@ -183,3 +184,5 @@ card.printReceipt(); // Expected: "Receipt printed for the amount of €92"
 
 const paypal = new PayPalPayment(150);
 paypal.processPayment(); // Expected: "Redirecting to PayPal for the amount of €150..."
+
+//

@@ -114,6 +114,7 @@ console.log("#------------------------");
 var CurrencyConverter = /** @class */ (function () {
     function CurrencyConverter() {
     }
+    // Static methods can not access non-static properties
     CurrencyConverter.convertToEur = function (amountInUsd) {
         return amountInUsd * this.USD_TO_EUR;
     };
@@ -166,3 +167,4 @@ card.processPayment(); // Expected: "Processing Credit Card payment of €92..."
 card.printReceipt(); // Expected: "Receipt printed for the amount of €92"
 var paypal = new PayPalPayment(150);
 paypal.processPayment(); // Expected: "Redirecting to PayPal for the amount of €150..."
+//
