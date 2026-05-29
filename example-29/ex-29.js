@@ -121,6 +121,7 @@ var CurrencyConverter = /** @class */ (function () {
     return CurrencyConverter;
 }());
 //
+// Abstract class is not possible to inizialize the class with 'new' Class
 var PaymentMethod = /** @class */ (function () {
     function PaymentMethod(initAmount) {
         this.amount = initAmount;

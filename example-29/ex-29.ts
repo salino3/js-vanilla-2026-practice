@@ -130,6 +130,7 @@ class CurrencyConverter {
 }
 
 //
+// Abstract class is not possible to inizialize the class with 'new' Class
 abstract class PaymentMethod {
   protected amount: number;
 
