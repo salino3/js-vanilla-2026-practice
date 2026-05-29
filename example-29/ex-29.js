@@ -105,5 +105,16 @@ var CurrencyConverter = /** @class */ (function () {
     CurrencyConverter.USD_TO_EUR = 0.92;
     return CurrencyConverter;
 }());
+//
+var PaymentMethod = /** @class */ (function () {
+    function PaymentMethod(initAmount) {
+        this.amount = initAmount;
+    }
+    PaymentMethod.prototype.printReceipt = function () {
+        console.log("Receipt printed for the amount of \u20AC".concat(this.amount));
+    };
+    return PaymentMethod;
+}());
+// --
 var converter01 = CurrencyConverter.convertToEur(90);
 console.log(converter01);

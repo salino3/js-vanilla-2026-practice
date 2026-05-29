@@ -129,5 +129,21 @@ class CurrencyConverter {
   }
 }
 
+//
+abstract class PaymentMethod {
+  protected amount: number;
+
+  constructor(initAmount: number) {
+    this.amount = initAmount;
+  }
+
+  public printReceipt() {
+    console.log(`Receipt printed for the amount of €${this.amount}`);
+  }
+
+  public abstract processPayment(): void;
+}
+
+// --
 const converter01 = CurrencyConverter.convertToEur(90);
 console.log(converter01);
