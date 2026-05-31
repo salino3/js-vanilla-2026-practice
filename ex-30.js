@@ -94,9 +94,8 @@ const sectorData = [
 // more than $50,000.
 
 function riskReport(data) {
-  const totalActiveValue = data.map((item) => ({
-    ...item,
-    fleet: item.fleet.map((ship) => ({
+  const totalActiveValue = data.map(({ fleet }) =>
+    fleet.map((ship) => ({
       ...ship,
       cargoHolds: ship.operational
         ? ship.cargoHolds.reduce((acc, el) => {
@@ -109,7 +108,7 @@ function riskReport(data) {
           }, 0)
         : 0,
     })),
-  }));
+  );
 
   return totalActiveValue;
 }
