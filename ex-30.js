@@ -94,21 +94,24 @@ const sectorData = [
 // more than $50,000.
 
 function riskReport(data) {
-  const totalActiveValue = data.map(({ fleet }) =>
-    fleet.map((ship) => ({
-      ...ship,
-      cargoHolds: ship.operational
-        ? ship.cargoHolds.reduce((acc, el) => {
-            const value =
-              el.contents && el.contents.length > 0
-                ? el.contents.reduce((sum, item) => (sum += item.value), 0)
-                : 0;
-            acc += value;
-            return acc;
-          }, 0)
-        : 0,
-    })),
-  );
+  const totalActiveValue = data
+    .map(({ fleet }) =>
+      fleet.map((ship) => ({
+        ...ship,
+        cargoHolds: ship.operational
+          ? ship.cargoHolds.reduce((acc, el) => {
+              const value =
+                el.contents && el.contents.length > 0
+                  ? el.contents.reduce((sum, item) => (sum += item.value), 0)
+                  : 0;
+              acc += value;
+              return acc;
+            }, 0)
+          : 0,
+      })),
+    )
+    .flat(1)
+    .reduce((acc, item) => (acc += item.cargoHolds), 0);
 
   return totalActiveValue;
 }
