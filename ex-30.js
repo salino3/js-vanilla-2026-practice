@@ -92,3 +92,26 @@ const sectorData = [
 
 // Heavy Hitters: Create an array of ship IDs (shipId) that are carrying any single item worth
 // more than $50,000.
+
+function riskReport(data) {
+  const totalActiveValue = data.map((item) => ({
+    ...item,
+    fleet: item.fleet.map((ship) => ({
+      ...ship,
+      cargoHolds: ship.operational
+        ? ship.cargoHolds.reduce((acc, el) => {
+            const value =
+              el.contents && el.contents.length > 0
+                ? el.contents.reduce((sum, item) => (sum += item.value), 0)
+                : 0;
+            acc += value;
+            return acc;
+          }, 0)
+        : 0,
+    })),
+  }));
+
+  return totalActiveValue;
+}
+
+console.log("Task 1:", riskReport(sectorData));
