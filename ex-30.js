@@ -132,6 +132,7 @@ function riskReport(data) {
             if (item.riskLevel === "high") {
               highRiskCargo.push(el2.item);
             }
+            return acc;
           }, []),
         })),
       })),
