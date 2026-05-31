@@ -107,8 +107,7 @@ function riskReport(data) {
                 el.contents && el.contents.length > 0
                   ? el.contents.reduce((sum, item) => (sum += item.value), 0)
                   : 0;
-              acc += value;
-              return acc;
+              return acc + value;
             }, 0)
           : 0,
       })),
