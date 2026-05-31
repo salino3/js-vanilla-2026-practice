@@ -126,7 +126,7 @@ function riskReport(data) {
         cargoHolds: ship.cargoHolds.map((el) => ({
           ...el,
           contents: el.contents.reduce((acc, el2) => {
-            if (el2.value > 5000) {
+            if (el2.value > 50000) {
               heavyHitters.push(ship.shipId);
             }
 
