@@ -94,6 +94,8 @@ const sectorData = [
 // more than $50,000.
 
 function riskReport(data) {
+  const highRiskCargo = [];
+
   const totalActiveValue = data
     .map(({ fleet }) =>
       fleet.map((ship) => ({
@@ -113,7 +115,24 @@ function riskReport(data) {
     .flat(1)
     .reduce((acc, item) => (acc += item.cargoHolds), 0);
 
-  return totalActiveValue;
+  //
+  data
+    .filter((item) => item.riskLevel === "high")
+    .map((item) => ({
+      ...item,
+      fleet: item.fleet.map((ship) => ({
+        ...ship,
+        cargoHolds: ship.cargoHolds.map((el) => ({
+          ...el,
+          contents: el.contents.reduce(
+            (acc, el2) => highRiskCargo.push(el2.item),
+            [],
+          ),
+        })),
+      })),
+    }));
+
+  return { totalActiveValue, highRiskCargo };
 }
 
 console.log("Task 1:", riskReport(sectorData));
