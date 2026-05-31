@@ -95,6 +95,7 @@ const sectorData = [
 
 function riskReport(data) {
   const highRiskCargo = [];
+  const heavyHitters = [];
 
   const totalActiveValue = data
     .map(({ fleet }) =>
@@ -117,22 +118,27 @@ function riskReport(data) {
 
   //
   data
-    .filter((item) => item.riskLevel === "high")
+    // .filter((item) => item.riskLevel === "high")
     .map((item) => ({
       ...item,
       fleet: item.fleet.map((ship) => ({
         ...ship,
         cargoHolds: ship.cargoHolds.map((el) => ({
           ...el,
-          contents: el.contents.reduce(
-            (acc, el2) => highRiskCargo.push(el2.item),
-            [],
-          ),
+          contents: el.contents.reduce((acc, el2) => {
+            if (el2.value > 5000) {
+              heavyHitters.push(ship.shipId);
+            }
+
+            if (item.riskLevel === "high") {
+              highRiskCargo.push(el2.item);
+            }
+          }, []),
         })),
       })),
     }));
 
-  return { totalActiveValue, highRiskCargo };
+  return { totalActiveValue, highRiskCargo, heavyHitters };
 }
 
 console.log("Task 1:", riskReport(sectorData));
