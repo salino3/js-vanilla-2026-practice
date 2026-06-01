@@ -150,3 +150,21 @@ function riskReport(data) {
 }
 
 console.log("Task 1:", riskReport(sectorData));
+
+//
+// Create a 16-byte buffer (a transferable object)
+const originalBuffer = new ArrayBuffer(16);
+
+// It is good to transfer massive data between main-thread and web worker thread.
+// Clone the whole object, but explicitly TRANSFER the buffer
+const clone = structuredClone(
+  { data: originalBuffer },
+  { transfer: [originalBuffer] },
+);
+
+// Checking the results:
+console.log(clone.data.byteLength); // 16 (The clone successfully got it!)
+console.log(originalBuffer.byteLength); // 0 (The original is now empty/detached!)
+
+// Inside the RAM, the data is not recreated. The clone takes over the exact same memory reference
+// (the pointer), while the original completely loses it.
