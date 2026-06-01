@@ -115,6 +115,14 @@ function riskReport(data) {
     .flat(1)
     .reduce((acc, item) => (acc += item.cargoHolds), 0);
 
+  // // Second version 'totalActiveValue'
+  // const totalActiveValue = data
+  //   .flatMap((sector) => sector.fleet) // 1. Get all ships
+  //   .filter((ship) => ship.operational) // 2. Drop non-working ships
+  //   .flatMap((ship) => ship.cargoHolds) // 3. Get all cargo holds
+  //   .flatMap((hold) => hold.contents) // 4. Get all items
+  //   .reduce((sum, item) => sum + item.value, 0); // 5. Sum them up
+
   //
   data
     // .filter((item) => item.riskLevel === "high")
