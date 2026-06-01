@@ -168,3 +168,16 @@ console.log(originalBuffer.byteLength); // 0 (The original is now empty/detached
 
 // Inside the RAM, the data is not recreated. The clone takes over the exact same memory reference
 // (the pointer), while the original completely loses it.
+
+////*
+// React Summary Checklist for immutability object/array data:
+
+// 1. What is it? Immutability means never modifying an existing object/array, but creating a
+// new copy with the changes instead.
+
+// 2. Why React? React uses memory address comparison during React create the new Virtual DOM,
+//  to know when to update the UI.
+//  If you mutate data, the memory address stays the same, React misses the change, and the UI won't update.
+
+// 3. Why not Vanilla? Vanilla JS doesn't automatically watch your data; you update the
+//  DOM manually, so it doesn't rely on memory tracking to render.
