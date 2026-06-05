@@ -181,3 +181,15 @@ console.log(originalBuffer.byteLength); // 0 (The original is now empty/detached
 
 // 3. Why not Vanilla? Vanilla JS doesn't automatically watch your data; you update the
 //  DOM manually, so it doesn't rely on memory tracking to render.
+
+const gato = {
+  name: "Tom",
+};
+gato.name = "Joe";
+
+Object.freeze(gato);
+console.log("Name", gato);
+
+gato.name = "Daivd";
+console.log("Name", gato); // ex-30.js:195 Uncaught TypeError:
+//  Cannot assign to read only property 'name' of object '#<Object>'
