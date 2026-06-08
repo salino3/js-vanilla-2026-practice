@@ -52,7 +52,14 @@ function getTopEarnerInDepartment(networks, departmentName) {
           if (!topEarner || topEarner.salary < worker.salary) {
             topEarner = worker;
           }
-          acc = [...acc, { name: worker.name, salary: worker.salary }];
+          acc = [
+            ...acc,
+            {
+              name: worker.name,
+              salary: worker.salary,
+              company: data.companyName,
+            },
+          ];
         });
       }
     }
@@ -60,7 +67,7 @@ function getTopEarnerInDepartment(networks, departmentName) {
     return acc;
   }, []);
 
-  return result && Array.isArray(result) ? null : { result, topEarner };
+  return result && Array.isArray(result) ? { result, topEarner } : null;
 }
 
 console.log(
