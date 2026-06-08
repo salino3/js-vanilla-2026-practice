@@ -129,7 +129,7 @@ function analyzeCarts(carts) {
 
         acc.list.push(value);
 
-        return (sum += item.price);
+        return sum + item.price;
       }, 0);
 
       return acc;
