@@ -52,14 +52,11 @@ function getTopEarnerInDepartment(networks, departmentName) {
           if (!topEarner || topEarner.salary < worker.salary) {
             topEarner = { ...worker };
           }
-          acc = [
-            ...acc,
-            {
-              name: worker.name,
-              salary: worker.salary,
-              company: data.companyName,
-            },
-          ];
+          acc.push({
+            name: worker.name,
+            salary: worker.salary,
+            company: data.companyName,
+          });
         });
       }
     }
