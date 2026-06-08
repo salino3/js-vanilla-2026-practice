@@ -37,29 +37,21 @@ const corporateNetwork = [
 // If the department doesn't exist anywhere or has no employees, return null.
 
 function getTopEarnerInDepartment(networks, departmentName) {
-  const result = networks.reduce(
-    (acc, data) => {
-      if (!acc.companyName) {
-        acc.companyName = data.companyName;
+  if (!departmentName) {
+    return "Error: You need text a departament name";
+  }
+  const result = networks.reduce((acc, data) => {
+    for (const dep in data.departments) {
+      if (dep === departmentName) {
+        data.departments[dep].map(
+          (worker) =>
+            (acc = [...acc, { name: worker.name, salary: worker.salary }]),
+        );
       }
+    }
 
-      for (const dep in data.departments) {
-        if (dep === departmentName) {
-          console.log("dep", data.departments[dep]);
-          data.departments[dep].map(
-            (worker) =>
-              (acc.workers = [
-                ...acc.workers,
-                { name: worker.name, salary: worker.salary },
-              ]),
-          );
-        }
-      }
-
-      return acc;
-    },
-    { companyName: "", workers: [] },
-  );
+    return acc;
+  }, []);
 
   return result && result.workers && result.workers.length === 0
     ? null
