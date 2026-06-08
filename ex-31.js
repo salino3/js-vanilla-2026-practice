@@ -61,7 +61,9 @@ function getTopEarnerInDepartment(networks, departmentName) {
     { companyName: "", workers: [] },
   );
 
-  return result && result.length === 0 ? null : result;
+  return result && result.workers && result.workers.length === 0
+    ? null
+    : result;
 }
 
 console.log(
