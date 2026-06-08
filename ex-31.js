@@ -71,3 +71,76 @@ console.log(
   "Task 1:",
   getTopEarnerInDepartment(corporateNetwork, "engineering"),
 );
+
+//
+// Your job is to write a function called analyzeCarts(carts) that processes this data and
+// returns a summary.
+
+// Requirements:
+// Calculate the grand total of all items across all carts combined.
+
+// Find the most expensive single item in any cart. (Be sure to copy this object immutably
+//     so it doesn't reference the original array!).
+
+// Generate a combined list of all items being purchased across all carts, but each item in
+// this list needs a new property added to it: belongsTo, which should equal the user's username.
+
+// Keep it Immutable: Do not modify the original carts array or any of the objects inside it.
+
+const userCarts = [
+  {
+    username: "alice99",
+    items: [
+      { name: "Laptop", price: 1200 },
+      { name: "Mouse", price: 25 },
+    ],
+  },
+  {
+    username: "bob_builder",
+    items: [
+      { name: "Smart Watch", price: 300 },
+      { name: "Headphones", price: 150 },
+    ],
+  },
+  {
+    username: "charlie_green",
+    items: [
+      { name: "Desk Lamp", price: 45 },
+      { name: "Premium Chair", price: 450 },
+    ],
+  },
+];
+
+function analyzeCarts(carts) {
+  const result = carts.reduce(
+    (acc, cart) => {
+      acc.grandTotal += cart.items.reduce((sum, item) => {
+        if (
+          Object.keys(acc.mostExpensive).length === 0 ||
+          acc.mostExpensive.price < item.price
+        ) {
+          acc.mostExpensive = { ...item };
+        }
+
+        let value = {
+          belongsTo: cart.username,
+        };
+
+        for (const i in item) {
+          value[i] = item[i];
+        }
+
+        acc.list.push(value);
+
+        return (sum += item.price);
+      }, 0);
+
+      return acc;
+    },
+    { grandTotal: 0, mostExpensive: {}, list: [] },
+  );
+
+  return result;
+}
+
+console.log("Task 2:", analyzeCarts(userCarts));
