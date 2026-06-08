@@ -60,7 +60,7 @@ function getTopEarnerInDepartment(networks, departmentName) {
     return acc;
   }, []);
 
-  return result && result && result.length === 0 ? null : { result, topEarner };
+  return result && Array.isArray(result) ? null : { result, topEarner };
 }
 
 console.log(
