@@ -50,7 +50,7 @@ function getTopEarnerInDepartment(networks, departmentName) {
       if (dep === departmentName) {
         data.departments[dep].map((worker) => {
           if (!topEarner || topEarner.salary < worker.salary) {
-            topEarner = worker;
+            topEarner = { ...worker };
           }
           acc = [
             ...acc,
