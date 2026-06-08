@@ -122,13 +122,10 @@ function analyzeCarts(carts) {
           acc.mostExpensive = { ...item };
         }
 
-        let value = {
+        const value = {
+          ...item,
           belongsTo: cart.username,
         };
-
-        for (const i in item) {
-          value[i] = item[i];
-        }
 
         acc.list.push(value);
 
