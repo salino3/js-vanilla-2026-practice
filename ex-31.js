@@ -36,26 +36,31 @@ const corporateNetwork = [
 
 // If the department doesn't exist anywhere or has no employees, return null.
 
+// Keep a tracker variable outside your loops (like let topEarner = null;) to compare salaries as you find valid employees.
+
 function getTopEarnerInDepartment(networks, departmentName) {
   if (!departmentName) {
     return "Error: You need text a departament name";
   }
+
+  let topEarner = null;
+
   const result = networks.reduce((acc, data) => {
     for (const dep in data.departments) {
       if (dep === departmentName) {
-        data.departments[dep].map(
-          (worker) =>
-            (acc = [...acc, { name: worker.name, salary: worker.salary }]),
-        );
+        data.departments[dep].map((worker) => {
+          if (!topEarner || topEarner.salary < worker.salary) {
+            topEarner = worker;
+          }
+          acc = [...acc, { name: worker.name, salary: worker.salary }];
+        });
       }
     }
 
     return acc;
   }, []);
 
-  return result && result.workers && result.workers.length === 0
-    ? null
-    : result;
+  return result && result && result.length === 0 ? null : { result, topEarner };
 }
 
 console.log(
