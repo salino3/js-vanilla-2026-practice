@@ -195,70 +195,67 @@ const students = [
 // An object containing the average grade for each course.
 
 function generateReport(students) {
-  const reducedStudents = students.reduce(
-    (acc, student) => {
-      //
-      let valuesStudent = new Set(
-        student.courses.reduce((accStudents, course, i, arr) => {
-          if (course.grade > acc.topStudent.grade) {
-            acc.topStudent = {
-              name: student.name,
-              grade: course.grade,
-            };
-          }
+  const report = {
+    passedStudents: [],
+    topStudent: "",
+    averageGrade: 0,
+    courseAverages: {},
+  };
 
-          accStudents.push(course.grade);
+  let highestStudentAverage = -Infinity;
 
-          if (!acc.courseAverages[course.name]) {
-            acc.courseAverages[course.name] = [];
-          }
-          acc.courseAverages[course.name].push(course.grade);
+  let totalGrades = 0;
+  let totalGradesCount = 0;
 
-          if (arr.length - 1 === i) {
-            let value =
-              accStudents.reduce((sum, num) => sum + num, 0) /
-              accStudents.length;
+  const courseTotals = {};
 
-            acc.averageGrade.push(value);
+  students.forEach((student) => {
+    // Calculate student average
+    const studentAverage =
+      student.courses.reduce((sum, course) => sum + course.grade, 0) /
+      student.courses.length;
 
-            return value >= 70 ? [student.name] : [];
-          } else {
-            return accStudents;
-          }
-        }, []),
-      );
+    // Passed students
+    if (studentAverage >= 70) {
+      report.passedStudents.push(student.name);
+    }
 
-      acc.passedStudents = [...acc.passedStudents, ...(valuesStudent ?? [])];
+    // Top student
+    if (studentAverage > highestStudentAverage) {
+      highestStudentAverage = studentAverage;
+      report.topStudent = student.name;
+    }
 
-      return acc;
-    },
-    {
-      passedStudents: [],
-      topStudent: { name: "", grade: 0 },
-      averageGrade: [],
-      courseAverages: {},
-    },
-  );
+    // Overall average and course averages
+    student.courses.forEach((course) => {
+      totalGrades += course.grade;
+      totalGradesCount++;
 
-  for (const item in reducedStudents.courseAverages) {
-    let average =
-      reducedStudents.courseAverages[item].reduce((sum, num) => sum + num, 0) /
-      reducedStudents.courseAverages[item].length;
+      if (!courseTotals[course.name]) {
+        courseTotals[course.name] = {
+          total: 0,
+          count: 0,
+        };
+      }
 
-    reducedStudents.courseAverages[item] = Number(average.toFixed(2));
+      courseTotals[course.name].total += course.grade;
+      courseTotals[course.name].count++;
+    });
+  });
+
+  // Average grade across all grades
+  report.averageGrade = Number((totalGrades / totalGradesCount).toFixed(2));
+
+  // Course averages
+  for (const courseName in courseTotals) {
+    report.courseAverages[courseName] = Number(
+      (courseTotals[courseName].total / courseTotals[courseName].count).toFixed(
+        2,
+      ),
+    );
   }
 
-  return {
-    ...reducedStudents,
-    passedStudents: Array.from(reducedStudents.passedStudents),
-    topStudent: reducedStudents.topStudent.name,
-    averageGrade: Number(
-      (
-        reducedStudents.averageGrade.reduce((sum, num) => sum + num, 0) /
-        reducedStudents.averageGrade.length
-      ).toFixed(2),
-    ),
-  };
+  return report;
 }
 
 console.log("Task 3:", generateReport(students));
