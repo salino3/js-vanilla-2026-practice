@@ -198,9 +198,7 @@ function generateReport(students) {
   const reducedStudents = students.reduce(
     (acc, student) => {
       let valuesStudent = new Set(
-        student.courses.reduce((accStudents, course) => {
-          let value = course.grade >= 70 ? student.name : null;
-
+        student.courses.reduce((accStudents, course, i, arr) => {
           if (course.grade > acc.topStudent.grade) {
             acc.topStudent = {
               name: student.name,
@@ -208,12 +206,20 @@ function generateReport(students) {
             };
           }
 
-          if (value) {
-            accStudents.push(value);
+          accStudents.push(course.grade);
+
+          if (arr.length - 1 === i) {
+            let value =
+              accStudents.reduce((sum, num) => sum + num, 0) /
+              accStudents.length;
+
+            return value >= 70 ? [student.name] : [];
+          } else {
+            return accStudents;
           }
-          return accStudents;
         }, []),
       );
+      console.log("clog2", valuesStudent);
 
       acc.passedStudents = [...acc.passedStudents, ...(valuesStudent ?? [])];
 
@@ -222,7 +228,10 @@ function generateReport(students) {
     {
       passedStudents: [],
       topStudent: { name: "", grade: 0 },
-      averageGrade: null,
+      averageGrade: students.reduce(function (acc, s) {
+        acc[s.name] = 0;
+        return acc;
+      }, {}),
       courseAverages: {},
     },
   );
@@ -230,6 +239,7 @@ function generateReport(students) {
   return {
     ...reducedStudents,
     passedStudents: Array.from(reducedStudents.passedStudents),
+    topStudent: reducedStudents.topStudent.name,
   };
 }
 
