@@ -245,16 +245,19 @@ function generateReport(students) {
       reducedStudents.courseAverages[item].reduce((sum, num) => sum + num, 0) /
       reducedStudents.courseAverages[item].length;
 
-    reducedStudents.courseAverages[item] = average;
+    reducedStudents.courseAverages[item] = Number(average.toFixed(2));
   }
 
   return {
     ...reducedStudents,
     passedStudents: Array.from(reducedStudents.passedStudents),
     topStudent: reducedStudents.topStudent.name,
-    averageGrade:
-      reducedStudents.averageGrade.reduce((sum, num) => sum + num, 0) /
-      reducedStudents.averageGrade.length,
+    averageGrade: Number(
+      (
+        reducedStudents.averageGrade.reduce((sum, num) => sum + num, 0) /
+        reducedStudents.averageGrade.length
+      ).toFixed(2),
+    ),
   };
 }
 
