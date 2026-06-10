@@ -195,7 +195,35 @@ const students = [
 // An object containing the average grade for each course.
 
 function generateReport(students) {
-  return null;
+  const reducedStudents = students.reduce(
+    (acc, student) => {
+      let valuesStudent = new Set(
+        student.courses.reduce((accStudents, course) => {
+          let value = course.grade >= 70 ? student.name : null;
+
+          if (value) {
+            accStudents.push(value);
+          }
+          return accStudents;
+        }, []),
+      );
+
+      acc.passedStudents = [...acc.passedStudents, ...(valuesStudent ?? [])];
+
+      return acc;
+    },
+    {
+      passedStudents: [],
+      topStudent: { name: "", grade: 0 },
+      averageGrade: null,
+      courseAverages: {},
+    },
+  );
+
+  return {
+    ...reducedStudents,
+    passedStudents: Array.from(reducedStudents.passedStudents),
+  };
 }
 
 console.log("Task 3:", generateReport(students));
