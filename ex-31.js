@@ -141,3 +141,61 @@ function analyzeCarts(carts) {
 }
 
 console.log("Task 2:", analyzeCarts(userCarts));
+
+//
+const students = [
+  {
+    id: 1,
+    name: "Alice",
+    courses: [
+      { name: "Math", grade: 85 },
+      { name: "Biology", grade: 92 },
+      { name: "History", grade: 78 },
+    ],
+  },
+  {
+    id: 2,
+    name: "Bob",
+    courses: [
+      { name: "Math", grade: 58 },
+      { name: "Biology", grade: 64 },
+      { name: "History", grade: 72 },
+    ],
+  },
+  {
+    id: 3,
+    name: "Charlie",
+    courses: [
+      { name: "Math", grade: 95 },
+      { name: "Biology", grade: 88 },
+      { name: "History", grade: 91 },
+    ],
+  },
+  {
+    id: 4,
+    name: "Diana",
+    courses: [
+      { name: "Math", grade: 70 },
+      { name: "Biology", grade: 45 },
+      { name: "History", grade: 60 },
+    ],
+  },
+];
+
+// passedStudents
+// An array containing the names of students whose average grade is at least 70.
+
+// topStudent
+// The name of the student with the highest average grade.
+
+// averageGrade
+// The average grade considering all grades from all students and all courses.
+
+// courseAverages
+// An object containing the average grade for each course.
+
+function generateReport(students) {
+  return null;
+}
+
+console.log("Task 3:", generateReport(students));
