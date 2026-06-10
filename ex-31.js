@@ -201,6 +201,13 @@ function generateReport(students) {
         student.courses.reduce((accStudents, course) => {
           let value = course.grade >= 70 ? student.name : null;
 
+          if (course.grade > acc.topStudent.grade) {
+            acc.topStudent = {
+              name: student.name,
+              grade: course.grade,
+            };
+          }
+
           if (value) {
             accStudents.push(value);
           }
