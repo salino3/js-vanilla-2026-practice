@@ -197,6 +197,7 @@ const students = [
 function generateReport(students) {
   const reducedStudents = students.reduce(
     (acc, student) => {
+      //
       let valuesStudent = new Set(
         student.courses.reduce((accStudents, course, i, arr) => {
           if (course.grade > acc.topStudent.grade) {
@@ -208,10 +209,17 @@ function generateReport(students) {
 
           accStudents.push(course.grade);
 
+          if (!acc.courseAverages[course.name]) {
+            acc.courseAverages[course.name] = [];
+          }
+          acc.courseAverages[course.name].push(course.grade);
+
           if (arr.length - 1 === i) {
             let value =
               accStudents.reduce((sum, num) => sum + num, 0) /
               accStudents.length;
+
+            acc.averageGrade.push(value);
 
             return value >= 70 ? [student.name] : [];
           } else {
@@ -219,7 +227,6 @@ function generateReport(students) {
           }
         }, []),
       );
-      console.log("clog2", valuesStudent);
 
       acc.passedStudents = [...acc.passedStudents, ...(valuesStudent ?? [])];
 
@@ -228,18 +235,26 @@ function generateReport(students) {
     {
       passedStudents: [],
       topStudent: { name: "", grade: 0 },
-      averageGrade: students.reduce(function (acc, s) {
-        acc[s.name] = 0;
-        return acc;
-      }, {}),
+      averageGrade: [],
       courseAverages: {},
     },
   );
+
+  for (const item in reducedStudents.courseAverages) {
+    let average =
+      reducedStudents.courseAverages[item].reduce((sum, num) => sum + num, 0) /
+      reducedStudents.courseAverages[item].length;
+
+    reducedStudents.courseAverages[item] = average;
+  }
 
   return {
     ...reducedStudents,
     passedStudents: Array.from(reducedStudents.passedStudents),
     topStudent: reducedStudents.topStudent.name,
+    averageGrade:
+      reducedStudents.averageGrade.reduce((sum, num) => sum + num, 0) /
+      reducedStudents.averageGrade.length,
   };
 }
 
