@@ -50,4 +50,30 @@ function countdown(n) {
   countdown(n - 1);
 }
 
-console.log("Task 2:", countdown(5));
+console.log("Task 2:");
+countdown(5);
+
+//
+// Write a recursive function called sumArray that takes an array of numbers and returns
+//  the total sum of all the numbers in the array.
+
+// Rules
+// You cannot use for or while loops.
+
+// You cannot use the built-in .reduce() method.
+
+// You must use recursion.
+
+function sumArray(arr) {
+  if (arr.length === 0) {
+    return 0;
+  }
+
+  if (arr.length === 1) {
+    return arr[0];
+  }
+
+  return arr[0] + sumArray(arr.slice(1));
+}
+
+console.log("Task 3:", sumArray([1, 2, 3, 4]));
