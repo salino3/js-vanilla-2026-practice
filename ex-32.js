@@ -64,6 +64,8 @@ countdown(5);
 
 // You must use recursion.
 
+// Base case: If empty, return 0
+
 function sumArray(arr) {
   if (arr.length === 0) {
     return 0;
@@ -77,3 +79,26 @@ function sumArray(arr) {
 }
 
 console.log("Task 3:", sumArray([1, 2, 3, 4]));
+
+//
+// Write a recursive function called reverseString that takes a string and returns
+// a new string with the characters in reverse order.
+
+// 1. Base Case: If the string is empty, return ""
+
+// 2. Recursive Step: How can you take the first character
+//    and put it at the END of the remaining reversed string?
+
+function reverseString(str) {
+  if (!str || str.length === 0) {
+    return "";
+  }
+
+  if (str.length === 1) {
+    return str[0];
+  }
+
+  return reverseString(str.slice(1)) + str.charAt(0);
+}
+
+console.log("Task 4:", reverseString("hello"));
