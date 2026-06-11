@@ -29,3 +29,25 @@ function lengthOfLongestSubstring(s) {
 }
 
 console.log("Task 1:", lengthOfLongestSubstring("abcgangolb"));
+
+//
+// Write a recursive function called countdown that takes a positive integer n. The function should
+//  log the numbers from n down to 1 to the console, and then log "Liftoff!" at the very end.
+
+// 1. Base Case: If n is 0, print "Liftoff!" and exit the function
+
+// 2. Action: Print the current number n
+
+// 3. Recursive Step: Call countdown again with n - 1
+
+function countdown(n) {
+  if (n <= 0) {
+    console.log("Liftoff!");
+    return;
+  }
+  console.log("N:", n);
+
+  countdown(n - 1);
+}
+
+console.log("Task 2:", countdown(5));
