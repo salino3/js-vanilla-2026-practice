@@ -16,7 +16,6 @@ function lengthOfLongestSubstring(s) {
 
   for (let right = 0; right < s.length; right++) {
     while (charSet.has(s[right])) {
-      console.log(s[left]);
       charSet.delete(s[left]);
       left++;
     }
