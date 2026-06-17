@@ -102,3 +102,38 @@ function reverseString(str) {
 }
 
 console.log("Task 4:", reverseString("hello"));
+
+//
+// Your task is to write a generator function that loops through a paginated data structure and
+// yields individual items.
+
+// The Mock Data
+// Here is the data structure your generator will walk through:
+
+const userData = [
+  { page: 1, items: ["Alice", "Bob", "Charlie"] },
+  { page: 2, items: ["David", "Eve", "Frank"] },
+  { page: 3, items: ["Grace", "Heidi", "Ivan"] },
+];
+
+// Your Instructions
+// Write a generator function named streamUsers(pages).
+
+// It should accept the userData array as an argument.
+
+// It should loop through each page, and then loop through each item in that page's items array.
+
+// It must yield each individual name one by one.
+
+function* streamUsers(pages) {
+  for (let i = 0; i < pages.length; i++) {
+    yield pages[i];
+  }
+}
+
+const userGen = streamUsers(userData);
+
+console.log("Task 5:", userGen.next().value);
+console.log("Task 5:", userGen.next().value);
+console.log("Task 5:", userGen.next().value);
+console.log("Task 5:", userGen.next().done);
