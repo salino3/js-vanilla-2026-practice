@@ -137,3 +137,29 @@ console.log("Task 5:", userGen.next().value);
 console.log("Task 5:", userGen.next().value);
 console.log("Task 5:", userGen.next().value);
 console.log("Task 5:", userGen.next().done);
+
+//
+function* scoreTracker() {
+  let score = 0;
+
+  while (true) {
+    // 1. Yield the current score and pause.
+    // 2. When next(val) is called, the passed value is assigned to 'bonus'.
+    let bonus = yield score;
+
+    // If a bonus was passed, add it. Otherwise, add 1.
+    if (bonus !== undefined) {
+      score += bonus;
+    } else {
+      score += 1;
+    }
+  }
+}
+
+const game = scoreTracker();
+
+console.log(game.next().value); // 0  (Starts generator, pauses at 'yield score')
+console.log(game.next().value); // 1  (No bonus, adds 1)
+console.log(game.next().value); // 2  (No bonus, adds 1)
+console.log(game.next(10).value); // 12 (bonus is 10, adds 10 to 2)
+console.log(game.next().value); // 13 (No bonus, adds 1)
