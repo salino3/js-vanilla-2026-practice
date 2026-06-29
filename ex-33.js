@@ -5,19 +5,17 @@
 // Strings passed in will consist of only letters and spaces. Spaces will be included
 //  only when more than one word is present.
 
+const reveredString = (s) => s.split("").reverse().join("");
+
 function spinWords(text) {
   const words = text
     .replace("", "")
     .split(/\s/g)
-    .reduce((acc, word) => {
-      if (word.length > 4) {
-        acc += " " + word.split("").reverse().join("");
-      } else {
-        acc += " " + word;
-      }
-
-      return acc;
-    }, "");
+    .reduce(
+      (acc, word) =>
+        (acc += ` ${word.length > 4 ? reveredString(word) : word}`),
+      "",
+    );
 
   return words;
 }
