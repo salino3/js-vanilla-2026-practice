@@ -7,7 +7,12 @@
 // Case sensitivity matters (e.g., 'a' and 'A' are considered different characters).
 
 function firstNonRepeatingChar(str) {
-  // Your code here
+  const words = str.split("");
+  const strReduced = words.reduce((acc, word) => {
+    console.log("clog1", word);
+    return acc;
+  });
+  return strReduced;
 }
 
 // Tests
