@@ -1,6 +1,7 @@
 // 🏋️ Exercise: "First Non-Repeating Character"
 // Write a function named firstNonRepeatingChar that takes a string as input and
-// returns the first character that does not repeat consecutively anywhere in the string.
+// scan the string from left to right, and return the very FIRST letter that does
+// not appear anywhere else in the string
 
 // If every character repeats, return null.
 
@@ -15,11 +16,7 @@ function firstNonRepeatingChar(str) {
 
   // Loop through 'str' in its original left-to-right order
   for (const char of str) {
-    console.log(charCounts);
-
     if (charCounts[char] === 1) {
-      console.log(char);
-
       return char;
     }
   }
@@ -27,8 +24,18 @@ function firstNonRepeatingChar(str) {
   return null;
 }
 
+// Version 2
+function firstNonRepeatingChar02(str) {
+  for (const char of str) {
+    if (str.indexOf(char) === str.lastIndexOf(char)) {
+      return char;
+    }
+  }
+  return null;
+}
+
 // Tests
 console.log(firstNonRepeatingChar("leetcode")); // Expected: "l"
-console.log(firstNonRepeatingChar("loveleetcode")); // Expected: "v"
+console.log(firstNonRepeatingChar02("loveleetcode")); // Expected: "v"
 console.log(firstNonRepeatingChar("aabbcc")); // Expected: null
-console.log(firstNonRepeatingChar("abcdefg")); // Expected: "g"
+console.log(firstNonRepeatingChar("abcdefg")); // Expected: "a"
