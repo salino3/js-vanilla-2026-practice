@@ -7,12 +7,35 @@
 // Case sensitivity matters (e.g., 'a' and 'A' are considered different characters).
 
 function firstNonRepeatingChar(str) {
-  const words = str.split("");
-  const strReduced = words.reduce((acc, word) => {
-    console.log("clog1", word);
-    return acc;
-  });
-  return strReduced;
+  if (str[0] === str[1]) {
+    return null;
+  }
+  let result = "";
+  const letters = str.split("");
+
+  const checkRepetedLetter = letters
+    .filter((letter, index) => letters.indexOf(letter) !== index)
+    .filter((ltr, idx, arr) => arr.indexOf(ltr) != idx);
+
+  console.log(checkRepetedLetter);
+
+  try {
+    letters.forEach((el) => {
+      console.log("clog1", el);
+      if (checkRepetedLetter.includes(el)) {
+        console.log("clog2", el);
+        throw new Error("Oops! Stopping the loop.");
+      } else {
+        console.log("clog3", el);
+
+        result = el;
+      }
+    });
+  } catch (error) {
+    console.log("Caught an error:", error.message);
+  }
+  console.log("---------------------------------------------");
+  return result;
 }
 
 // Tests
