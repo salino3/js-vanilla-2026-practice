@@ -17,24 +17,18 @@ function firstNonRepeatingChar(str) {
     .filter((letter, index) => letters.indexOf(letter) !== index)
     .filter((ltr, idx, arr) => arr.indexOf(ltr) != idx);
 
-  console.log(checkRepetedLetter);
-
   try {
     letters.forEach((el) => {
-      console.log("clog1", el);
       if (checkRepetedLetter.includes(el)) {
-        console.log("clog2", el);
-        throw new Error("Oops! Stopping the loop.");
+        throw new Error("Stopping the loop.");
       } else {
-        console.log("clog3", el);
-
         result = el;
       }
     });
   } catch (error) {
-    console.log("Caught an error:", error.message);
+    console.info("Caughted:", error.message);
   }
-  console.log("---------------------------------------------");
+
   return result;
 }
 
@@ -42,3 +36,4 @@ function firstNonRepeatingChar(str) {
 console.log(firstNonRepeatingChar("leetcode")); // Expected: "l"
 console.log(firstNonRepeatingChar("loveleetcode")); // Expected: "v"
 console.log(firstNonRepeatingChar("aabbcc")); // Expected: null
+console.log(firstNonRepeatingChar("abcdefg")); // Expected: "g"
