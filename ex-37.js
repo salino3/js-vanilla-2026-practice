@@ -78,7 +78,30 @@ const storeData = [
 // Sort the Results: The final array must be sorted in descending order based on their totalSpend.
 
 function findVIPs(data, minSpend) {
-  // Your code here
+  const allCustomers = data.flatMap((branch) =>
+    branch.customers.map((customer) => {
+      // Calculate total spend across all orders and all items for this customer
+      const totalSpend = customer.orders.reduce((orderAcc, order) => {
+        const orderTotal = order.items.reduce(
+          (itemAcc, item) => itemAcc + item.quantity * item.pricePerUnit,
+          0,
+        );
+        return orderAcc + orderTotal;
+      }, 0);
+
+      // Return a brand-new object with only the required fields
+      // and respect React immutability
+      return {
+        name: customer.name,
+        tier: customer.tier,
+        totalSpend: Number(totalSpend.toFixed(2)),
+      };
+    }),
+  );
+
+  return allCustomers
+    .filter((customer) => customer.totalSpend >= minSpend)
+    .sort((a, b) => b.totalSpend - a.totalSpend);
 }
 
 console.log("Task 1", findVIPs(storeData, 100));
