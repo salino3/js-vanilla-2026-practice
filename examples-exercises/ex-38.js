@@ -10,7 +10,19 @@
 function countWords(str) {
   const strings = str.split(" ");
 
-  return strings;
+  const reducedStrings = strings.reduce((acc, word) => {
+    const normalizedWord = word.toLowerCase();
+
+    if (acc[normalizedWord]) {
+      acc[normalizedWord] = acc[normalizedWord] + 1;
+    } else {
+      acc[normalizedWord] = 1;
+    }
+
+    return acc;
+  }, {});
+
+  return reducedStrings;
 }
 
 const string = "The quick brown fox jumps over the lazy dog!";
