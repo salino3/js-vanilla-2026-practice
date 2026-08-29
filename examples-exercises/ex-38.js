@@ -103,11 +103,9 @@ function flattenArray(arr) {
     return arr.flat(Infinity);
   }
 
-  const x = recursiveMap(arr);
+  const result = recursiveMap(arr);
 
-  console.log("clog4", x[x.length - 1]);
-
-  return arr;
+  return result[result.length - 1];
 }
 
 console.log("Task 3:", flattenArray(input_02));
