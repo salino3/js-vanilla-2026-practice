@@ -57,7 +57,7 @@ function groupAnagrams(words) {
     return acc;
   }, {});
 
-  return reducedWords;
+  return Object.values(reducedWords);
 }
 
 const input = ["eat", "tea", "tan", "ate", "nat", "bat"];
