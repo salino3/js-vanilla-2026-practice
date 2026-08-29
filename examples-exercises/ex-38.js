@@ -20,11 +20,7 @@ function countWords(str) {
     .split(" ");
 
   const reducedStrings = stringsNormalized.reduce((acc, word) => {
-    if (acc[word]) {
-      acc[word] = acc[word] + 1;
-    } else {
-      acc[word] = 1;
-    }
+    acc[word] = (acc[word] ?? 0) + 1;
 
     return acc;
   }, {});
