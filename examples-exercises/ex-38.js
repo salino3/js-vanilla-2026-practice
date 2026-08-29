@@ -47,7 +47,7 @@ function groupAnagrams(words) {
   if (words.length === 0) return [];
 
   const reducedWords = words.reduce((acc, word) => {
-    const x = word.split("").sort().join("");
+    const x = word.split("").sort().join("").toLowerCase();
 
     if (acc[x]) {
       acc[x].push(word);
