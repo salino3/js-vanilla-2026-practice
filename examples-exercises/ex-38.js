@@ -9,15 +9,15 @@
 
 function countWords(str) {
   const regex = /[^\w\s]/gi;
-  const newString = str
+
+  const stringsNormalized = str
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(regex, "")
-    .toLowerCase();
+    .toLowerCase()
+    .split(" ");
 
-  const strings = newString.split(" ");
-
-  const reducedStrings = strings.reduce((acc, word) => {
+  const reducedStrings = stringsNormalized.reduce((acc, word) => {
     const normalizedWord = word;
 
     if (acc[normalizedWord]) {
