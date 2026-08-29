@@ -82,9 +82,21 @@ console.log("Task 2:", groupAnagrams(input));
 const input_02 = [1, [2, [3, 4], 5], 6, [7]];
 
 function flattenArray(arr) {
-  if (arr.some((subArray) => subArray.length > 0)) return arr;
+  if (!arr.some((subArray) => Array.isArray(subArray) && subArray.length > 0))
+    // For nested empty arrays
+    return arr.flat(Infinity);
 
-  return arr.flat(Infinity);
+  const x = arr.map((item) => {
+    if (Array.isArray(item)) {
+      return item.map((nestedItem) => nestedItem);
+    } else {
+      return item;
+    }
+  });
+
+  console.log("clog4", x);
+
+  return arr;
 }
 
 console.log("Task 3:", flattenArray(input_02));
