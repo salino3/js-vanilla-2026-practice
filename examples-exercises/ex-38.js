@@ -17,7 +17,7 @@ function countWords(str) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(regex, "")
     .toLowerCase()
-    .split(" ");
+    .split(/\s+/);
 
   const reducedStrings = stringsNormalized.reduce((acc, word) => {
     acc[word] = (acc[word] ?? 0) + 1;
@@ -28,6 +28,6 @@ function countWords(str) {
   return reducedStrings;
 }
 
-const string = "    ";
+const string = "The quick brown fox      fóx jumps over the lazy dog!";
 
 console.log("Task 1:", countWords(string));
