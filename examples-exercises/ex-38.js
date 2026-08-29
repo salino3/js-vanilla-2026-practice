@@ -79,22 +79,33 @@ console.log("Task 2:", groupAnagrams(input));
 // If given an empty array or non-nested array, return the expected flattened
 //  result without mutating the original input.
 
-const input_02 = [1, [2, [3, 4], 5], 6, [7]];
+const input_02 = [1, [2, [3, 4], "h", 5], 6, [7]];
+
+function recursiveMap(array, result = []) {
+  if (!Array.isArray(array)) {
+    result.push(array);
+    return;
+  }
+
+  if (Array.isArray(array)) {
+    if (array.length > 1) {
+      return array.map((nestedArray) => recursiveMap(nestedArray, result));
+    } else {
+      result.push(array[0]);
+      return result;
+    }
+  }
+}
 
 function flattenArray(arr) {
-  if (!arr.some((subArray) => Array.isArray(subArray) && subArray.length > 0))
+  if (!arr.some((subArray) => Array.isArray(subArray) && subArray.length > 0)) {
     // For nested empty arrays
     return arr.flat(Infinity);
+  }
 
-  const x = arr.map((item) => {
-    if (Array.isArray(item)) {
-      return item.map((nestedItem) => nestedItem);
-    } else {
-      return item;
-    }
-  });
+  const x = recursiveMap(arr);
 
-  console.log("clog4", x);
+  console.log("clog4", x[x.length - 1]);
 
   return arr;
 }
