@@ -47,13 +47,13 @@ function groupAnagrams(words) {
   if (words.length === 0) return [];
 
   const reducedWords = words.reduce((acc, word) => {
-    const x = word.toLowerCase().split("").sort().join("");
+    const keyWord = word.toLowerCase().split("").sort().join("");
 
-    if (acc[x]) {
-      acc[x].push(word);
+    if (acc[keyWord]) {
+      acc[keyWord].push(word);
     } else {
-      acc[x] = [];
-      acc[x].push(word);
+      acc[keyWord] = [];
+      acc[keyWord].push(word);
     }
 
     return acc;
