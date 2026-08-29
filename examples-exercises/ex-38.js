@@ -65,3 +65,24 @@ function groupAnagrams(words) {
 const input = ["eat", "tea", "tan", "ate", "nat", "bat"];
 
 console.log("Task 2:", groupAnagrams(input));
+
+// Write a function flattenArray(arr) that takes a nested array of arbitrary depth
+// and flattens it into a single one-dimensional array.
+
+// Requirements
+// Do not use JavaScript's built-in Array.prototype.flat() or Array.prototype.flatMap().
+
+// The input array can contain numbers, strings, or other deeply nested arrays.
+
+// The original order of elements must be preserved.
+
+// If given an empty array or non-nested array, return the expected flattened
+//  result without mutating the original input.
+
+const input_02 = [1, [2, [3, 4], 5], 6, [7]];
+
+function flattenArray(arr) {
+  // Your code here
+}
+
+console.log("Task 3:", flattenArray(input_02));
