@@ -8,10 +8,17 @@
 // Ignore whitespace.
 
 function countWords(str) {
-  const strings = str.split(" ");
+  const regex = /[^\w\s]/gi;
+  const newString = str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(regex, "")
+    .toLowerCase();
+
+  const strings = newString.split(" ");
 
   const reducedStrings = strings.reduce((acc, word) => {
-    const normalizedWord = word.toLowerCase();
+    const normalizedWord = word;
 
     if (acc[normalizedWord]) {
       acc[normalizedWord] = acc[normalizedWord] + 1;
@@ -25,6 +32,6 @@ function countWords(str) {
   return reducedStrings;
 }
 
-const string = "The quick brown fox jumps over the lazy dog!";
+const string = "The quick brown fox fóx jumps over the lazy dog!";
 
 console.log("Task 1:", countWords(string));
