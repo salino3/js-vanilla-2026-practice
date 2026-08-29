@@ -82,7 +82,9 @@ console.log("Task 2:", groupAnagrams(input));
 const input_02 = [1, [2, [3, 4], 5], 6, [7]];
 
 function flattenArray(arr) {
-  // Your code here
+  if (arr.some((subArray) => subArray.length > 0)) return arr;
+
+  return arr.flat(Infinity);
 }
 
 console.log("Task 3:", flattenArray(input_02));
