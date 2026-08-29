@@ -31,3 +31,22 @@ function countWords(str) {
 const string = "The quick brown fox      fóx jumps over the lazy dog!";
 
 console.log("Task 1:", countWords(string));
+
+// Write a function groupAnagrams(words) that takes an array of strings and groups all words that are
+//  anagrams of each other together into sub-arrays.
+
+// An anagram is a word formed by rearranging the letters of another word (e.g., "listen" and "silent").
+
+// The order of the output groups or the words within each group does not matter.
+
+// Case sensitivity should be ignored for matching, but preserve standard lowercase output.
+
+// If given an empty array, return an empty array [].
+
+function groupAnagrams(words) {
+  // Your code here
+}
+
+const input = ["eat", "tea", "tan", "ate", "nat", "bat"];
+
+console.log("Task 2:", groupAnagrams(input));
