@@ -8,7 +8,7 @@
 // Ignore whitespace.
 
 function countWords(str) {
-  if (!str) return null;
+  if (!str.trim()) return null;
 
   const regex = /[^\w\s]/gi;
 
@@ -28,6 +28,6 @@ function countWords(str) {
   return reducedStrings;
 }
 
-const string = "The quick brown fox fóx jumps over the lazy dog!";
+const string = "    ";
 
 console.log("Task 1:", countWords(string));
