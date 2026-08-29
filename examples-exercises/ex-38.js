@@ -44,6 +44,8 @@ console.log("Task 1:", countWords(string));
 // If given an empty array, return an empty array [].
 
 function groupAnagrams(words) {
+  if (words.lenght === 0) return [];
+
   const reducedWords = words.reduce((acc, word) => {
     const x = word.split("").sort().join("");
 
