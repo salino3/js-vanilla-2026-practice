@@ -8,6 +8,8 @@
 // Ignore whitespace.
 
 function countWords(str) {
+  if (!str) return null;
+
   const regex = /[^\w\s]/gi;
 
   const stringsNormalized = str
