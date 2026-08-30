@@ -164,6 +164,7 @@ function twoSumV02(nums, target) {
 console.log("Task 5:", twoSum([2, 1, 7, 11, 2, 15], 9));
 console.log("Task 5 V2:", twoSumV02([1, 2, 7, 11, 2, 15, 1], 9));
 
+console.log("# ----------------------------------------");
 // Write a function chunkArray(array, size) that splits an array into sub-arrays (chunks) of a specified length.
 
 // Requirements
@@ -176,7 +177,15 @@ console.log("Task 5 V2:", twoSumV02([1, 2, 7, 11, 2, 15, 1], 9));
 // If size is less than 1 or array is empty, return an empty array [].
 
 function chunkArray(array, size) {
-  // Your code here
+  if (array.length === 0 || size < 1) return [];
+
+  const result = [];
+
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, size + i));
+  }
+
+  return result;
 }
 
 console.log("Task 6:", chunkArray([1, 2, 3, 4, 5, 6, 7, 8], 3));
