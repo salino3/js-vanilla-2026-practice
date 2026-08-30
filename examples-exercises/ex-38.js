@@ -119,3 +119,26 @@ function isPalindrome(str) {
 }
 
 console.log("Task 4:", isPalindrome("No 'x' in Nixon"));
+
+// Write a function twoSum(nums, target) that finds two numbers in an array that add up to a specific target number and returns their indices.
+// RequirementsReturn an array containing the indices of the two numbers, e.g., [index1, index2].
+// Each input will have exactly one solution, and you may not use the same element twice.
+// You can return the answer in any order.
+// Aim for an optimal solution using a hash map or object ($O(n)$ time complexity) rather than nested loops ($O(n^2)$).
+
+function twoSum(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let x = 1; x < nums.length; x++) {
+      let a = nums[i];
+      let b = nums[x];
+
+      if (a + b === target && i !== x) {
+        return [i, x];
+      }
+    }
+  }
+
+  return false;
+}
+
+console.log("Task 5:", twoSum([1, 2, 7, 11, 2, 15, 1], 9));
