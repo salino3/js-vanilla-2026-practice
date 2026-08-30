@@ -93,3 +93,18 @@ function flattenArray(arr) {
 }
 
 console.log("Task 3:", flattenArray(input_02));
+
+// Write a function isPalindrome(str) that checks whether a given string
+// is a palindrome (reads the same forward and backward).
+
+// Ignore letter casing, punctuation, symbols, and whitespace.
+
+// Return true if the processed string is a palindrome, and false if it is not.
+
+// An empty string or a single-character string should return true.
+
+function isPalindrome(str) {
+  // Your code here
+}
+
+console.log("Task 4:", isPalindrome("No 'x' in Nixon"));
