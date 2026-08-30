@@ -107,16 +107,15 @@ function isPalindrome(str) {
   if (typeof str !== "string") return false;
   if (!str.trim() || str.trim().length === 1) return true;
 
-  const regex = /[^\w\s]/gi;
-
-  const stringNormalized = str
+  const cleanedStr = str
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(regex, "")
-    .replace(/\s/g, "")
+    .replace(/[^a-z0-9]/gi, "")
     .toLowerCase();
 
-  return stringNormalized;
+  if (cleanedStr.length <= 1) return true;
+
+  return cleanedStr === cleanedStr.split("").reverse().join("");
 }
 
-console.log("Task 4:", isPalindrome("Nó 'x' in Nixon"));
+console.log("Task 4:", isPalindrome("No 'x' in Nixon"));
