@@ -113,9 +113,10 @@ function isPalindrome(str) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(regex, "")
+    .replace(/\s/g, "")
     .toLowerCase();
 
   return stringNormalized;
 }
 
-console.log("Task 4:", isPalindrome("No 'x' in Nixon"));
+console.log("Task 4:", isPalindrome("Nó 'x' in Nixon"));
