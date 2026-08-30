@@ -104,7 +104,18 @@ console.log("Task 3:", flattenArray(input_02));
 // An empty string or a single-character string should return true.
 
 function isPalindrome(str) {
-  // Your code here
+  if (typeof str !== "string") return false;
+  if (!str.trim() || str.trim().length === 1) return true;
+
+  const regex = /[^\w\s]/gi;
+
+  const stringNormalized = str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(regex, "")
+    .toLowerCase();
+
+  return stringNormalized;
 }
 
 console.log("Task 4:", isPalindrome("No 'x' in Nixon"));
