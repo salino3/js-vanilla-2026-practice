@@ -158,3 +158,18 @@ console.log(
   "Task 6 V2:",
   findDuplicatesV02([1, 2, 2, 2, 1, 1, 3, 2, 4, 3, 5, 1]),
 );
+
+console.log("# ---------------------------------------------------");
+
+const user1 = { id: 1, name: "Alice" };
+const user1Copy = { id: 1, name: "Alice" };
+
+const userRoles = new Map();
+
+userRoles.set(user1, "Admin");
+
+console.log(userRoles.get(user1)); // Admin (same memory reference)
+console.log(userRoles.get(user1Copy)); // undefined (different memory reference)
+
+userRoles.set(user1Copy, "User");
+console.log(userRoles.get(user1Copy)); // User
