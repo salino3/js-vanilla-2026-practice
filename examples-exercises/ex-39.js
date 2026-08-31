@@ -50,3 +50,18 @@ function isAnagram(str1, str2) {
 }
 
 console.log("Task 2", isAnagram("Ónnroegn  rgeSwino", "ónn roegnrgewinos"));
+
+// Write a function named compressString that takes a string of repeating characters and
+//  returns a run-length compressed version of that string.
+
+// The output string should be formed by each character followed by its count of consecutive repetitions.
+
+// If the compressed string is not shorter than the original string, your function should return the original string.
+
+// The function should be case-sensitive ('a' and 'A' are different characters).
+
+function compressString(str) {
+  // Your code here
+}
+
+console.log("Task 3", compressString("aabcccccaaa"));
