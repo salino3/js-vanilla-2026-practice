@@ -141,6 +141,8 @@ function twoSum(nums, target) {
   return false;
 }
 
+console.log("Task 5:", twoSum([2, 1, 7, 11, 2, 15], 9));
+
 // Version 2
 function twoSumV02(nums, target) {
   const map = new Map(); // Stores number -> index
@@ -161,7 +163,6 @@ function twoSumV02(nums, target) {
   return [];
 }
 
-console.log("Task 5:", twoSum([2, 1, 7, 11, 2, 15], 9));
 console.log("Task 5 V2:", twoSumV02([1, 2, 7, 11, 2, 15, 1], 9));
 
 console.log("# ----------------------------------------");

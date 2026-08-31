@@ -90,3 +90,26 @@ function compressString(str) {
 }
 
 console.log("Task 3", compressString("aaAbcccccaaa"));
+
+// Version 2
+function compressStringV02(str) {
+  if (!str) return str;
+
+  let compressed = "";
+  let count = 1;
+
+  for (let i = 0; i < str.length; i++) {
+    // If next character is igual, increment count
+    if (str[i] === str[i + 1]) {
+      count++;
+    } else {
+      // Otherwise, append character and count, then reset count
+      compressed += str[i] + count;
+      count = 1;
+    }
+  }
+
+  return compressed.length < str.length ? compressed : str;
+}
+
+console.log("Task 5 V2:", compressStringV02("abcd"));
