@@ -27,3 +27,16 @@ function firstNonRepeatingChar(str) {
 }
 
 console.log("Task 1", firstNonRepeatingChar("loveleetcode"));
+
+// Write a function named isAnagram that takes two strings as inputs and returns true if the
+// two strings are anagrams of each other, and false otherwise.
+
+// An anagram is a word formed by rearranging the letters of another word, using all the original letters exactly once.
+
+// The function should ignore spaces, punctuation, and capitalization.
+
+function isAnagram(str1, str2) {
+  // Your code here
+}
+
+console.log("Task 2", isAnagram("nnroegnrgewino", "nnroegnrgewinos"));
