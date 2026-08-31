@@ -60,30 +60,33 @@ console.log("Task 2", isAnagram("Ónnroegn  rgeSwino", "ónn roegnrgewinos"));
 // The function should be case-sensitive ('a' and 'A' are different characters).
 
 function compressString(str) {
-  const result = [];
+  if (!str) return str;
 
-  const reducedStr = str
-    .split("")
+  let result = "";
 
-    .reduce((acc, word) => {
-      console.log("word", word);
-
-      if (acc.length === 0) {
-        acc.push([word]);
-      } else {
-        console.log("clog3", acc);
-
-        if (acc[acc.length - 1][0] && acc[acc.length - 1][0] === word) {
-          acc[acc.length - 1].push(word);
-        } else {
-          acc.push([word]);
-        }
-      }
+  const reducedStr = str.split("").reduce((acc, word) => {
+    if (acc.length === 0) {
+      acc.push([word]);
 
       return acc;
-    }, []);
+    }
 
-  return reducedStr;
+    if (acc[acc.length - 1][0] && acc[acc.length - 1][0] === word) {
+      acc[acc.length - 1].push(word);
+    } else {
+      acc.push([word]);
+    }
+
+    return acc;
+  }, []);
+
+  reducedStr.forEach((arr) => {
+    const value = arr[0] + arr.length;
+
+    result += value;
+  });
+
+  return result.length < str.length ? result : str;
 }
 
 console.log("Task 3", compressString("aaAbcccccaaa"));
