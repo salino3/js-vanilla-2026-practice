@@ -164,7 +164,7 @@ console.log("# ---------------------------------------------------");
 const user1 = { id: 1, name: "Alice" };
 const user1Copy = { id: 1, name: "Alice" };
 
-const userRoles = new Map();
+const userRoles = new Map(); // In this case I can use 'new WeakMap()' because I use objects as keys instead of primitive variables
 
 userRoles.set(user1, "Admin");
 
