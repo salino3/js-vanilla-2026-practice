@@ -136,3 +136,25 @@ function findDuplicates(arr) {
 }
 
 console.log("Task 6:", findDuplicates([1, 2, 2, 2, 1, 1, 3, 2, 4, 3, 5, 1]));
+
+//
+function findDuplicatesV02(arr) {
+  const counts = new Map();
+  const duplicates = [];
+
+  for (const item of arr) {
+    counts.set(item, (counts.get(item) || 0) + 1);
+
+    // Add to duplicates list precisely on the second encounter
+    if (counts.get(item) === 2) {
+      duplicates.push(item);
+    }
+  }
+
+  return duplicates;
+}
+
+console.log(
+  "Task 6 V2:",
+  findDuplicatesV02([1, 2, 2, 2, 1, 1, 3, 2, 4, 3, 5, 1]),
+);
