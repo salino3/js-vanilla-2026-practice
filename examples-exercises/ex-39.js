@@ -113,3 +113,26 @@ function compressStringV02(str) {
 }
 
 console.log("Task 5 V2:", compressStringV02("abcd"));
+
+// Write a function named findDuplicates that takes an array of items (numbers, strings, etc.) and returns an array
+// containing only the elements that appear more than once.
+
+// The returned array should contain each duplicate item only once (no repeated elements in the output).
+
+// The order of items in the output array does not matter.
+
+// If there are no duplicates, return an empty array [].
+
+function findDuplicates(arr) {
+  if (arr.length === 0) return arr;
+  const controllerArr = new Set();
+  const duplacetesItem = new Set();
+
+  arr.forEach((el) =>
+    controllerArr.has(el) ? duplacetesItem.add(el) : controllerArr.add(el),
+  );
+
+  return [...duplacetesItem];
+}
+
+console.log("Task 6:", findDuplicates([1, 2, 2, 2, 1, 1, 3, 2, 4, 3, 5, 1]));
