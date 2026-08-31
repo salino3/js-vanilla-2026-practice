@@ -36,7 +36,25 @@ console.log("Task 1", firstNonRepeatingChar("loveleetcode"));
 // The function should ignore spaces, punctuation, and capitalization.
 
 function isAnagram(str1, str2) {
-  // Your code here
+  const str1_Ordered = str1
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/gi, "")
+    .toLowerCase()
+    .split("")
+    .sort()
+    .join("");
+
+  const str2_Ordered = str2
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/gi, "")
+    .toLowerCase()
+    .split("")
+    .sort()
+    .join("");
+
+  return str1_Ordered === str2_Ordered;
 }
 
-console.log("Task 2", isAnagram("nnroegnrgewino", "nnroegnrgewinos"));
+console.log("Task 2", isAnagram("Ónnroegn  rgeSwino", "ónn roegnrgewinos"));
