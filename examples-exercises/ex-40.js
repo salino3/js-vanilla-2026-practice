@@ -40,3 +40,5 @@ export class Media {
 
 const media1 = new Media("Hola", "Joe", true);
 console.log("clog1", media1.author);
+media1.setAuthor = "Jhonny";
+console.log("clog2", media1.author);
