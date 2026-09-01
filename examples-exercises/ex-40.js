@@ -1,6 +1,6 @@
 export class Media {
-  _title = false;
-  _author = false;
+  _title = "";
+  _author = "";
   #_isCheckedOut = false;
 
   constructor(initTitle = "", initAuthor = "", initIsCheckedOut = false) {
@@ -48,3 +48,12 @@ console.log("media4", media1.getDetails());
 console.log("media5", media1.isCheckedOut);
 media1.toggleCheckOutStatus();
 console.log("media7", media1.isCheckedOut);
+
+export class Book extends Media {
+  _pages = null;
+
+  constructor(initTitle, initAuthor, initIsCheckedOut, initPages) {
+    super(initTitle, initAuthor, initIsCheckedOut);
+    this._pages = initPages;
+  }
+}
