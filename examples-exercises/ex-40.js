@@ -52,8 +52,24 @@ console.log("media7", media1.isCheckedOut);
 export class Book extends Media {
   _pages = null;
 
-  constructor(initTitle, initAuthor, initIsCheckedOut, initPages) {
+  constructor(initTitle, initAuthor, initPages, initIsCheckedOut) {
     super(initTitle, initAuthor, initIsCheckedOut);
     this._pages = initPages;
   }
+
+  get pages() {
+    return this._pages;
+  }
+
+  getDetails() {
+    return `${this._title} by ${this._author} ( ${this._pages} pages ).`;
+  }
 }
+
+const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 310);
+console.log("book1", book1.getDetails());
+
+console.log("book1", book1.isCheckedOut);
+
+book1.toggleCheckOutStatus();
+console.log("book1", book1.isCheckedOut);
