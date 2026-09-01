@@ -3,7 +3,7 @@ export class Media {
   _author = false;
   #_isCheckedOut = false;
 
-  constructor(initTitle, initAuthor, initIsCheckedOut) {
+  constructor(initTitle = "", initAuthor = "", initIsCheckedOut = false) {
     this._title = initTitle;
     this._author = initAuthor;
     this.#_isCheckedOut = initIsCheckedOut;
@@ -26,11 +26,11 @@ export class Media {
   }
 
   get isCheckedOut() {
-    return !!this.#_isCheckedOut;
+    return this.#_isCheckedOut;
   }
 
   toggleCheckOutStatus() {
-    this.#_isCheckedOut = this.isCheckedOut();
+    this.#_isCheckedOut = !this.#_isCheckedOut;
   }
 
   getDetails() {
@@ -38,7 +38,13 @@ export class Media {
   }
 }
 
-const media1 = new Media("Hola", "Joe", true);
+const media1 = new Media("Hola", "Joe");
 console.log("clog1", media1.author);
+console.log("clog2", media1.getDetails());
+
 media1.setAuthor = "Jhonny";
-console.log("clog2", media1.author);
+console.log("clog3", media1.author);
+console.log("clog4", media1.getDetails());
+console.log("clog5", media1.isCheckedOut);
+media1.toggleCheckOutStatus();
+console.log("clog7", media1.isCheckedOut);
