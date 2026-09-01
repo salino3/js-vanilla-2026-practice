@@ -10,11 +10,19 @@ export class Media {
   }
 
   get title() {
-    this._title;
+    return this._title;
+  }
+
+  set setTitle(title) {
+    this._title = title;
   }
 
   get author() {
-    this._author;
+    return this._author;
+  }
+
+  set setAuthor(author) {
+    this._author = author;
   }
 
   get isCheckedOut() {
@@ -29,3 +37,6 @@ export class Media {
     return `${this._title} by ${this._author}.`;
   }
 }
+
+const media1 = new Media("Hola", "Joe", true);
+console.log("clog1", media1.author);
