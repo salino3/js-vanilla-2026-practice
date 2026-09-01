@@ -38,13 +38,13 @@ export class Media {
   }
 }
 
-const media1 = new Media("Hola", "Joe");
-console.log("clog1", media1.author);
-console.log("clog2", media1.getDetails());
+const media1 = new Media("Test Title", "Joe");
+console.log("media1", media1.author);
+console.log("media2", media1.getDetails());
 
 media1.setAuthor = "Jhonny";
-console.log("clog3", media1.author);
-console.log("clog4", media1.getDetails());
-console.log("clog5", media1.isCheckedOut);
+console.log("media3", media1.author);
+console.log("media4", media1.getDetails());
+console.log("media5", media1.isCheckedOut);
 media1.toggleCheckOutStatus();
-console.log("clog7", media1.isCheckedOut);
+console.log("media7", media1.isCheckedOut);
