@@ -1,12 +1,12 @@
 export class Media {
   _title = "";
   _author = "";
-  #_isCheckedOut = false;
+  #isCheckedOut = false;
 
   constructor(initTitle = "", initAuthor = "", initIsCheckedOut = false) {
     this._title = initTitle;
     this._author = initAuthor;
-    this.#_isCheckedOut = initIsCheckedOut;
+    this.#isCheckedOut = initIsCheckedOut;
   }
 
   get title() {
@@ -26,11 +26,11 @@ export class Media {
   }
 
   get isCheckedOut() {
-    return this.#_isCheckedOut;
+    return this.#isCheckedOut;
   }
 
   toggleCheckOutStatus() {
-    this.#_isCheckedOut = !this.#_isCheckedOut;
+    this.#isCheckedOut = !this.#isCheckedOut;
   }
 
   getDetails() {
