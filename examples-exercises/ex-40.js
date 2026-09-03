@@ -144,3 +144,52 @@ function formatSummary(summary) {
 const summary = summarizeCustomerPurchases(orders);
 
 console.log("Task 1:", formatSummary(summary));
+
+// Each department contains nested teams, and each team contains an array of
+// employees with their salary and list of skills.
+// Group by Skill: Iterate through the deeply nested employees and aggregate
+// data for every unique skill.
+
+// Track Count: Count how many total employees possess that skill.
+
+// Calculate Average Salary: Find the average salary of employees who have that skill
+//  (rounded to the nearest whole integer).
+
+// List Employees: Store an array of unique employee names who possess that skill.
+
+//
+const departments = [
+  {
+    departmentName: "Engineering",
+    teams: [
+      {
+        teamName: "Frontend",
+        members: [
+          { name: "Alice", salary: 90000, skills: ["JavaScript", "React"] },
+          { name: "Bob", salary: 80000, skills: ["JavaScript", "CSS"] },
+        ],
+      },
+      {
+        teamName: "Backend",
+        members: [
+          { name: "Charlie", salary: 95000, skills: ["Node.js", "JavaScript"] },
+        ],
+      },
+    ],
+  },
+  {
+    departmentName: "Design",
+    teams: [
+      {
+        teamName: "UI/UX",
+        members: [{ name: "Diana", salary: 85000, skills: ["CSS", "Figma"] }],
+      },
+    ],
+  },
+];
+
+function analyzeDepartmentTalent(departments) {
+  // Your code here
+}
+
+console.log("Task 2:", analyzeDepartmentTalent(departments));
