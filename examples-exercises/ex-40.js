@@ -200,13 +200,20 @@ function analyzeDepartmentTalent(departments) {
 
     acc[obj.departmentName] ??= {
       uniqueSkill: new Set(),
-      totalWorkerSkill: {},
+      workerData: {},
     };
 
     skills.forEach((el) => {
-      console.log(el);
-      acc[obj.departmentName].totalWorkerSkill[el] =
-        (acc[obj.departmentName].totalWorkerSkill[el] ?? 0) + 1;
+      acc[obj.departmentName].workerData[el] = {
+        average: 0,
+        [el]:
+          (acc[obj.departmentName].workerData[el] &&
+          acc[obj.departmentName].workerData[el][el]
+            ? acc[obj.departmentName].workerData[el][el]
+            : 0) + 1,
+      };
+      console.log("clog7", el, acc[obj.departmentName].workerData[el]);
+      //
       acc[obj.departmentName].uniqueSkill.add(el);
     });
 
