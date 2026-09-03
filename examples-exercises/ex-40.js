@@ -189,7 +189,28 @@ const departments = [
 ];
 
 function analyzeDepartmentTalent(departments) {
-  // Your code here
+  const reducedDeps = departments.reduce((acc, obj) => {
+    const skills = obj.teams
+      .map((team) =>
+        team.members.map((member) => member.skills.map((skill) => skill)),
+      )
+      .flat(2);
+
+    console.log("clog4", skills);
+
+    acc[obj.departmentName] ??= {
+      uniqueSkill: new Set(),
+    };
+
+    skills.forEach((el) => {
+      acc[obj.departmentName].uniqueSkill.add(el);
+    });
+
+    console.log("clog5", acc);
+    return acc;
+  }, {});
+
+  return reducedDeps;
 }
 
 console.log("Task 2:", analyzeDepartmentTalent(departments));
