@@ -116,10 +116,8 @@ const orders = [
 
 function summarizeCustomerPurchases(orders) {
   const reducedOrders = orders.reduce((acc, el) => {
-    Array.isArray(acc[el.customerId])
-      ? acc[el.customerId].push(el)
-      : (acc[el.customerId] = [el]);
-
+    acc[el.customerId] ??= [];
+    acc[el.customerId].push(el);
     return acc;
   }, {});
   return reducedOrders;
