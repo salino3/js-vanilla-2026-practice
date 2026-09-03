@@ -172,7 +172,11 @@ const departments = [
       {
         teamName: "Backend",
         members: [
-          { name: "Charlie", salary: 95000, skills: ["Node.js", "JavaScript"] },
+          {
+            name: "Charlie",
+            salary: 95000,
+            skills: ["Node.js", "JavaScript"],
+          },
         ],
       },
     ],
@@ -189,35 +193,61 @@ const departments = [
 ];
 
 function analyzeDepartmentTalent(departments) {
-  const reducedDeps = departments.reduce((acc, obj) => {
-    const skills = obj.teams
+  const reducedDeps = departments.reduce((acc, obj, index, array) => {
+    const memberData = obj.teams
       .map((team) =>
-        team.members.map((member) => member.skills.map((skill) => skill)),
+        team.members.map(({ name, salary, skills }) => ({
+          name,
+          salary,
+          skills,
+        })),
       )
-      .flat(2);
-
-    console.log("clog4", skills);
+      .flat(1);
 
     acc[obj.departmentName] ??= {
       uniqueSkill: new Set(),
       workerData: {},
     };
 
-    skills.forEach((el) => {
-      acc[obj.departmentName].workerData[el] = {
-        average: 0,
-        [el]:
-          (acc[obj.departmentName].workerData[el] &&
-          acc[obj.departmentName].workerData[el][el]
-            ? acc[obj.departmentName].workerData[el][el]
-            : 0) + 1,
-      };
-      console.log("clog7", el, acc[obj.departmentName].workerData[el]);
-      //
-      acc[obj.departmentName].uniqueSkill.add(el);
-    });
+    memberData.forEach((item) =>
+      item.skills.forEach((el, i, arr) => {
+        const newAverage = acc[obj.departmentName].workerData[el]
+          ? acc[obj.departmentName].workerData[el]?.average + item.salary
+          : item.salary;
 
-    console.log("clog5", acc);
+        let numAverage = acc[obj.departmentName].workerData[el]
+          ? acc[obj.departmentName].workerData[el][el] + 1
+          : 1;
+        //
+        acc[obj.departmentName].workerData[el] = {
+          average:
+            arr.length === i + 1
+              ? Number((newAverage / numAverage).toFixed(2))
+              : newAverage,
+          [el]:
+            (acc[obj.departmentName].workerData[el] &&
+            acc[obj.departmentName].workerData[el][el]
+              ? acc[obj.departmentName].workerData[el][el]
+              : 0) + 1,
+          uniqueNameBySkill: [
+            ...new Set([
+              ...(acc[obj.departmentName].workerData[el]?.uniqueNameBySkill ??
+                []),
+              item.name,
+            ]),
+          ],
+        };
+        //
+        acc[obj.departmentName].uniqueSkill.add(el);
+      }),
+    );
+
+    if (array.length === index + 1) {
+      acc[obj.departmentName].uniqueSkill = [
+        ...(acc[obj.departmentName].uniqueSkill ?? []),
+      ];
+    }
+
     return acc;
   }, {});
 
