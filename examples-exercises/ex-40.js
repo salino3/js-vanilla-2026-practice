@@ -115,12 +115,32 @@ const orders = [
 ];
 
 function summarizeCustomerPurchases(orders) {
-  const reducedOrders = orders.reduce((acc, el) => {
-    acc[el.customerId] ??= [];
-    acc[el.customerId].push(el);
+  return orders.reduce((acc, { customerId, customerName, items }) => {
+    acc[customerId] ??= {
+      customerName: customerName,
+      totalSpent: 0,
+      categories: new Set(),
+    };
+
+    items.forEach(({ category, price, quantity }) => {
+      acc[customerId].totalSpent += price * quantity;
+      acc[customerId].categories.add(category);
+    });
+
     return acc;
   }, {});
-  return reducedOrders;
 }
 
-console.log("Task 1:", summarizeCustomerPurchases(orders));
+//
+function formatSummary(summary) {
+  return Object.fromEntries(
+    Object.entries(summary).map(([id, data]) => [
+      id,
+      { ...data, categories: Array.from(data.categories) },
+    ]),
+  );
+}
+
+const summary = summarizeCustomerPurchases(orders);
+
+console.log("Task 1:", formatSummary(summary));
