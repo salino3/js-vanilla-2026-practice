@@ -147,8 +147,8 @@ console.log("Task 1:", formatSummary(summary));
 
 // Each department contains nested teams, and each team contains an array of
 // employees with their salary and list of skills.
-// Group by Skill: Iterate through the deeply nested employees and aggregate
-// data for every unique skill.
+// Group by Skill: Iterate through the deeply nested employees and aggregate data
+// for every unique skill.
 
 // Track Count: Count how many total employees possess that skill.
 
@@ -200,9 +200,13 @@ function analyzeDepartmentTalent(departments) {
 
     acc[obj.departmentName] ??= {
       uniqueSkill: new Set(),
+      totalWorkerSkill: {},
     };
 
     skills.forEach((el) => {
+      console.log(el);
+      acc[obj.departmentName].totalWorkerSkill[el] =
+        (acc[obj.departmentName].totalWorkerSkill[el] ?? 0) + 1;
       acc[obj.departmentName].uniqueSkill.add(el);
     });
 
