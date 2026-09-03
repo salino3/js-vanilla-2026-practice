@@ -255,3 +255,43 @@ function analyzeDepartmentTalent(departments) {
 }
 
 console.log("Task 2:", analyzeDepartmentTalent(departments));
+
+function analyzeDepartmentTalentV2(departments) {
+  const aggregated = {};
+
+  // Step 1: Traverse the nested structure and aggregate
+  for (const dept of departments) {
+    for (const team of dept.teams) {
+      for (const member of team.members) {
+        for (const skill of member.skills) {
+          if (!aggregated[skill]) {
+            aggregated[skill] = {
+              totalSalary: 0,
+              count: 0,
+              employees: new Set(),
+            };
+          }
+
+          aggregated[skill].totalSalary += member.salary;
+          aggregated[skill].count += 1;
+          aggregated[skill].employees.add(member.name);
+        }
+      }
+    }
+  }
+
+  // Step 2: Format final output object
+  const result = {};
+  for (const skill in aggregated) {
+    const data = aggregated[skill];
+    result[skill] = {
+      count: data.count,
+      avgSalary: Math.round(data.totalSalary / data.count),
+      employees: Array.from(data.employees),
+    };
+  }
+
+  return result;
+}
+
+console.log("Task 2 V2:", analyzeDepartmentTalentV2(departments));
