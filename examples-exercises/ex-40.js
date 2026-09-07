@@ -300,21 +300,16 @@ console.log("Task 2 V2:", analyzeDepartmentTalentV2(departments));
 // of values and a target value, and returns the total number of times the target value
 // appears anywhere in the structure.
 
-function countOccurrences(arr, target, result = 0) {
-  result = arr.reduce((acc, item) => {
+function countOccurrences(arr, target) {
+  return arr.reduce((acc, item) => {
     if (Array.isArray(item)) {
-      return countOccurrences(item, target, result);
-    } else {
-      acc += 1;
+      return acc + countOccurrences(item, target);
     }
-
-    return acc;
-  }, result);
-
-  return result;
+    return item === target ? acc + 1 : acc;
+  }, 0);
 }
 
-// console.log("Task 3", countOccurrences([1, [2, [1, 3], 1], 4], 1));
+console.log("Task 3", countOccurrences([1, [2, [1, 3], 1], 4], 1));
 
 console.log(
   "Task 3",
@@ -324,7 +319,7 @@ console.log(
   ),
 );
 
-// console.log(
-//   "Task 3",
-//   countOccurrences([true, [false, [true, true]], true, false], true),
-// );
+console.log(
+  "Task 3",
+  countOccurrences([true, [false, [true, true]], true, false], false),
+);
