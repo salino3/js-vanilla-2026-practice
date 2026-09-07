@@ -319,7 +319,7 @@ function countOccurrences(arr, target, result = 0) {
 console.log(
   "Task 3",
   countOccurrences(
-    ["apple", ["banana", ["apple"]], ["apple"], "orange"],
+    ["apple", ["banana", ["apple"]], "apple", "orange"],
     "apple",
   ),
 );
