@@ -300,19 +300,15 @@ console.log("Task 2 V2:", analyzeDepartmentTalentV2(departments));
 // of values and a target value, and returns the total number of times the target value
 // appears anywhere in the structure.
 
-function countOccurrences(arr) {}
+function countOccurrences(arr, target) {}
 
 console.log("Task 3", countOccurrences([1, [2, [1, 3], 1], 4], 1));
-// Expected output: 3
 
 console.log(
-  "Task 3",
   countOccurrences(["apple", ["banana", ["apple"]], "orange"], "apple"),
 );
-// Expected output: 2
 
 console.log(
   "Task 3",
   countOccurrences([true, [false, [true, true]], false], true),
 );
-// Expected output: 3
