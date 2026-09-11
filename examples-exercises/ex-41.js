@@ -77,14 +77,6 @@ function calculateOrderTotals(inventory, order) {
 
 console.log("Task 1", calculateOrderTotals(inventory, order));
 
-// Write a recursive function calculateDepartmentBudget(node) that returns the grand total budget
-//  of the given department node and all of its descendant sub-departments.
-
-// Handle cases where subDepartments is undefined, null, or an empty array.
-
-// Bonus (optional): Return an object containing both the total budget and a flattened list of
-// all department names included in that total:
-
 const companyStructure = {
   name: "Corporate HQ",
   budget: 50000,
@@ -124,8 +116,40 @@ const companyStructure = {
   ],
 };
 
+// Write a recursive function calculateDepartmentBudget(node) that returns the grand total budget
+//  of the given department node and all of its descendant sub-departments.
+
+// Handle cases where subDepartments is undefined, null, or an empty array.
+
+// Bonus (optional): Return an object containing both the total budget and a flattened list of
+// all department names included in that total:
+
 function calculateDepartmentBudget(node) {
-  return;
+  let reduced;
+  if (node.subDepartments.length > 0) {
+    reduced = node.subDepartments.reduce(
+      (acc, newNode) => {
+        acc = {
+          names: [acc.names, ...[newNode.name]],
+          total: (acc.total += newNode.budget),
+          subDepartments: newNode.subDepartments,
+        };
+        if (newNode?.subDepartments && newNode?.subDepartments.length > 0) {
+          calculateDepartmentBudget(newNode);
+        }
+        console.log("clog3", acc);
+
+        return acc;
+      },
+      {
+        names: [],
+        total: 0,
+        subDepartments: [],
+      },
+    );
+  }
+
+  return reduced;
 }
 
 console.log("Task 2", calculateDepartmentBudget(companyStructure));
