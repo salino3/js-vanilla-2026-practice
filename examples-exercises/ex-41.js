@@ -125,31 +125,22 @@ const companyStructure = {
 // all department names included in that total:
 
 function calculateDepartmentBudget(node) {
-  let reduced;
-  if (node.subDepartments.length > 0) {
-    reduced = node.subDepartments.reduce(
-      (acc, newNode) => {
-        acc = {
-          names: [acc.names, ...[newNode.name]],
-          total: (acc.total += newNode.budget),
-          subDepartments: newNode.subDepartments,
-        };
-        if (newNode?.subDepartments && newNode?.subDepartments.length > 0) {
-          calculateDepartmentBudget(newNode);
-        }
-        console.log("clog3", acc);
+  let totalBudget = node.budget || 0;
+  let departmentList = [node.name];
 
-        return acc;
-      },
-      {
-        names: [],
-        total: 0,
-        subDepartments: [],
-      },
-    );
+  if (Array.isArray(node.subDepartments)) {
+    for (const subDept of node.subDepartments) {
+      const subResult = calculateDepartmentBudget(subDept);
+
+      totalBudget += subResult.totalBudget;
+      departmentList = departmentList.concat(subResult.departmentList);
+    }
   }
 
-  return reduced;
+  return {
+    totalBudget,
+    departmentList,
+  };
 }
 
 console.log("Task 2", calculateDepartmentBudget(companyStructure));
