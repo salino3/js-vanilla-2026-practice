@@ -76,3 +76,56 @@ function calculateOrderTotals(inventory, order) {
 }
 
 console.log("Task 1", calculateOrderTotals(inventory, order));
+
+// Write a recursive function calculateDepartmentBudget(node) that returns the grand total budget
+//  of the given department node and all of its descendant sub-departments.
+
+// Handle cases where subDepartments is undefined, null, or an empty array.
+
+// Bonus (optional): Return an object containing both the total budget and a flattened list of
+// all department names included in that total:
+
+const companyStructure = {
+  name: "Corporate HQ",
+  budget: 50000,
+  subDepartments: [
+    {
+      name: "Engineering",
+      budget: 120000,
+      subDepartments: [
+        {
+          name: "Frontend",
+          budget: 45000,
+          subDepartments: [],
+        },
+        {
+          name: "Backend",
+          budget: 60000,
+          subDepartments: [
+            {
+              name: "DevOps",
+              budget: 30000,
+              // Note: subDepartments key might be omitted or empty on leaf nodes!
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Marketing",
+      budget: 80000,
+      subDepartments: [
+        {
+          name: "Social Media",
+          budget: 25000,
+        },
+      ],
+    },
+  ],
+};
+
+function calculateDepartmentBudget(node) {
+  return;
+}
+
+console.log("Task 2", calculateDepartmentBudget(companyStructure));
