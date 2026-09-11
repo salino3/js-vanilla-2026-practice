@@ -189,14 +189,12 @@ const project = {
 };
 
 function finalCost(node) {
-  let cost = 0;
+  let cost = node.cost || 0;
 
-  if (!node.subTasks || node.subTasks.length === 0) {
-    return cost + node.cost;
-  }
-
-  for (let item of node.subTasks) {
-    cost += finalCost(item);
+  if (node.subTasks && node.subTasks.length > 0) {
+    for (let item of node.subTasks) {
+      cost += finalCost(item);
+    }
   }
 
   return cost;
