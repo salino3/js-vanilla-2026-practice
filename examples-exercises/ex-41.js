@@ -195,7 +195,13 @@ function finalCost(node) {
     return cost + node.cost;
   }
 
+  for (let item of node.subTasks) {
+    cost += finalCost(item);
+  }
+
   return cost;
 }
+
+// Sum all costs
 
 console.log("Final cost:", finalCost(project));
