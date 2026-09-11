@@ -161,3 +161,33 @@ function sommaNestedArray(arr) {
 }
 
 console.log(sommaNestedArray([1, [2, [3, 4], 5], 6]));
+
+//
+const project = {
+  name: "Web Development",
+  cost: 500,
+  subTasks: [
+    {
+      name: "UI/UX Design",
+      cost: 1200,
+      subTasks: [
+        { name: "Wireframes", cost: 300 },
+        { name: "Interactive Prototype", cost: 400 },
+      ],
+    },
+    {
+      name: "Frontend Development",
+      cost: 2000,
+      subTasks: [],
+    },
+    {
+      name: "Backend Development",
+      cost: 1800,
+      subTasks: [{ name: "Database Setup", cost: 600 }],
+    },
+  ],
+};
+
+function finalCost(node) {}
+
+console.log("Final cost:", finalCost(project));
