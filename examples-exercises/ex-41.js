@@ -144,3 +144,20 @@ function calculateDepartmentBudget(node) {
 }
 
 console.log("Task 2", calculateDepartmentBudget(companyStructure));
+
+//
+function sommaNestedArray(arr) {
+  let somma = 0;
+
+  for (let elemento of arr) {
+    if (Array.isArray(elemento)) {
+      somma += sommaNestedArray(elemento);
+    } else {
+      somma += elemento;
+    }
+  }
+
+  return somma;
+}
+
+console.log(sommaNestedArray([1, [2, [3, 4], 5], 6]));
