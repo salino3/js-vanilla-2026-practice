@@ -203,3 +203,15 @@ function finalCost(node) {
 // Sum all costs
 
 console.log("Final cost:", finalCost(project));
+
+//
+function finalCostV2(node) {
+  const subTasks = node.subTasks || [];
+
+  return subTasks.reduce(
+    (accumulator, subTask) => accumulator + finalCost(subTask),
+    node.cost || 0,
+  );
+}
+
+console.log("Final cost:", finalCostV2(project));
