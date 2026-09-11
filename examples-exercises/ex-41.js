@@ -188,6 +188,14 @@ const project = {
   ],
 };
 
-function finalCost(node) {}
+function finalCost(node) {
+  let cost = 0;
+
+  if (!node.subTasks || node.subTasks.length === 0) {
+    return cost + node.cost;
+  }
+
+  return cost;
+}
 
 console.log("Final cost:", finalCost(project));
