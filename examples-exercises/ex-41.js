@@ -296,24 +296,17 @@ const settings = {
 };
 
 function getEnabledFeatures(node) {
-  // console.log("clog1", Object.keys(node)[0]); // notifications
-  let result = [];
+  let result = Object.keys(node);
+
   for (let obj in node) {
     if (node[obj].enabled) {
-      // result = result.concat(obj);
-      // console.log("clog5", obj);
-
       result = result.concat(getEnabledFeatures(node[obj]));
     }
-    console.log("clog4", obj);
-
-    result = result.concat(Object.keys(node[obj]));
-
-    // console.log("clog2", node[obj]);
+    const keysObj = Object.keys(node[obj]);
+    result = result.concat(keysObj);
   }
-  // console.log("clog3");
 
-  return result.filter((x) => x != "enabled");
+  return [...new Set(result)].filter((x) => x != "enabled");
 }
 
 console.log("Task 3", getEnabledFeatures(settings));
