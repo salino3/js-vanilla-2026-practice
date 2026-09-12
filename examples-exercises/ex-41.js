@@ -300,13 +300,18 @@ function getEnabledFeatures(node) {
   let result = [];
   for (let obj in node) {
     if (node[obj].enabled) {
-      result = result.concat(obj);
-      // result = result.concat(getEnabledFeatures(node[obj]));
+      // result = result.concat(obj);
+      // console.log("clog5", obj);
+
+      result = result.concat(getEnabledFeatures(node[obj]));
     }
+    console.log("clog4", obj);
+
     result = result.concat(Object.keys(node[obj]));
-    console.log("clog2", node[obj]);
+
+    // console.log("clog2", node[obj]);
   }
-  console.log("clog3");
+  // console.log("clog3");
 
   return result.filter((x) => x != "enabled");
 }
