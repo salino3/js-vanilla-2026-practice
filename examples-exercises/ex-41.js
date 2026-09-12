@@ -254,4 +254,19 @@ function getEmployeeNames(node) {
   return collectNames(node).slice(1);
 }
 
-console.log("Task 2", getEmployeeNames(company));
+console.log("Task 2", getEmployeeNames(company)); // Without "Tech Corp"
+
+//
+function getEmployeeNamesV2(node) {
+  let names = [];
+
+  if (node.employees?.length) {
+    for (const employee of node.employees) {
+      names = names.concat(employee.name, getEmployeeNames(employee));
+    }
+  }
+
+  return names;
+}
+
+console.log("Task 2 V2", getEmployeeNamesV2(company)); // Without "Tech Corp"
