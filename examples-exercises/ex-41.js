@@ -237,7 +237,7 @@ const company = {
 };
 
 function getEmployeeNames(node) {
-  function resultNode(node) {
+  function collectNames(node) {
     let names = [];
 
     if (!node.employees || node.employees.length === 0) {
@@ -245,13 +245,13 @@ function getEmployeeNames(node) {
     }
 
     for (let item of node.employees) {
-      names = resultNode(item).concat(names);
+      names = collectNames(item).concat(names);
     }
 
     return [node.name].concat(names);
   }
 
-  return resultNode(node).slice(1);
+  return collectNames(node).slice(1);
 }
 
 console.log("Task 2", getEmployeeNames(company));
