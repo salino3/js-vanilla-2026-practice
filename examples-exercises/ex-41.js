@@ -332,6 +332,20 @@ const user = {
   active: true,
 };
 
-function flattenObject(node) {}
+function flattenObject(node, prefix = "", result = {}) {
+  for (let key in node) {
+    const value = node[key];
+
+    const newKey = prefix ? `${prefix}.${key}` : key;
+
+    if (typeof value === "object" && value !== null) {
+      flattenObject(value, newKey, result);
+    } else {
+      result[newKey] = value;
+    }
+  }
+
+  return result;
+}
 
 console.log("Task 4", flattenObject(user));
