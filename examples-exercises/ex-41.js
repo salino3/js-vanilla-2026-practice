@@ -244,10 +244,8 @@ function getEmployeeNames(node) {
       return [node.name];
     }
 
-    if (node.employees && node.employees.length > 0) {
-      for (let item of node.employees) {
-        names = resultNode(item).concat(names);
-      }
+    for (let item of node.employees) {
+      names = resultNode(item).concat(names);
     }
 
     return [node.name].concat(names);
