@@ -317,3 +317,21 @@ function getEnabledFeatures(node) {
 }
 
 console.log("Task 3", getEnabledFeatures(settings));
+
+// Objective: Write a recursive function `flattenObject(node)` that returns a new single-level (flat) object,
+// joining nested keys with a dot "."
+
+const user = {
+  name: "Mario",
+  address: {
+    city: "Milano",
+    zip: {
+      code: 20100,
+    },
+  },
+  active: true,
+};
+
+function flattenObject(node) {}
+
+console.log("Task 4", flattenObject(user));
