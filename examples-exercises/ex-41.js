@@ -297,12 +297,13 @@ function getEnabledFeatures(node) {
   let result = [];
   for (let obj in node) {
     if (node[obj].enabled) {
-      result = result.concat(Object.keys(node[obj])[0]);
+      result = result.concat(Object.keys(node[obj]));
     }
-    console.log("clog2", Object.keys(node[obj])[0]);
+    console.log("clog2", node[obj]);
   }
+  console.log("clog3");
 
-  return result;
+  return result.filter((x) => x != "enabled");
 }
 
 console.log("Task 3", getEnabledFeatures(settings));
