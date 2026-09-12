@@ -292,6 +292,17 @@ const settings = {
   },
 };
 
-function getEnabledFeatures(node) {}
+function getEnabledFeatures(node) {
+  // console.log("clog1", Object.keys(node)[0]); // notifications
+  let result = [];
+  for (let obj in node) {
+    if (node[obj].enabled) {
+      result = result.concat(Object.keys(node[obj])[0]);
+    }
+    console.log("clog2", Object.keys(node[obj])[0]);
+  }
+
+  return result;
+}
 
 console.log("Task 3", getEnabledFeatures(settings));
