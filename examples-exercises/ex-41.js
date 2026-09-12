@@ -270,3 +270,28 @@ function getEmployeeNamesV2(node) {
 }
 
 console.log("Task 2 V2", getEmployeeNamesV2(company)); // Without "Tech Corp"
+
+// Objective: Write a recursive function `getEnabledFeatures(node)` that returns an array
+// containing the names (keys) of all enabled features (`enabled: true`) at any depth level.
+
+const settings = {
+  notifications: {
+    enabled: true,
+    email: {
+      enabled: true,
+      digest: { enabled: false },
+    },
+    push: { enabled: false },
+  },
+  security: {
+    enabled: true,
+    twoFactor: { enabled: true },
+  },
+  theme: {
+    darkMode: { enabled: false },
+  },
+};
+
+function getEnabledFeatures(node) {}
+
+console.log("Task 3", getEnabledFeatures(settings));
