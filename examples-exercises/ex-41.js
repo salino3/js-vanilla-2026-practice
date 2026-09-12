@@ -280,9 +280,12 @@ const settings = {
     email: {
       enabled: true,
       digest: {
-        cat: { enabled: true },
+        test01: { enabled: true },
         enabled: false,
+        test02: { enabled: true },
+        test03: { enabled: false },
       },
+      test04: { enabled: true },
     },
     push: { enabled: false },
   },
@@ -296,17 +299,21 @@ const settings = {
 };
 
 function getEnabledFeatures(node) {
-  let result = Object.keys(node);
+  let result = [];
 
-  for (let obj in node) {
-    if (node[obj].enabled) {
-      result = result.concat(getEnabledFeatures(node[obj]));
+  for (let key in node) {
+    const nodeObjByKey = node[key];
+    // nodeObjByKey !== null // for solving javascript bug that 'null' is an object
+    if (typeof nodeObjByKey === "object" && nodeObjByKey !== null) {
+      if (nodeObjByKey.enabled === true) {
+        result.push(key);
+      }
+
+      result = result.concat(getEnabledFeatures(nodeObjByKey));
     }
-    const keysObj = Object.keys(node[obj]);
-    result = result.concat(keysObj);
   }
 
-  return [...new Set(result)].filter((x) => x != "enabled");
+  return result;
 }
 
 console.log("Task 3", getEnabledFeatures(settings));
