@@ -236,6 +236,19 @@ const company = {
   ],
 };
 
-function getEmployeeNames(node) {}
+function getEmployeeNames(node) {
+  const names =
+    node.employees && node.employees.length > 0
+      ? node.employees.reduce((acc, item) => {
+          acc = acc.concat([item.name]);
+          if (item.employees && item.employees.length > 0) {
+            acc = acc.concat([getEmployeeNames(item.employees)]);
+          }
+          return acc;
+        }, [])
+      : [];
+
+  return names.filter((n) => !Array.isArray(n));
+}
 
 console.log("Task 2", getEmployeeNames(company));
