@@ -279,7 +279,10 @@ const settings = {
     enabled: true,
     email: {
       enabled: true,
-      digest: { enabled: false },
+      digest: {
+        cat: { enabled: true },
+        enabled: false,
+      },
     },
     push: { enabled: false },
   },
@@ -297,8 +300,10 @@ function getEnabledFeatures(node) {
   let result = [];
   for (let obj in node) {
     if (node[obj].enabled) {
-      result = result.concat(Object.keys(node[obj]));
+      result = result.concat(obj);
+      // result = result.concat(getEnabledFeatures(node[obj]));
     }
+    result = result.concat(Object.keys(node[obj]));
     console.log("clog2", node[obj]);
   }
   console.log("clog3");
