@@ -241,7 +241,7 @@ function getEmployeeNames(node) {
     let names = [];
 
     if (!node.employees || node.employees.length === 0) {
-      return [node.name].concat(names);
+      return [node.name];
     }
 
     if (node.employees && node.employees.length > 0) {
