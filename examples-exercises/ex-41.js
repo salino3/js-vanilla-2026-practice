@@ -237,18 +237,18 @@ const company = {
 };
 
 function getEmployeeNames(node) {
-  const names =
-    node.employees && node.employees.length > 0
-      ? node.employees.reduce((acc, item) => {
-          acc = acc.concat([item.name]);
-          if (item.employees && item.employees.length > 0) {
-            acc = acc.concat([getEmployeeNames(item.employees)]);
-          }
-          return acc;
-        }, [])
-      : [];
+  let names = [];
 
-  return names.filter((n) => !Array.isArray(n));
+  if (!node.employees || node.employees.length === 0) {
+    return names.concat([node.name]);
+  }
+
+  if (node.employees && node.employees.length > 0) {
+    for (let item of node.employees) {
+      names = names.concat(getEmployeeNames(item));
+    }
+  }
+  return names.concat([node.name]);
 }
 
 console.log("Task 2", getEmployeeNames(company));
