@@ -237,18 +237,23 @@ const company = {
 };
 
 function getEmployeeNames(node) {
-  let names = [];
+  function resultNode(node) {
+    let names = [];
 
-  if (!node.employees || node.employees.length === 0) {
-    return names.concat([node.name]);
-  }
-
-  if (node.employees && node.employees.length > 0) {
-    for (let item of node.employees) {
-      names = names.concat(getEmployeeNames(item));
+    if (!node.employees || node.employees.length === 0) {
+      return [node.name].concat(names);
     }
+
+    if (node.employees && node.employees.length > 0) {
+      for (let item of node.employees) {
+        names = resultNode(item).concat(names);
+      }
+    }
+
+    return [node.name].concat(names);
   }
-  return names.concat([node.name]);
+
+  return resultNode(node).slice(1);
 }
 
 console.log("Task 2", getEmployeeNames(company));
