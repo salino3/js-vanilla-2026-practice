@@ -215,3 +215,27 @@ function finalCostV2(node) {
 }
 
 console.log("Final cost:", finalCostV2(project));
+
+// Your goal: Write a recursive function `getEmployeeNames(node)` that returns a flat
+// array containing the names of ALL employees in the structure.
+
+const company = {
+  name: "Tech Corp",
+  employees: [
+    {
+      name: "Alice",
+      employees: [
+        { name: "Bob", employees: [] },
+        { name: "Charlie", employees: [{ name: "David", employees: [] }] },
+      ],
+    },
+    {
+      name: "Eva",
+      employees: [],
+    },
+  ],
+};
+
+function getEmployeeNames(node) {}
+
+console.log("Task 2", getEmployeeNames(company));
