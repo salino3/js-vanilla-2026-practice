@@ -387,3 +387,22 @@ function toggleBooleans(node) {
 }
 
 console.log("Task 5", toggleBooleans(permissions));
+
+//
+function toggleBooleansWithTarget(node, target) {
+  let result = {};
+
+  for (let key in node) {
+    const value = node[key];
+    if (typeof value === "boolean") {
+      result[key] = key === target ? !value : value;
+    } else if (typeof value === "object" && value !== null) {
+      result[key] = toggleBooleans(value, target);
+    } else {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
+console.log("Task 6", toggleBooleansWithTarget(permissions, "delete"));
