@@ -371,24 +371,18 @@ const permissions = {
 };
 
 function toggleBooleans(node) {
-  let result = node;
+  let result = {};
 
-  if (typeof node === "object" && node !== null) {
-    for (let key in node) {
-      const value = node[key];
-      if (!typeof value === "object" && typeof value === "boolean") {
-        value = !value;
-      } else {
-        if (!typeof value === "object") {
-          return value;
-        }
-        result = toggleBooleans(value);
-      }
+  for (let key in node) {
+    const value = node[key];
+    if (!typeof value === "object" && typeof value === "boolean") {
+      result[key] = !value;
+    } else if (typeof value === "object" && value !== null) {
+      result[key] = toggleBooleans(value);
+    } else {
+      result[key] = value;
     }
-  } else {
-    return node;
   }
-
   return result;
 }
 
