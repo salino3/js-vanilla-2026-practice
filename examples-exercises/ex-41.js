@@ -375,13 +375,14 @@ function toggleBooleans(node) {
 
   if (typeof node === "object" && node !== null) {
     for (let key in node) {
-      if (!typeof key === "object" && typeof key === "boolean") {
-        key = !key;
+      const value = node[key];
+      if (!typeof value === "object" && typeof value === "boolean") {
+        value = !value;
       } else {
-        if (!typeof key === "object") {
-          return key;
+        if (!typeof value === "object") {
+          return value;
         }
-        result = toggleBooleans(key);
+        result = toggleBooleans(value);
       }
     }
   } else {
