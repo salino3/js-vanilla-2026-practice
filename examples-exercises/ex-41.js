@@ -431,6 +431,22 @@ const data = {
   },
 };
 
-function collectBy(node, targetType) {}
+function collectBy(node, targetType, result = []) {
+  let newNode = {};
 
-console.log("Task 7", collectBy(data, "string"));
+  for (let key in node) {
+    const value = node[key];
+    if (typeof value === "object" && value !== null) {
+      newNode[key] = (node, targetType, result);
+    } else {
+      if (typeof value === targetType) {
+        console.log("clog1", result);
+        result = result.concat(value);
+      }
+      newNode[key] = value;
+    }
+    return result;
+  }
+}
+
+console.log("Task 7", collectBy(data, "string", []));
