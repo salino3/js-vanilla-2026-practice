@@ -349,3 +349,27 @@ function flattenObject(node, prefix = "", result = {}) {
 }
 
 console.log("Task 4", flattenObject(user));
+
+// Objective: Write a recursive function `toggleBooleans(node)` that returns a NEW object with
+//  the exact same structure, but with all boolean values
+//   ​​inverted (`true` becomes `false`, and `false` becomes `true`).
+
+// Other data types (strings, numbers, etc.) must remain unchanged.
+
+const permissions = {
+  admin: false,
+  user: {
+    read: true,
+    write: false,
+    media: {
+      upload: true,
+      delete: false,
+    },
+  },
+  role: "editor",
+  level: 2,
+};
+
+function toggleBooleans(node) {}
+
+console.log("Task 5", toggleBooleans(permissions));
