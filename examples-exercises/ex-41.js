@@ -397,7 +397,7 @@ function toggleBooleansWithTarget(node, target) {
     if (typeof value === "boolean") {
       result[key] = key === target ? !value : value;
     } else if (typeof value === "object" && value !== null) {
-      result[key] = toggleBooleans(value, target);
+      result[key] = toggleBooleansWithTarget(value, target);
     } else {
       result[key] = value;
     }
