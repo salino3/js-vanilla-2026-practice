@@ -375,7 +375,7 @@ function toggleBooleans(node) {
 
   for (let key in node) {
     const value = node[key];
-    if (!typeof value === "object" && typeof value === "boolean") {
+    if (typeof value === "boolean") {
       result[key] = !value;
     } else if (typeof value === "object" && value !== null) {
       result[key] = toggleBooleans(value);
