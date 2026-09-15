@@ -370,6 +370,25 @@ const permissions = {
   level: 2,
 };
 
-function toggleBooleans(node) {}
+function toggleBooleans(node) {
+  let result = node;
+
+  if (typeof node === "object" && node !== null) {
+    for (let key in node) {
+      if (!typeof key === "object" && typeof key === "boolean") {
+        key = !key;
+      } else {
+        if (!typeof key === "object") {
+          return key;
+        }
+        result = toggleBooleans(key);
+      }
+    }
+  } else {
+    return node;
+  }
+
+  return result;
+}
 
 console.log("Task 5", toggleBooleans(permissions));
