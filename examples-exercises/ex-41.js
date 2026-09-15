@@ -406,3 +406,31 @@ function toggleBooleansWithTarget(node, target) {
 }
 
 console.log("Task 6", toggleBooleansWithTarget(permissions, "delete"));
+
+// Write a recursive function `collectBy()` that accepts two parameters:
+
+// `node`: the nested object to explore.
+
+// `targetType`: a string indicating the data type to search for (e.g., "number", "string", "boolean").
+
+// The function must return a flat array containing all values ​​matching that specific type, found at any depth level.
+
+const data = {
+  id: 101,
+  info: {
+    name: "Alice",
+    age: 30,
+    details: {
+      active: true,
+      score: 95.5,
+    },
+  },
+  tags: {
+    primary: "admin",
+    level: 5,
+  },
+};
+
+function collectBy(node, targetType) {}
+
+console.log("Task 7", collectBy(data, "string"));
