@@ -428,24 +428,31 @@ const data = {
   tags: {
     primary: "admin",
     level: 5,
+    test: null,
   },
 };
 
 function collectBy(node, targetType) {
   let result = [];
-  let newNode = {};
+
   for (let key in node) {
     const value = node[key];
-    if (typeof value === "object" && value !== null) {
-      newNode[key] = collectBy(value, targetType);
-    } else {
-      if (typeof value === targetType) {
-        result = result.concat(value);
-      }
+
+    const isNavigableObject =
+      typeof value === "object" &&
+      value !== null &&
+      Object.keys(value).length > 0;
+    if (isNavigableObject) {
+      result = result.concat(collectBy(value, targetType));
+    } else if (
+      typeof value === targetType ||
+      (value === null && targetType === "null")
+    ) {
+      result.push(value);
     }
   }
 
-  return typeof newNode === "object" && newNode !== null ? newNode : result;
+  return result;
 }
 
-console.log("Task 7", collectBy(data, "string"));
+console.log("Task 7", collectBy(data, "null"));
