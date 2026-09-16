@@ -31,3 +31,25 @@ select  MAX(hire_date),  first_name, last_name  from employees    limit 1 ;
    sum(units_in_stock) AS total_stock ,
   sum(discontinued) AS total_discontinued
     from products ;
+
+--
+SELECT order_date, shipped_date, customer_id , freight from orders where   order_date = '2016-02-26' ;
+
+-- It show off a table with a column 'source_type' 
+-- declaring from what table it comes from
+SELECT 
+    city, 
+    company_name, 
+    contact_name, 
+    'contacts' AS source_type
+FROM customers
+
+UNION
+
+SELECT 
+    city, 
+    company_name, 
+    contact_name, 
+    'suppliers' AS source_type
+FROM suppliers;
+
