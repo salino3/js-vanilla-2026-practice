@@ -25,3 +25,9 @@ ORDER BY contact_name
  
  -- Show the first_name, last_name. hire_date of the most recently hired employee.
 select  MAX(hire_date),  first_name, last_name  from employees    limit 1 ;
+
+-- Show the average unit price rounded to 2 decimal places, the total units in stock, total discontinued products from the products table.
+ select  ROUND(AVG(unit_price),  2) AS average_price, -- declare name column
+   sum(units_in_stock) AS total_stock ,
+  sum(discontinued) AS total_discontinued
+    from products ;
