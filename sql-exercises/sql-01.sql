@@ -14,8 +14,14 @@ SELECT order_id
 FROM orders
 WHERE mod(order_id,2) = 0;
 
+-- Show the city, company_name, contact_name of all customers from cities which contains the letter 'L' in the city name, sorted by contact_name
+SELECT city, company_name, contact_name
+FROM customers
+WHERE city LIKE '%L%'
+ORDER BY contact_name
 
-
-
-
-
+--
+ SELECT   company_name, contact_name, fax  from customers where fax not  null;
+ 
+ -- Show the first_name, last_name. hire_date of the most recently hired employee.
+select  MAX(hire_date),  first_name, last_name  from employees    limit 1 ;
