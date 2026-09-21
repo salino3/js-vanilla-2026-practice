@@ -53,8 +53,8 @@ const order = {
     { name: "Mouse", price: 25 },
     {
       bundle: [
-        { name: "Cavo HDMI", price: 15 },
-        { name: "Adattatore", price: 30 },
+        { name: "Cable HDMI", price: 15 },
+        { name: "Adapter", price: 30 },
       ],
     },
   ],
@@ -66,6 +66,24 @@ const order = {
   discountCode: "SUMMER10",
 };
 
-function sumPrices(node) {}
+function sumPrices(node) {
+  let result = 0;
 
-console.log("Task 1", sumPrices(catalog));
+  if (node.price) {
+    result += node.price;
+  }
+
+  if (Array.isArray(node)) {
+    for (let item of node) {
+      result += sumPrices(item);
+    }
+  } else if (typeof node === "object" && node !== null) {
+    for (let key in node) {
+      result += sumPrices(node[key]);
+    }
+  }
+
+  return result;
+}
+
+console.log("Task 2", sumPrices(catalog));
