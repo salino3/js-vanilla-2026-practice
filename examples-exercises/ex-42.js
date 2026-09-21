@@ -22,6 +22,30 @@ const catalog = {
   },
 };
 
-function countStockItems(node) {}
+function countStockItems(node) {
+  let result = 0;
+
+  if (typeof node === "boolean") {
+    if (!!node) {
+      result += 1;
+    }
+    return result;
+  }
+
+  if (Array.isArray(node)) {
+    for (let item of node) {
+      result += countStockItems(item);
+    }
+  }
+
+  console.log("clog2", typeof node);
+  if (typeof node === "object" && node !== null) {
+    for (let item in node) {
+      result += countStockItems(node[item]);
+    }
+  }
+
+  return result;
+}
 
 console.log("Task 1", countStockItems(catalog));
