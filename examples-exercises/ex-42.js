@@ -68,7 +68,6 @@ const order = {
 
 function sumPrices(node) {
   let result = 0;
-
   if (node.price) {
     result += node.price;
   }
@@ -86,4 +85,4 @@ function sumPrices(node) {
   return result;
 }
 
-console.log("Task 2", sumPrices(catalog));
+console.log("Task 2", sumPrices(order));
