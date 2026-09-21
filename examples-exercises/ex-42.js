@@ -108,24 +108,19 @@ const feed = {
   ],
 };
 
-function collectHashtags(node, result = []) {
-  //   let newNode;
+function collectHashtags(node) {
+  let result = [];
 
-  if (Array.isArray(node)) {
-    result = result.concat(
-      node.filter((item) => typeof item === "string" && item.startsWith("#")),
-    );
-    return [...new Set(result)];
-  }
-  //
-
-  if (Array.isArray(node)) {
-    for (let item of node) {
-      result = result.concat(collectHashtags(item, result));
+  if (typeof node === "string") {
+    const words = node.split(" ");
+    for (let word of words) {
+      if (word.startsWith("#")) {
+        result.push(word);
+      }
     }
   } else if (typeof node === "object" && node !== null) {
     for (let key in node) {
-      result = result.concat(collectHashtags(node[key], result));
+      result = result.concat(collectHashtags(node[key]));
     }
   }
 
