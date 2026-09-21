@@ -24,24 +24,17 @@ const catalog = {
 
 function countStockItems(node) {
   let result = 0;
-
-  if (typeof node === "boolean") {
-    if (!!node) {
-      result += 1;
-    }
-    return result;
+  if (node?.inStock === true) {
+    result += 1;
   }
 
   if (Array.isArray(node)) {
     for (let item of node) {
       result += countStockItems(item);
     }
-  }
-
-  console.log("clog2", typeof node);
-  if (typeof node === "object" && node !== null) {
-    for (let item in node) {
-      result += countStockItems(node[item]);
+  } else if (typeof node === "object" && node !== null) {
+    for (let key in node) {
+      result += countStockItems(node[key]);
     }
   }
 
