@@ -42,3 +42,30 @@ function countStockItems(node) {
 }
 
 console.log("Task 1", countStockItems(catalog));
+
+// Objective: Write a recursive function `sumPrices(node)` that returns the total sum
+// of all prices (price) found at any depth level.
+
+const order = {
+  id: "ORD-99",
+  items: [
+    { name: "Laptop", price: 1000 },
+    { name: "Mouse", price: 25 },
+    {
+      bundle: [
+        { name: "Cavo HDMI", price: 15 },
+        { name: "Adattatore", price: 30 },
+      ],
+    },
+  ],
+  shipping: {
+    cost: {
+      price: 10,
+    },
+  },
+  discountCode: "SUMMER10",
+};
+
+function sumPrices(node) {}
+
+console.log("Task 1", sumPrices(catalog));
