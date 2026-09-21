@@ -108,6 +108,28 @@ const feed = {
   ],
 };
 
-function collectHashtags(node) {}
+function collectHashtags(node, result = []) {
+  //   let newNode;
+
+  if (Array.isArray(node)) {
+    result = result.concat(
+      node.filter((item) => typeof item === "string" && item.startsWith("#")),
+    );
+    return [...new Set(result)];
+  }
+  //
+
+  if (Array.isArray(node)) {
+    for (let item of node) {
+      result = result.concat(collectHashtags(item, result));
+    }
+  } else if (typeof node === "object" && node !== null) {
+    for (let key in node) {
+      result = result.concat(collectHashtags(node[key], result));
+    }
+  }
+
+  return result;
+}
 
 console.log("Task 3", collectHashtags(feed));
