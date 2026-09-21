@@ -68,7 +68,7 @@ const order = {
 
 function sumPrices(node) {
   let result = 0;
-  if (node.price) {
+  if (node.price && typeof node?.price === "number") {
     result += node.price;
   }
 
