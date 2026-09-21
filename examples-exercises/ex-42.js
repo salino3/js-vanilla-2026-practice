@@ -86,3 +86,28 @@ function sumPrices(node) {
 }
 
 console.log("Task 2", sumPrices(order));
+
+// Objective: Write a recursive function `collectHashtags(node)` that searches for all strings
+// starting with the `#` character at any depth level and returns them in a single flat array.
+
+const feed = {
+  title: "My Feed",
+  mainPost: {
+    text: "Learning JS recursion!",
+    tags: ["#javascript", "#coding"],
+    author: {
+      name: "Mario",
+      bio: "Web developer #frontend",
+    },
+  },
+  sidebar: [
+    { text: "Check out my new project", tag: "#project" },
+    {
+      comments: ["#dev", { body: "Great post!", tag: "#tech" }],
+    },
+  ],
+};
+
+function collectHashtags(node) {}
+
+console.log("Task 3", collectHashtags(feed));
