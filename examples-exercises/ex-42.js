@@ -179,16 +179,12 @@ console.log("Task 4", groupAndCount(words));
 const numbers = [1, 2, 2, 3, 4, 4, 5, 1, 6];
 
 function findUnique(arr) {
-  const result = Object.entries(
-    arr.reduce((acc, curr) => {
-      acc[curr] = (acc[curr] || 0) + 1;
-      return acc;
-    }, {}),
-  )
-    .map(([key, value]) => value === 1 && Number(key))
-    .filter(Boolean);
+  const result = arr.reduce((acc, curr) => {
+    acc[curr] = (acc[curr] || 0) + 1;
+    return acc;
+  }, {});
 
-  return result;
+  return arr.filter((num) => result[num] === 1);
 }
 
 console.log("Task 5", findUnique(numbers));
