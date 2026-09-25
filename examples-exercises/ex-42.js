@@ -154,8 +154,8 @@ function groupAndCount(array) {
     const newWord = word
       .toLowerCase()
       .normalize("NFC")
-      .replace(/[^\w\s]/gi, "");
-
+      .replace(/[!?,]/g, "") // Remove  !, ?, and ,
+      .replace(/\.+$/, ""); // Remove dots only if they are at the end of the string
     acc[newWord] = (acc[newWord] ?? 0) + 1;
 
     return acc;
