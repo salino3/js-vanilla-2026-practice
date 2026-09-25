@@ -169,8 +169,26 @@ console.log("Task 4", groupAndCount(words));
 // Write a function called findUnique that takes an array of numbers and returns a new array
 //  containing only the numbers that appear exactly once, preserving their original order.
 
+// Constraints & Edge Cases to Consider
+// Duplicate numbers should be completely excluded, not just reduced to one instance.
+
+// The function should return an empty array [] if no unique numbers exist.
+
+// Do not mutate the original array.
+
 const numbers = [1, 2, 2, 3, 4, 4, 5, 1, 6];
 
-function findUnique(arr) {}
+function findUnique(arr) {
+  const result = Object.entries(
+    arr.reduce((acc, curr) => {
+      acc[curr] = (acc[curr] || 0) + 1;
+      return acc;
+    }, {}),
+  )
+    .map(([key, value]) => value === 1 && Number(key))
+    .filter(Boolean);
+
+  return result;
+}
 
 console.log("Task 5", findUnique(numbers));
