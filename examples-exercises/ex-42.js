@@ -128,3 +128,27 @@ function collectHashtags(node) {
 }
 
 console.log("Task 3", collectHashtags(feed));
+
+// Write a JavaScript function called `groupAndCount` that accepts an array of strings
+// and returns an object containing the count of occurrences for each word, ignoring
+// case and punctuation.
+
+// Normalize strings by converting everything to lowercase.
+
+// Remove trailing or internal punctuation (e.g., ,, ., !, ?).
+
+// Group words by counting the number of times each one appears.
+
+const words = [
+  "React",
+  "Node.js",
+  "react",
+  "JavaScript",
+  "node.js!",
+  "REACT",
+  "javascript?",
+];
+
+function groupAndCount(array) {}
+
+console.log(groupAndCount(words));
