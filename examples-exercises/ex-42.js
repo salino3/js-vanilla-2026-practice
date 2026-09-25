@@ -149,6 +149,19 @@ const words = [
   "javascript?",
 ];
 
-function groupAndCount(array) {}
+function groupAndCount(array) {
+  const result = array.reduce((acc, word) => {
+    const newWord = word
+      .toLowerCase()
+      .normalize("NFC")
+      .replace(/[^\w\s]/gi, "");
 
-console.log(groupAndCount(words));
+    acc[newWord] = (acc[newWord] ?? 0) + 1;
+
+    return acc;
+  }, {});
+
+  return result;
+}
+
+console.log("Task 4", groupAndCount(words));
