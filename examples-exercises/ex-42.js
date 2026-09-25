@@ -188,3 +188,10 @@ function findUnique(arr) {
 }
 
 console.log("Task 5", findUnique(numbers));
+
+// Write a function called maxSubarraySum that accepts an array of integers and a number 'n'.
+//  The function should calculate the maximum sum of $n$ consecutive elements in the array.
+
+function maxSubarraySum(array, target) {}
+
+console.log("Task 6", maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2));
