@@ -165,3 +165,12 @@ function groupAndCount(array) {
 }
 
 console.log("Task 4", groupAndCount(words));
+
+// Write a function called findUnique that takes an array of numbers and returns a new array
+//  containing only the numbers that appear exactly once, preserving their original order.
+
+const numbers = [1, 2, 2, 3, 4, 4, 5, 1, 6];
+
+function findUnique(arr) {}
+
+console.log("Task 5", findUnique(numbers));
