@@ -210,3 +210,21 @@ function maxSubarraySum(array, chunk) {
 }
 
 console.log("Task 6", maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2));
+
+// Write a function named truncateString that accepts two parameters:
+
+// str (a string)
+
+// num (a maximum length number)
+
+// If str.length is greater than num, the function should cut the string down
+// to num characters and append ... to the end.
+
+// If str.length is less than or equal to num, it should return the original
+// string as-is without adding ....
+
+function truncateString(str, num) {
+  if (!str || str.length <= num) return str;
+}
+
+console.log("Task 7", truncateString("string!!", 4));
