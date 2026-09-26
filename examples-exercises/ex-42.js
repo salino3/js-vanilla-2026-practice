@@ -231,3 +231,9 @@ function truncateString(str, num) {
 }
 
 console.log("Task 7", truncateString("string!!", 4));
+
+//
+const truncateStringV2 = (str, num) =>
+  str && str.length > num ? `${str.slice(0, num)}...` : str;
+
+console.log("Task 7 V2", truncateStringV2("string!!", 4));
