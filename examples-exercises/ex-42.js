@@ -225,6 +225,9 @@ console.log("Task 6", maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2));
 
 function truncateString(str, num) {
   if (!str || str.length <= num) return str;
+
+  const result = `${str.slice(0, num)}...`;
+  return result;
 }
 
 console.log("Task 7", truncateString("string!!", 4));
