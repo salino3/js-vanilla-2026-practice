@@ -259,13 +259,12 @@ const user1 = {
 
 function formatUserProfile(user) {
   const {
-    firstName = user.name.firstName,
-    lastName = user.name.lastName,
+    name: { firstName, lastName },
     email,
-    role,
+    role = "guest",
   } = user;
 
-  return `${(role ?? "guest").toUpperCase()} ${firstName} ${lastName} <${email}>`;
+  return `${role.toUpperCase()} ${firstName} ${lastName} <${email}>`;
 }
 
 console.log("Task 8", formatUserProfile(user1));
