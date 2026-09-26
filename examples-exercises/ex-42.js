@@ -237,3 +237,35 @@ const truncateStringV2 = (str, num) =>
   str && str.length > num ? `${str.slice(0, num)}...` : str;
 
 console.log("Task 7 V2", truncateStringV2("string!!", 4));
+
+// Write a function named formatUserProfile that accepts a single user object.
+
+// Use object destructuring in the function signature or body to extract the following properties:
+
+// firstName and lastName (nested inside a name object)
+
+// email
+
+// role (should default to "guest" if not present on the user object)
+
+// Return a formatted string in the pattern:
+// "[ROLE] FirstName LastName <email>" (where ROLE is uppercase).
+
+const user1 = {
+  name: { firstName: "Sarah", lastName: "Connor" },
+  email: "s.connor@cyberdyne.com",
+  role: "admin",
+};
+
+function formatUserProfile(user) {
+  const {
+    firstName = user.name.firstName,
+    lastName = user.name.lastName,
+    email,
+    role,
+  } = user;
+
+  return `${(role ?? "guest").toUpperCase()} ${firstName} ${lastName} <${email}>`;
+}
+
+console.log("Task 8", formatUserProfile(user1));
