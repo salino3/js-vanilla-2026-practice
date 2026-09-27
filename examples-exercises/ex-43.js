@@ -77,15 +77,15 @@ class BankAccount {
   #balance = 0;
   constructor(initAccountHolder, initInitialBalance) {
     this._accountHolder = initAccountHolder;
-    this._initialBalance = initInitialBalance;
+    this.#balance = initInitialBalance;
   }
 
   get accountHolder() {
-    return this.accountHolder;
+    return this._accountHolder;
   }
 
   get initialBalance() {
-    return this.initialBalance;
+    return this._initialBalance;
   }
 
   getBalance() {
@@ -93,11 +93,60 @@ class BankAccount {
   }
 
   deposit(amount) {
-    this.#balance += amount;
-    return amount > 0;
+    if (amount > 0) {
+      this.#balance += amount;
+      return true;
+    }
+    return false;
   }
 
   withdraw(amount) {
-    return amount > 0 && amount <= this.#balance;
+    if (amount > 0 && amount <= this.#balance) {
+      this.#balance -= amount;
+      return true;
+    }
+    return false;
   }
 }
+
+class SavingsAccount extends BankAccount {
+  _interestRate = 0.05;
+
+  constructor(accountHolder, initialBalance, initInterestRate = 0.05) {
+    super(accountHolder, initialBalance);
+    this._interestRate = initInterestRate;
+  }
+
+  get interestRate() {
+    return this._interestRate;
+  }
+
+  applyInterest() {
+    const amount = this.getBalance() * this._interestRate;
+    this.deposit(amount);
+    return this.getBalance();
+  }
+}
+
+// Test Base Class
+const acc = new BankAccount("Alice", 100);
+console.log("clog1", acc.getBalance()); // 100
+acc.deposit(50);
+console.log("clog2", acc.getBalance()); // 150
+acc.withdraw(200); // Fails: insufficient funds
+console.log("clog3", acc.getBalance()); // 150
+
+// Direct access to private field should fail:
+// console.log(acc.#balance);  // SyntaxError: Private field '#balance' must be declared in an enclosing class
+
+// Test Derived Class
+const savings = new SavingsAccount("Bob", 1000); // 5% interest for default
+console.log("clog4", savings.interestRate); // 0.05
+console.log("clog5", savings.getBalance()); // 1000
+
+const interestEarned = savings.applyInterest();
+console.log("Earned:", interestEarned); // Earned: 50
+console.log("clog6", savings.getBalance()); // 1050
+
+const savingsLuigi = new SavingsAccount("Luigi", 1000, 0.1); // 10%
+console.log("clog7", savingsLuigi.interestRate); // 0.1
