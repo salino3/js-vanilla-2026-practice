@@ -315,8 +315,16 @@ const products = [
   },
 ];
 
-function getCategoryRevenue(products, targetCategory) {}
+function getCategoryRevenue(products, targetCategory) {
+  const result = products.reduce((acc, product) => {
+    if (product.category === targetCategory && !!product.inStock) {
+      acc += product.price * product.quantitySold;
+    }
+    return acc;
+  }, 0);
 
-getCategoryRevenue(products, "Electronics");
+  return result;
+}
 
-getCategoryRevenue(products, "Books");
+console.log("Task 9", getCategoryRevenue(products, "Electronics"));
+console.log("Task 9", getCategoryRevenue(products, "Books"));
