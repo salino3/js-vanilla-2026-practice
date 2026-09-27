@@ -268,3 +268,55 @@ function formatUserProfile(user) {
 }
 
 console.log("Task 8", formatUserProfile(user1));
+
+// Write a function named getCategoryRevenue that takes two parameters:
+
+// products (an array of product objects)
+
+// targetCategory (a string matching a product category)
+
+// Filter the products array to keep only items matching targetCategory and that are
+//  currently in stock (inStock: true).
+
+// Calculate the total revenue for those matching items by multiplying each product's
+// price by its quantitySold.
+
+// Return the total revenue as a single number using reduce. If no matching items are in stock,
+//  return 0.
+
+const products = [
+  {
+    name: "Laptop",
+    category: "Electronics",
+    price: 1000,
+    quantitySold: 3,
+    inStock: true,
+  },
+  {
+    name: "Phone",
+    category: "Electronics",
+    price: 500,
+    quantitySold: 5,
+    inStock: false,
+  },
+  {
+    name: "Headphones",
+    category: "Electronics",
+    price: 150,
+    quantitySold: 4,
+    inStock: true,
+  },
+  {
+    name: "Shirt",
+    category: "Apparel",
+    price: 30,
+    quantitySold: 10,
+    inStock: true,
+  },
+];
+
+function getCategoryRevenue(products, targetCategory) {}
+
+getCategoryRevenue(products, "Electronics");
+
+getCategoryRevenue(products, "Books");
