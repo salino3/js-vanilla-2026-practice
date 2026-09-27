@@ -69,3 +69,35 @@ await fetchWithRetry(unstableFetch, 2)
 // Attempt #1
 // Attempt #2
 // Error: Operation failed after maximum retries
+// --------------------
+
+class BankAccount {
+  _accountHolder = "";
+  _initialBalance = 0;
+  #balance = 0;
+  constructor(initAccountHolder, initInitialBalance) {
+    this._accountHolder = initAccountHolder;
+    this._initialBalance = initInitialBalance;
+  }
+
+  get accountHolder() {
+    return this.accountHolder;
+  }
+
+  get initialBalance() {
+    return this.initialBalance;
+  }
+
+  getBalance() {
+    return this.#balance;
+  }
+
+  deposit(amount) {
+    this.#balance += amount;
+    return amount > 0;
+  }
+
+  withdraw(amount) {
+    return amount > 0 && amount <= this.#balance;
+  }
+}
