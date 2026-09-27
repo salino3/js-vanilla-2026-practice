@@ -328,3 +328,43 @@ function getCategoryRevenue(products, targetCategory) {
 
 console.log("Task 9", getCategoryRevenue(products, "Electronics"));
 console.log("Task 9", getCategoryRevenue(products, "Books"));
+
+function createRateLimiter(fn, limit, interval) {
+  let callCount = 0;
+  let timerId = null;
+  console.log("Hi!");
+  return function (...args) {
+    if (!timerId) {
+      timerId = setTimeout(() => {
+        callCount = 0;
+        timerId = null;
+      }, interval);
+    }
+
+    if (callCount >= limit) {
+      return "Rate limit exceeded";
+    }
+
+    callCount++;
+    return fn(...args);
+  };
+}
+
+//
+// A simple logging function
+const logMessage = (msg) => `Log: ${msg}`;
+
+// Allow max 2 calls every 1000ms (1 second)
+const limitedLog = createRateLimiter(logMessage, 2, 1000);
+const limitedLog02 = createRateLimiter(logMessage, 2, 1000);
+
+// Expected output: "Hi!"
+console.log(limitedLog("First")); // Expected output: "Log: First"
+console.log(limitedLog02("limitedLog02 execution")); // Expected output: "limitedLog02 execution" - indipendent closure
+console.log(limitedLog("Second")); // Expected output: "Log: Second"
+console.log(limitedLog("Third")); // Expected output: "Rate limit exceeded"
+
+// After 1000ms passes, the limit resets:
+setTimeout(() => {
+  console.log(limitedLog("Fourth")); // Expected output: "Log: Fourth"
+}, 1100);
