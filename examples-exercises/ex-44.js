@@ -179,27 +179,32 @@ function calculateCart(cart, promoCode) {
     "SAVE20": 20,
     "FLAT15": 15,
   };
-  console.log("clog2", (100 / 100) * 20);
+
   const result = cart.reduce(
     (acc, cartItem, index, array) => {
-      acc.itemCount += 1;
       acc.subtotal += cartItem.price * cartItem.quantity;
 
       if (index === array.length - 1) {
         const discount = promoCodes[promoCode];
 
-        acc.discountAmount =
-          promoCode === "FLAT15"
-            ? acc.subtotal - discount < 0
-              ? 0
-              : acc.subtotal - discount
-            : acc.subtotal - (acc.subtotal / 100) * discount;
+        const totalDiscount =
+          promoCode === "FLAT15" ? discount : (acc.subtotal / 100) * discount;
+        const totalTaxes = ((acc.subtotal - totalDiscount) / 100) * 10;
+
+        console.log(
+          "clog2",
+
+          totalDiscount,
+        );
+        acc.discountAmount = totalDiscount;
+        acc.finalTotal = acc.subtotal - totalDiscount - totalTaxes;
+        acc.tax = totalTaxes;
       }
 
       return acc;
     },
     {
-      itemCount: 0, // Total quantity of all items combined
+      itemCount: cart.length, // Total quantity of all items combined
       subtotal: 0, // Sum of (price * quantity) before discounts
       discountAmount: 0, // The money saved from the promo code
       tax: 0, // 10% tax calculated ON THE DISCOUNTED subtotal
