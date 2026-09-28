@@ -131,3 +131,50 @@ function findBestDeals(stores, maxPrice) {
 }
 
 console.log("Task 2", findBestDeals(stores, 30));
+
+// Imagine you are building a checkout system for an online store. You need to write a JavaScript
+//  function named calculateCart(cart, promoCode) that calculates the final totals, applies
+//  valid discounts, and factors in tax.
+
+// Write a function calculateCart(cart, promoCode) that takes:
+
+// cart: An array of items, where each item looks like:
+// { id: Number, name: String, price: Number, quantity: Number }.
+
+// promoCode: A string representing a discount code (can be null or an invalid string).
+
+// Promo Code Rules:
+// "SAVE10": Gives a 10% discount off the subtotal.
+
+// "SAVE20": Gives a 20% discount off the subtotal.
+
+// "FLAT15": Takes $15 off the subtotal (ensure the subtotal doesn't drop below 0).
+
+// Any other code or null/undefined: Gives 0% discount.
+
+// Expected Output
+// The function should return an object with the following structure
+// (round monetary values to 2 decimal places if needed, or keep them as accurate numbers):
+
+// {
+//   itemCount: Number,       // Total quantity of all items combined
+//   subtotal: Number,        // Sum of (price * quantity) before discounts
+//   discountAmount: Number,  // The money saved from the promo code
+//   tax: Number,             // 10% tax calculated ON THE DISCOUNTED subtotal
+//   finalTotal: Number       // Discounted subtotal + tax
+// }
+
+const cart = [
+  { id: 1, name: "Sneakers", price: 80, quantity: 1 },
+  { id: 2, name: "Socks", price: 5, quantity: 3 },
+  { id: 3, name: "T-Shirt", price: 20, quantity: 2 },
+];
+
+// Subtotal = (80 * 1) + (5 * 3) + (20 * 2) = 80 + 15 + 40 = 135
+// Item count = 1 + 3 + 2 = 6
+
+console.log(calculateCart(cart, "SAVE10"));
+
+function calculateCart(cart, promoCode) {}
+
+console.log("Task 3", calculateCart(cart, promoCode));
