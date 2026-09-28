@@ -103,6 +103,22 @@ const stores = [
 // Let's look for deals under $30
 const result = findBestDeals(stores, 30);
 
-function findBestDeals(stores, maxPrice) {}
+function findBestDeals(stores, maxPrice) {
+  const result = stores.map((store) =>
+    store.products.reduce((acc, product) => {
+      if (product.price <= maxPrice && product.stock > 0) {
+        const item = {
+          ...product,
+          storeName: store.storeName,
+        };
+        acc = [...acc, item];
+      }
+
+      return acc;
+    }, []),
+  );
+
+  return result;
+}
 
 console.log("Task 2", findBestDeals(stores, 30));
