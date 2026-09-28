@@ -173,6 +173,30 @@ const cart = [
 // Subtotal = (80 * 1) + (5 * 3) + (20 * 2) = 80 + 15 + 40 = 135
 // Item count = 1 + 3 + 2 = 6
 
-function calculateCart(cart, promoCode) {}
+function calculateCart(cart, promoCode) {
+  const promoCodes = {
+    "SAVE10": 10,
+    "SAVE20": 20,
+    "FLAT15": 15,
+  };
+
+  const result = cart.reduce(
+    (acc, cartItem) => {
+      acc.itemCount += 1;
+      acc.subtotal += cartItem.price * cartItem.quantity;
+
+      return acc;
+    },
+    {
+      itemCount: 0, // Total quantity of all items combined
+      subtotal: 0, // Sum of (price * quantity) before discounts
+      discountAmount: 0, // The money saved from the promo code
+      tax: 0, // 10% tax calculated ON THE DISCOUNTED subtotal
+      finalTotal: 0, // Discounted subtotal + tax
+    },
+  );
+
+  return result;
+}
 
 console.log("Task 3", calculateCart(cart, "SAVE10"));
