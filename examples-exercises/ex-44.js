@@ -42,15 +42,11 @@ function analyzeExpenses(transactions, minAmount) {
         };
       }
     }
-    // if (item.amount >= minAmount) {
-    //   const { id, ...restItem } = item;
-    //   // console.log("clog1", restItem)
-    //   acc.push(restItem);
-    // }
+
     return acc;
   }, []);
 
-  return result;
+  return Object.values(result);
 }
 
 console.log("Task 1", analyzeExpenses(transactions, 20));
