@@ -28,10 +28,25 @@ const transactions = [
 function analyzeExpenses(transactions, minAmount) {
   const result = transactions.reduce((acc, item) => {
     if (item.amount >= minAmount) {
-      const { id, ...restItem } = item;
-      // console.log("clog1", restItem)
-      acc.push(restItem);
+      if (acc[item.category]) {
+        acc[item.category] = {
+          category: item.category,
+          amount: (acc[item.category].amount += item.amount),
+          count: (acc[item.category].count += 1),
+        };
+      } else {
+        acc[item.category] = {
+          category: item.category,
+          amount: item.amount,
+          count: 1,
+        };
+      }
     }
+    // if (item.amount >= minAmount) {
+    //   const { id, ...restItem } = item;
+    //   // console.log("clog1", restItem)
+    //   acc.push(restItem);
+    // }
     return acc;
   }, []);
 
