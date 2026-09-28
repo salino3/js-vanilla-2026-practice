@@ -46,7 +46,7 @@ function analyzeExpenses(transactions, minAmount) {
     return acc;
   }, {});
 
-  return Object.values(result);
+  return Object.values(result).toSorted((a, b) => b.total - a.total);
 }
 
 console.log("Task 1", analyzeExpenses(transactions, 20));
