@@ -173,8 +173,6 @@ const cart = [
 // Subtotal = (80 * 1) + (5 * 3) + (20 * 2) = 80 + 15 + 40 = 135
 // Item count = 1 + 3 + 2 = 6
 
-console.log(calculateCart(cart, "SAVE10"));
-
 function calculateCart(cart, promoCode) {}
 
-console.log("Task 3", calculateCart(cart, promoCode));
+console.log("Task 3", calculateCart(cart, "SAVE10"));
