@@ -30,7 +30,7 @@ function analyzeExpenses(transactions, minAmount) {
     if (item.amount >= minAmount) {
       if (acc[item.category]) {
         acc[item.category] = {
-          category: item.category,
+          ...acc[item.category],
           total: (acc[item.category].total += item.amount),
           count: (acc[item.category].count += 1),
         };
