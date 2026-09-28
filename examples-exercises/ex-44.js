@@ -118,7 +118,16 @@ function findBestDeals(stores, maxPrice) {
     }, []),
   );
 
-  return result;
+  return result
+    .flat()
+
+    .toSorted((a, b) => {
+      if (a.price !== b.price) {
+        return a.price - b.price;
+      }
+      return b.stock - a.stock;
+    })
+    .slice(0, 3);
 }
 
 console.log("Task 2", findBestDeals(stores, 30));
