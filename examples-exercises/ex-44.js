@@ -31,13 +31,13 @@ function analyzeExpenses(transactions, minAmount) {
       if (acc[item.category]) {
         acc[item.category] = {
           category: item.category,
-          amount: (acc[item.category].amount += item.amount),
+          total: (acc[item.category].total += item.amount),
           count: (acc[item.category].count += 1),
         };
       } else {
         acc[item.category] = {
           category: item.category,
-          amount: item.amount,
+          total: item.amount,
           count: 1,
         };
       }
