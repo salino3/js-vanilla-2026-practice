@@ -104,7 +104,7 @@ const stores = [
 const result = findBestDeals(stores, 30);
 
 function findBestDeals(stores, maxPrice) {
-  const result = stores.map((store) =>
+  const result = stores.flatMap((store) =>
     store.products.reduce((acc, product) => {
       if (product.price <= maxPrice && product.stock > 0) {
         const item = {
@@ -119,8 +119,6 @@ function findBestDeals(stores, maxPrice) {
   );
 
   return result
-    .flat()
-
     .toSorted((a, b) => {
       if (a.price !== b.price) {
         return a.price - b.price;
