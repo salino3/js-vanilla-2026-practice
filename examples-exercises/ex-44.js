@@ -186,17 +186,12 @@ function calculateCart(cart, promoCode) {
       acc.subtotal += cartItem.price * cartItem.quantity;
 
       if (index === array.length - 1) {
-        const discount = promoCodes[promoCode];
+        const discount = promoCode ? promoCodes[promoCode] : 0;
 
         const totalDiscount =
           promoCode === "FLAT15" ? discount : (acc.subtotal / 100) * discount;
         const totalTaxes = ((acc.subtotal - totalDiscount) / 100) * 10;
 
-        console.log(
-          "clog2",
-
-          totalDiscount,
-        );
         acc.discountAmount = totalDiscount;
         acc.finalTotal = acc.subtotal - totalDiscount + totalTaxes;
         acc.tax = totalTaxes;
