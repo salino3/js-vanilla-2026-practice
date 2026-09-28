@@ -179,11 +179,22 @@ function calculateCart(cart, promoCode) {
     "SAVE20": 20,
     "FLAT15": 15,
   };
-
+  console.log("clog2", (100 / 100) * 20);
   const result = cart.reduce(
-    (acc, cartItem) => {
+    (acc, cartItem, index, array) => {
       acc.itemCount += 1;
       acc.subtotal += cartItem.price * cartItem.quantity;
+
+      if (index === array.length - 1) {
+        const discount = promoCodes[promoCode];
+
+        acc.discountAmount =
+          promoCode === "FLAT15"
+            ? acc.subtotal - discount < 0
+              ? 0
+              : acc.subtotal - discount
+            : acc.subtotal - (acc.subtotal / 100) * discount;
+      }
 
       return acc;
     },
