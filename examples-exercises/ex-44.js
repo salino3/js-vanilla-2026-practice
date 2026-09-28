@@ -44,7 +44,7 @@ function analyzeExpenses(transactions, minAmount) {
     }
 
     return acc;
-  }, []);
+  }, {});
 
   return Object.values(result);
 }
