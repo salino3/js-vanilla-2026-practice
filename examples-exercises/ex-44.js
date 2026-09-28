@@ -107,11 +107,13 @@ function findBestDeals(stores, maxPrice) {
   const result = stores.flatMap((store) =>
     store.products.reduce((acc, product) => {
       if (product.price <= maxPrice && product.stock > 0) {
-        const item = {
-          ...product,
-          storeName: store.storeName,
-        };
-        acc = [...acc, item];
+        return [
+          ...acc,
+          {
+            ...product,
+            storeName: store.storeName,
+          },
+        ];
       }
 
       return acc;
