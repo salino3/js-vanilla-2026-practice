@@ -182,6 +182,7 @@ function calculateCart(cart, promoCode) {
 
   const result = cart.reduce(
     (acc, cartItem, index, array) => {
+      acc.itemCount = acc.itemCount += cartItem.quantity;
       acc.subtotal += cartItem.price * cartItem.quantity;
 
       if (index === array.length - 1) {
@@ -197,14 +198,14 @@ function calculateCart(cart, promoCode) {
           totalDiscount,
         );
         acc.discountAmount = totalDiscount;
-        acc.finalTotal = acc.subtotal - totalDiscount - totalTaxes;
+        acc.finalTotal = acc.subtotal - totalDiscount + totalTaxes;
         acc.tax = totalTaxes;
       }
 
       return acc;
     },
     {
-      itemCount: cart.length, // Total quantity of all items combined
+      itemCount: 0, // Total quantity of all items combined
       subtotal: 0, // Sum of (price * quantity) before discounts
       discountAmount: 0, // The money saved from the promo code
       tax: 0, // 10% tax calculated ON THE DISCOUNTED subtotal
