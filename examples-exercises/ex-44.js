@@ -50,3 +50,59 @@ function analyzeExpenses(transactions, minAmount) {
 }
 
 console.log("Task 1", analyzeExpenses(transactions, 20));
+
+// Imagine you're building a price-comparison tool. You have data from multiple online stores,
+// and each store carries a list of products.
+
+// You need to write a JavaScript function named findBestDeals(stores, maxPrice) that processes
+// this nested store data and finds the best affordable items.
+
+// Write a function findBestDeals(stores, maxPrice) that takes:
+
+// stores: An array of store objects. Each store looks like this:
+// { storeId: Number, storeName: String, products:
+//    [ { id: Number, name: String, price: Number, stock: Number }, ... ] }
+
+// maxPrice: A number representing the maximum budget.
+
+// Expected Output
+// The function should return a single flattened array of product objects that meet these rules:
+
+// Filter: The product's price must be less than or equal to maxPrice, and its stock must be
+// greater than 0 (in stock).
+
+// Enrich: Each product object in the final array should also include the storeName it belongs
+//  to (e.g., { id: 1, name: "Laptop", price: 800, stock: 5, storeName: "TechZone" }).
+
+// Sort: Sort the results by price from lowest to highest. If two products have the same price,
+// sort them by stock from highest to lowest.
+
+// Limit: Return only the top 3 best deals.
+
+const stores = [
+  {
+    storeId: 1,
+    storeName: "TechHub",
+    products: [
+      { id: 101, name: "Wireless Mouse", price: 25, stock: 10 },
+      { id: 102, name: "Mechanical Keyboard", price: 80, stock: 0 }, // Out of stock!
+      { id: 103, name: "USB-C Hub", price: 25, stock: 4 },
+    ],
+  },
+  {
+    storeId: 2,
+    storeName: "GadgetStore",
+    products: [
+      { id: 201, name: "Wireless Mouse", price: 20, stock: 15 },
+      { id: 202, name: "Monitor", price: 150, stock: 3 },
+      { id: 203, name: "Desk Mat", price: 15, stock: 20 },
+    ],
+  },
+];
+
+// Let's look for deals under $30
+const result = findBestDeals(stores, 30);
+
+function findBestDeals(stores, maxPrice) {}
+
+console.log("Task 2", findBestDeals(stores, 30));
