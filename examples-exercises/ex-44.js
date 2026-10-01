@@ -385,4 +385,46 @@ async function test02() {
   console.log("Get d after 600ms:", cache.cacheGet("d")); // Expected: null
 }
 
-test02();
+// test02();
+
+// Scrivi una funzione summarizeTransactions(transactions) che prende in ingresso un array
+// di transazioni e restituisce un oggetto in cui:
+
+// Le chiavi sono gli userId.
+
+// Il valore per ciascuna chiave è il totale della somma dei loro acquisti (amount).
+
+// Vanno considerate solo le transazioni con stato "completed" (quelle con stato "pending"
+//   o "failed" vanno ignorate).
+
+/**
+ * Summarizes total completed transaction amounts per user.
+ *
+ * @param {Array<{id: number, userId: string, amount: number, status: string}>} transactions
+ * @returns {Object.<string, number>}
+ */
+function summarizeTransactions(transactions) {
+  const result = transactions.reduce((acc, order) => {
+    if (order.status === "completed") {
+      acc[order.userId] = (acc[order.userId] ?? 0) + order.amount;
+    }
+    return acc;
+  }, {});
+
+  return result;
+}
+
+// ==========================================
+// TEST SUITE
+// ==========================================
+
+const transactions02 = [
+  { id: 1, userId: "userA", amount: 50, status: "completed" },
+  { id: 2, userId: "userB", amount: 100, status: "completed" },
+  { id: 3, userId: "userA", amount: 30, status: "failed" },
+  { id: 4, userId: "userA", amount: 20, status: "completed" },
+  { id: 5, userId: "userB", amount: 40, status: "pending" },
+  { id: 6, userId: "userC", amount: 15, status: "completed" },
+];
+
+console.log(summarizeTransactions(transactions02));
