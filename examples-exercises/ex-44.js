@@ -315,15 +315,26 @@ async function test() {
  * @param {number} maxCapacity - Maximum number of items the cache can hold
  */
 function createCache(maxCapacity) {
-  // TODO: Define your internal data structures here
-
+  const cache = new Map();
   return {
     /**
      * @param {string} key
      * @returns {any | null}
      */
-    get(key) {
-      // TODO: Implement get logic
+    cacheGet(key) {
+      if (!cache.has(key)) return null;
+
+      const item = cache.get(key);
+
+      if (item.expiresAt && Date.now() > item.expiresAt) {
+        cache.delete(key); // Eliminar elemento expirado
+        return null;
+      }
+
+      cache.delete(key);
+      cache.set(key, item);
+
+      return item.value;
     },
 
     /**
@@ -331,8 +342,17 @@ function createCache(maxCapacity) {
      * @param {any} value
      * @param {number} [ttlMs] - Time-to-live in milliseconds
      */
-    set(key, value, ttlMs) {
-      // TODO: Implement set logic
+    cacheSet(key, value, ttlMs) {
+      if (cache.has(key)) {
+        cache.delete(key);
+      } else if (cache.size >= maxCapacity) {
+        const oldestKey = cache.keys().next().value;
+        cache.delete(oldestKey);
+      }
+
+      const expiresAt = ttlMs ? Date.now() + ttlMs : null;
+
+      cache.set(key, { value, expiresAt });
     },
   };
 }
@@ -345,24 +365,24 @@ async function test02() {
   const cache = createCache(2); // Max capacity of 2 items
 
   console.log("--- Test 1: Basic Set & Get ---");
-  cache.set("a", 100);
-  cache.set("b", 200);
-  console.log("Get a:", cache.get("a")); // Expected: 100
-  console.log("Get b:", cache.get("b")); // Expected: 200
+  cache.cacheSet("a", 100);
+  cache.cacheSet("b", 200);
+  console.log("Get a:", cache.cacheGet("a")); // Expected: 100
+  console.log("Get b:", cache.cacheGet("b")); // Expected: 200
 
   console.log("\n--- Test 2: LRU Eviction ---");
   // Cache currently has ['a', 'b']. 'b' was accessed last, so 'a' is LRU.
   // Wait, in Test 1 we accessed 'a' then 'b', so 'a' is the least recently used!
-  cache.set("c", 300); // Should evict 'a'
-  console.log("Get a (should be evicted):", cache.get("a")); // Expected: null
-  console.log("Get c:", cache.get("c")); // Expected: 300
+  cache.cacheSet("c", 300); // Should evict 'a'
+  console.log("Get a (should be evicted):", cache.cacheGet("a")); // Expected: null
+  console.log("Get c:", cache.cacheGet("c")); // Expected: 300
 
   console.log("\n--- Test 3: TTL Expiration ---");
-  cache.set("d", 400, 500); // Expires in 500ms
-  console.log("Get d immediately:", cache.get("d")); // Expected: 400
+  cache.cacheSet("d", 400, 500); // Expires in 500ms
+  console.log("Get d immediately:", cache.cacheGet("d")); // Expected: 400
 
   await new Promise((resolve) => setTimeout(resolve, 600)); // Wait 600ms
-  console.log("Get d after 600ms:", cache.get("d")); // Expected: null
+  console.log("Get d after 600ms:", cache.cacheGet("d")); // Expected: null
 }
 
 test02();
