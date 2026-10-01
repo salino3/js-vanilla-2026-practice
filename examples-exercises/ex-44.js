@@ -212,3 +212,44 @@ function calculateCart(cart, promoCode) {
 }
 
 console.log("Task 3", calculateCart(cart, "SAVE10"));
+
+/**
+ * Executes async tasks with a maximum concurrency limit.
+ *
+ * @param {Array<any>} items - Array of elements to process
+ * @param {Function} asyncTask - Async function (item) => Promise<any>
+ * @param {number} batchSize - Maximum number of concurrent operations
+ * @returns {Promise<Array<any>>} - Array containing all results in the original order
+ */
+async function processInBatches(items, asyncTask, batchSize) {
+  // TODO: Implement your logic here
+}
+
+// ==========================================
+// TEST SUITE
+// ==========================================
+
+// Simulates an API call that takes a variable amount of time
+const mockFetchUser = async (id) => {
+  const delay = Math.floor(Math.random() * 500) + 200;
+  await new Promise((resolve) => setTimeout(resolve, delay));
+  console.log(`[DONE] User ${id} processed in ${delay}ms`);
+  return { id, name: `User_${id}` };
+};
+
+async function test() {
+  const userIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const batchSize = 3;
+
+  console.time("Total Execution Time");
+  console.log(
+    `Starting processing for ${userIds.length} users with a batch size of ${batchSize}...`,
+  );
+
+  const results = await processInBatches(userIds, mockFetchUser, batchSize);
+
+  console.timeEnd("Total Execution Time");
+  console.log("Final Results:", results);
+}
+
+test();
