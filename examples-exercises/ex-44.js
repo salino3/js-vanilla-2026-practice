@@ -213,6 +213,22 @@ function calculateCart(cart, promoCode) {
 
 console.log("Task 3", calculateCart(cart, "SAVE10"));
 
+// Imagine you need to fetch data for a list of users from an external API or database using
+// their IDs.
+// However, the external service enforces a rate limit: you cannot make more than N requests
+// at the same time.
+
+// Write an asynchronous function processInBatches that:
+
+// Accepts an items array (e.g., user IDs).
+
+// Accepts an asyncTask function (an asynchronous function that takes a single item and returns a Promise).
+
+// Accepts an integer batchSize representing the maximum number of concurrent executions allowed.
+
+// Executes the calls in batches (or maintains a concurrency limit) and returns an array
+// containing all results in the same order as the input items.
+
 /**
  * Executes async tasks with a maximum concurrency limit.
  *
@@ -222,7 +238,22 @@ console.log("Task 3", calculateCart(cart, "SAVE10"));
  * @returns {Promise<Array<any>>} - Array containing all results in the original order
  */
 async function processInBatches(items, asyncTask, batchSize) {
-  // TODO: Implement your logic here
+  const results = [];
+
+  for (let i = 0; i < items.length; i += batchSize) {
+    // 1. Slice the array into a chunk of max length `batchSize`
+    const batch = items.slice(i, i + batchSize);
+
+    // 2. Map items to promises and wait for all promises in this batch to complete
+    const batchResults = await Promise.all(
+      batch.map((item) => asyncTask(item)),
+    );
+
+    // 3. Store results maintaining chunk order
+    results.push(...batchResults);
+  }
+
+  return results;
 }
 
 // ==========================================
