@@ -222,7 +222,8 @@ console.log("Task 3", calculateCart(cart, "SAVE10"));
 
 // Accepts an items array (e.g., user IDs).
 
-// Accepts an asyncTask function (an asynchronous function that takes a single item and returns a Promise).
+// Accepts an asyncTask function (an asynchronous function that takes a single item
+//  and returns a Promise).
 
 // Accepts an integer batchSize representing the maximum number of concurrent executions allowed.
 
@@ -283,4 +284,85 @@ async function test() {
   console.log("Final Results:", results);
 }
 
-test();
+// test();
+
+// Create a function/class createCache that returns a cache object to store key-value pairs
+// in memory.
+
+// The cache must support two operations: get(key) and set(key, value, ttlMs).
+
+// set(key, value, ttlMs):
+
+// Stores a key with its value.
+
+// ttlMs (Time-To-Live in milliseconds) is optional. If provided, the key automatically expires
+// after ttlMs milliseconds and should no longer be returned by get.
+
+// If the cache reaches its maxCapacity, it must remove the Least Recently Used (LRU) item before
+// adding a new one.
+
+// get(key):
+
+// Returns the value if the key exists and has not expired.
+
+// If the key is accessed via get, it becomes the most recently used item.
+
+// Returns null if the key does not exist or has expired.
+
+/**
+ * Creates an LRU Cache with key expiration support.
+ *
+ * @param {number} maxCapacity - Maximum number of items the cache can hold
+ */
+function createCache(maxCapacity) {
+  // TODO: Define your internal data structures here
+
+  return {
+    /**
+     * @param {string} key
+     * @returns {any | null}
+     */
+    get(key) {
+      // TODO: Implement get logic
+    },
+
+    /**
+     * @param {string} key
+     * @param {any} value
+     * @param {number} [ttlMs] - Time-to-live in milliseconds
+     */
+    set(key, value, ttlMs) {
+      // TODO: Implement set logic
+    },
+  };
+}
+
+// ==========================================
+// TEST SUITE
+// ==========================================
+
+async function test02() {
+  const cache = createCache(2); // Max capacity of 2 items
+
+  console.log("--- Test 1: Basic Set & Get ---");
+  cache.set("a", 100);
+  cache.set("b", 200);
+  console.log("Get a:", cache.get("a")); // Expected: 100
+  console.log("Get b:", cache.get("b")); // Expected: 200
+
+  console.log("\n--- Test 2: LRU Eviction ---");
+  // Cache currently has ['a', 'b']. 'b' was accessed last, so 'a' is LRU.
+  // Wait, in Test 1 we accessed 'a' then 'b', so 'a' is the least recently used!
+  cache.set("c", 300); // Should evict 'a'
+  console.log("Get a (should be evicted):", cache.get("a")); // Expected: null
+  console.log("Get c:", cache.get("c")); // Expected: 300
+
+  console.log("\n--- Test 3: TTL Expiration ---");
+  cache.set("d", 400, 500); // Expires in 500ms
+  console.log("Get d immediately:", cache.get("d")); // Expected: 400
+
+  await new Promise((resolve) => setTimeout(resolve, 600)); // Wait 600ms
+  console.log("Get d after 600ms:", cache.get("d")); // Expected: null
+}
+
+test02();
