@@ -471,3 +471,45 @@ function findDuplicateEmails(users) {
 }
 
 console.log(findDuplicateEmails(users02));
+
+// When creating blog posts, product pages, or user profiles, URLs require a clean
+// "slug" generated from a title (e.g., turning "  Hello World!  " into "hello-world").
+
+// Write a function generateSlug(title) that:
+
+// Converts the title to lowercase.
+
+// Trims leading and trailing whitespace.
+
+// Replaces spaces and special characters (anything that is NOT a letter or a number)
+//  with a hyphen (-).
+
+// Replaces multiple consecutive hyphens with a single hyphen (e.g., "--" becomes "-").
+
+// Removes any leading or trailing hyphens from the result.
+
+/**
+ * Converts a string title into a clean URL slug.
+ *
+ * @param {string} title
+ * @returns {string}
+ */
+function generateSlug(title) {
+  // TODO: Implement your logic here
+}
+
+// ==========================================
+// TEST SUITE
+// ==========================================
+
+console.log(generateSlug("  Node.js & Express API!  "));
+// Expected Output: "nodejs-express-api"
+
+console.log(generateSlug("React --- State Management 101"));
+// Expected Output: "react-state-management-101"
+
+console.log(generateSlug("!Special @Characters #Here!"));
+// Expected Output: "special-characters-here"
+
+console.log(generateSlug("---Hello World---"));
+// Expected Output: "hello-world"
