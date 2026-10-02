@@ -456,11 +456,7 @@ function findDuplicateEmails(users) {
   const usersReduced = users.reduce((acc, user) => {
     const email = user.email.toLowerCase();
 
-    if (typeof acc[email] === "number") {
-      acc[email] += (acc[email] ?? 0) + 1;
-    } else {
-      acc[email] = 0;
-    }
+    acc[email] = typeof acc[email] === "number" ? acc[email] + 1 : 0;
 
     return acc;
   }, {});
@@ -468,7 +464,7 @@ function findDuplicateEmails(users) {
   const result = {};
   for (let item in usersReduced) {
     if (usersReduced[item] !== 0) {
-      result[item] = usersReduced[item];
+      result[item] = ++usersReduced[item];
     }
   }
 
