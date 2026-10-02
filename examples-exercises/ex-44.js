@@ -508,13 +508,9 @@ function generateSlug(title) {
 // ==========================================
 
 console.log(generateSlug("  Node.js & Express API!  "));
-// Expected Output: "nodejs-express-api"
 
 console.log(generateSlug("React --- State Management 101"));
-// Expected Output: "react-state-management-101"
 
 console.log(generateSlug("!Special @Characters #Here!"));
-// Expected Output: "special-characters-here"
 
 console.log(generateSlug("---Hello World---"));
-// Expected Output: "hello-world"
