@@ -428,3 +428,36 @@ const transactions02 = [
 ];
 
 console.log(summarizeTransactions(transactions02));
+
+// Write a function findDuplicateEmails(users) that takes an array of user objects and returns
+// an object containing only the emails that appear more than once, along with their total count.
+
+// The comparison should be case-insensitive (e.g., "John@example.com" and "john@example.com"
+//    should be counted as the same email).
+
+// Emails that appear only once should not be included in the final object.
+
+/**
+ * Finds duplicate emails in a list of users (case-insensitive).
+ *
+ * @param {Array<{id: number, name: string, email: string}>} users
+ * @returns {Object.<string, number>} - Object with duplicate emails in lowercase and their counts
+ */
+function findDuplicateEmails(users) {
+  // TODO: Implement your logic here
+}
+
+// ==========================================
+// TEST SUITE (Run with `node file.js`)
+// ==========================================
+
+const users = [
+  { id: 1, name: "Alice", email: "alice@example.com" },
+  { id: 2, name: "Bob", email: "bob@example.com" },
+  { id: 3, name: "Charlie", email: "ALICE@example.com" }, // Duplicate (case-insensitive)
+  { id: 4, name: "David", email: "david@example.com" },
+  { id: 5, name: "Eve", email: "bob@example.com" }, // Duplicate
+  { id: 6, name: "Frank", email: "Alice@example.com" }, // Duplicate
+];
+
+console.log(findDuplicateEmails(users));
