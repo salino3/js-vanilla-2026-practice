@@ -495,7 +495,14 @@ console.log(findDuplicateEmails(users02));
  * @returns {string}
  */
 function generateSlug(title) {
-  // TODO: Implement your logic here
+  const result = title
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  return result;
 }
 
 // ==========================================
