@@ -495,14 +495,12 @@ console.log(findDuplicateEmails(users02));
  * @returns {string}
  */
 function generateSlug(title) {
-  const result = title
+  return title
     .trim()
     .toLowerCase()
     .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
-
-  return result;
 }
 
 // ==========================================
