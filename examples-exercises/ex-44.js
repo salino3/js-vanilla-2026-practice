@@ -437,21 +437,7 @@ console.log(summarizeTransactions(transactions02));
 
 // Emails that appear only once should not be included in the final object.
 
-/**
- * Finds duplicate emails in a list of users (case-insensitive).
- *
- * @param {Array<{id: number, name: string, email: string}>} users
- * @returns {Object.<string, number>} - Object with duplicate emails in lowercase and their counts
- */
-function findDuplicateEmails(users) {
-  // TODO: Implement your logic here
-}
-
-// ==========================================
-// TEST SUITE (Run with `node file.js`)
-// ==========================================
-
-const users = [
+const users02 = [
   { id: 1, name: "Alice", email: "alice@example.com" },
   { id: 2, name: "Bob", email: "bob@example.com" },
   { id: 3, name: "Charlie", email: "ALICE@example.com" }, // Duplicate (case-insensitive)
@@ -460,4 +446,33 @@ const users = [
   { id: 6, name: "Frank", email: "Alice@example.com" }, // Duplicate
 ];
 
-console.log(findDuplicateEmails(users));
+/**
+ * Finds duplicate emails in a list of users (case-insensitive).
+ *
+ * @param {Array<{id: number, name: string, email: string}>} users
+ * @returns {Object.<string, number>} - Object with duplicate emails in lowercase and their counts
+ */
+function findDuplicateEmails(users) {
+  const usersReduced = users.reduce((acc, user) => {
+    const email = user.email.toLowerCase();
+
+    if (typeof acc[email] === "number") {
+      acc[email] += (acc[email] ?? 0) + 1;
+    } else {
+      acc[email] = 0;
+    }
+
+    return acc;
+  }, {});
+
+  const result = {};
+  for (let item in usersReduced) {
+    if (usersReduced[item] !== 0) {
+      result[item] = usersReduced[item];
+    }
+  }
+
+  return result;
+}
+
+console.log(findDuplicateEmails(users02));
