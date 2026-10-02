@@ -284,7 +284,7 @@ async function test() {
   console.log("Final Results:", results);
 }
 
-// test();
+test();
 
 // Create a function/class createCache that returns a cache object to store key-value pairs
 // in memory.
