@@ -139,7 +139,20 @@ test02();
  * @returns {{ items: Array<{name: string, subtotal: number}>, totalCost: number }}
  */
 function calculateCartSummary(cart, maxPrice) {
-  // Your code here
+  const result = cart.reduce((acc, item) => {
+    if (item.inStock && item.price <= maxPrice) {
+      const newItem = {
+        name: item.name,
+        subtotal: item.price * item.quantity,
+      };
+
+      acc.push(newItem);
+    }
+
+    return acc;
+  }, []);
+
+  console.log("clog1", result);
 }
 
 // ==========================================
