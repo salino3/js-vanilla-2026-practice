@@ -155,7 +155,7 @@ function calculateCartSummary(cart, maxPrice) {
     return acc;
   }, []);
 
-  console.log("clog1", { items, totalCost });
+  return { items, totalCost };
 }
 
 // ==========================================
