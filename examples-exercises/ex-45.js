@@ -111,3 +111,57 @@ function test02() {
 }
 
 test02();
+
+// Write a function calculateCartSummary(cart, maxPrice) that takes an array of shopping
+//  cart items and a maximum price threshold.
+
+// Requirements:
+
+// Filter: Keep only items whose price is less than or equal to maxPrice AND are currently
+// in stock (inStock: true).
+
+// Transform (Map): For each qualified item, calculate its subtotal (price * quantity)
+//  and return an array of simplified item summary objects: { name, subtotal }.
+
+// Aggregate (Reduce): Calculate the overall total cost of all the qualified items.
+
+// Return: An object with two properties:
+
+// items: The array of summary objects from step 2.
+
+// totalCost: The total sum calculated in step 3 (rounded to 2 decimal places).
+
+/**
+ * Calculates summary and total for in-stock cart items within budget.
+ *
+ * @param {Array<Object>} cart Array of cart item objects
+ * @param {number} maxPrice Maximum price threshold per item
+ * @returns {{ items: Array<{name: string, subtotal: number}>, totalCost: number }}
+ */
+function calculateCartSummary(cart, maxPrice) {
+  // Your code here
+}
+
+// ==========================================
+// TEST SUITE
+// ==========================================
+
+function test03() {
+  const shoppingCart = [
+    { name: "Laptop", price: 1200, quantity: 1, inStock: true },
+    { name: "Mouse", price: 25, quantity: 2, inStock: true },
+    { name: "Keyboard", price: 75, quantity: 1, inStock: false }, // Out of stock!
+    { name: "Monitor", price: 300, quantity: 2, inStock: true },
+    { name: "USB Cable", price: 10, quantity: 3, inStock: true },
+  ];
+
+  // Test 1: Max price $100
+  const result1 = calculateCartSummary(shoppingCart, 100);
+  console.log("Result 1 (Max $100):", result1);
+
+  // Test 2: Max price $500
+  const result2 = calculateCartSummary(shoppingCart, 500);
+  console.log("Result 2 (Max $500):", result2);
+}
+
+test03();
