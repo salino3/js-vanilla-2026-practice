@@ -63,3 +63,74 @@ async function test() {
 }
 
 test();
+
+// Write a function countWords(sentence) that takes a string sentence and returns an object
+// containing the frequency count of each unique word (case-insensitive).
+
+// Requirements:
+
+// Convert all words to lowercase so "Hello" and "hello" are counted as the same word.
+
+// Ignore empty spaces if multiple spaces occur together.
+
+// Return an object where keys are words and values are their occurrence counts.
+
+/**
+ * Counts the occurrences of each word in a string.
+ *
+ * @param {string} sentence
+ * @returns {Object<string, number>}
+ */
+function countWords(sentence) {
+  const words = sentence
+    .toLowerCase()
+    .split(" ")
+    .reduce((acc, word) => {
+      if (acc[word]) {
+        acc[word] = acc[word] + 1;
+      } else {
+        acc[word] = 1;
+      }
+
+      return acc;
+    }, {});
+
+  console.log("clog1", words);
+}
+
+// ==========================================
+// TEST SUITE
+// ==========================================
+
+function test02() {
+  const result1 = countWords("the quick brown fox jumps over the lazy dog the");
+  console.log("Test 1 Result:", result1);
+  /*
+  Expected Output 1:
+  {
+    the: 3,
+    quick: 1,
+    brown: 1,
+    fox: 1,
+    jumps: 1,
+    over: 1,
+    lazy: 1,
+    dog: 1
+  }
+  */
+
+  const result2 = countWords("JS is cool and js is powerful");
+  console.log("Test 2 Result:", result2);
+  /*
+  Expected Output 2:
+  {
+    js: 2,
+    is: 2,
+    cool: 1,
+    and: 1,
+    powerful: 1
+  }
+  */
+}
+
+test02();
