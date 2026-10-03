@@ -181,3 +181,92 @@ function test03() {
 }
 
 test03();
+
+// Write a function groupTransactionStats(transactions) that accepts an array of transaction
+// objects and groups them by their category.
+
+// Requirements:
+
+// Ignore any transactions marked as status: "failed".
+
+// Group the remaining successful transactions by category.
+
+// For each category, compute:
+
+// totalAmount: The sum of all transaction amounts in that category (rounded to 2 decimal places).
+
+// averageAmount: The average transaction amount in that category (rounded to 2 decimal places).
+
+// count: The total number of successful transactions in that category.
+
+// Return an object where keys are the category names and values are the computed stats.
+
+/**
+ * Groups successful transactions by category and calculates aggregate stats.
+ *
+ * @param {Array<Object>} transactions
+ * @returns {Object<string, { totalAmount: number, averageAmount: number, count: number }>}
+ */
+function groupTransactionStats(transactions) {
+  const grouped = transactions.reduce((acc, tx) => {
+    if (tx.status !== "successful") return acc;
+
+    if (!acc[tx.category]) {
+      acc[tx.category] = { totalAmount: 0, count: 0 };
+    }
+
+    acc[tx.category].totalAmount += tx.amount;
+    acc[tx.category].count += 1;
+
+    return acc;
+  }, {});
+
+  for (const category in grouped) {
+    const { totalAmount, count } = grouped[category];
+
+    grouped[category].totalAmount = Number(totalAmount.toFixed(2));
+    grouped[category].averageAmount = Number((totalAmount / count).toFixed(2));
+  }
+
+  return grouped;
+}
+
+// ==========================================
+// TEST SUITE
+// ==========================================
+
+function test04() {
+  const transactions04 = [
+    { id: 1, category: "Groceries", amount: 50.5, status: "successful" },
+    { id: 2, category: "Electronics", amount: 200, status: "successful" },
+    { id: 3, category: "Groceries", amount: 120.25, status: "successful" },
+    { id: 4, category: "Electronics", amount: 500, status: "failed" }, // Ignore!
+    { id: 5, category: "Entertainment", amount: 15, status: "successful" },
+    { id: 6, category: "Groceries", amount: 29.25, status: "successful" },
+  ];
+
+  console.log("#Result:", groupTransactionStats(transactions04));
+
+  /*
+  Expected Output:
+  {
+    Groceries: {
+      totalAmount: 200,      // (50.5 + 120.25 + 29.25)
+      averageAmount: 66.67,  // (200 / 3)
+      count: 3
+    },
+    Electronics: {
+      totalAmount: 200,
+      averageAmount: 200,
+      count: 1
+    },
+    Entertainment: {
+      totalAmount: 15,
+      averageAmount: 15,
+      count: 1
+    }
+  }
+  */
+}
+
+test04();
