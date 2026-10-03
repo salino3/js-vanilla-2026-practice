@@ -82,11 +82,15 @@ test();
  * @returns {Object<string, number>}
  */
 function countWords(sentence) {
+  if (!sentence.trim()) return {};
+
   const words = sentence
     .toLowerCase()
     .split(" ")
     .reduce((acc, word) => {
-      acc[word] = (acc[word] ?? 0) + 1;
+      if (word.trim()) {
+        acc[word] = (acc[word] ?? 0) + 1;
+      }
 
       return acc;
     }, {});
@@ -101,32 +105,9 @@ function countWords(sentence) {
 function test02() {
   const result1 = countWords("the quick brown fox jumps over the lazy dog the");
   console.log("Test 1 Result:", result1);
-  /*
-  Expected Output 1:
-  {
-    the: 3,
-    quick: 1,
-    brown: 1,
-    fox: 1,
-    jumps: 1,
-    over: 1,
-    lazy: 1,
-    dog: 1
-  }
-  */
 
-  const result2 = countWords("JS is cool and js is powerful");
+  const result2 = countWords("JS is cool and js is   powerful");
   console.log("Test 2 Result:", result2);
-  /*
-  Expected Output 2:
-  {
-    js: 2,
-    is: 2,
-    cool: 1,
-    and: 1,
-    powerful: 1
-  }
-  */
 }
 
 test02();
