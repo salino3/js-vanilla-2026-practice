@@ -139,20 +139,23 @@ test02();
  * @returns {{ items: Array<{name: string, subtotal: number}>, totalCost: number }}
  */
 function calculateCartSummary(cart, maxPrice) {
-  const result = cart.reduce((acc, item) => {
+  let totalCost = 0;
+
+  const items = cart.reduce((acc, item) => {
     if (item.inStock && item.price <= maxPrice) {
+      const subtotal = item.price * item.quantity;
       const newItem = {
         name: item.name,
-        subtotal: item.price * item.quantity,
+        subtotal,
       };
-
+      totalCost += subtotal;
       acc.push(newItem);
     }
 
     return acc;
   }, []);
 
-  console.log("clog1", result);
+  console.log("clog1", { items, totalCost });
 }
 
 // ==========================================
