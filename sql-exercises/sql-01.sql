@@ -53,3 +53,9 @@ SELECT
     'suppliers' AS source_type
 FROM suppliers;
 
+-- Find the total amount spent by each customer who has made at least one 'Completed' order.
+select   u.name,  SUM(o.total_amount) as total_amount from users u
+join orders o ON u.id = o.user_id 
+ where  o.status = 'Completed'
+ group by u.name
+ order by  total_amount DESC;
