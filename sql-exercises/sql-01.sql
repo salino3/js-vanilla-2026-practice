@@ -59,3 +59,16 @@ join orders o ON u.id = o.user_id
  where  o.status = 'Completed'
  group by u.name
  order by  total_amount DESC;
+
+--  Find the total quantity sold for every product that has been purchased in a 'Completed' order.
+SELECT 
+    p.category_id, 
+    p.name, 
+    SUM(oi.quantity) AS quantity 
+FROM products p 
+JOIN order_items oi ON p.id = oi.product_id
+JOIN orders o ON o.id = oi.order_id 
+WHERE o.status = 'Completed'
+GROUP BY p.category_id, p.name
+ORDER BY quantity DESC;
+
