@@ -143,7 +143,7 @@ function calculateCategoryTotals(orders) {
     ),
   }));
 
-  return result;
+  return Object.assign({}, ...result);
 }
 
 console.log("Task 2:", calculateCategoryTotals(orders));
