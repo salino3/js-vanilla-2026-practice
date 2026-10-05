@@ -44,3 +44,78 @@ function extractActiveUserEmails(users) {
 }
 
 console.log("Task 1:", extractActiveUserEmails(users));
+
+// Write a function calculateCategoryTotals(orders) that processes a list of customer orders
+// containing nested items and returns total sales per product category.
+
+// Iterate through an array of orders, where each order contains an array of items.
+
+// Skip any order where status is not "completed" (e.g., ignore "pending" or "cancelled").
+
+// Calculate the total price for each item using: price * quantity * (1 - discount).
+
+// Aggregate the totals by category.
+
+// Round each category total to 2 decimal places.
+
+// Return an object where keys are category names and values are total sales.
+
+const orders = [
+  {
+    id: "ord_1",
+    status: "completed",
+    items: [
+      {
+        name: "Laptop",
+        category: "Electronics",
+        price: 1000,
+        quantity: 1,
+        discount: 0.1,
+      }, // 1000 * 1 * 0.9 = 900
+      {
+        name: "Mouse",
+        category: "Electronics",
+        price: 50,
+        quantity: 2,
+        discount: 0,
+      }, // 50 * 2 * 1 = 100
+    ],
+  },
+  {
+    id: "ord_2",
+    status: "cancelled",
+    items: [
+      {
+        name: "Phone",
+        category: "Electronics",
+        price: 500,
+        quantity: 1,
+        discount: 0,
+      },
+    ],
+  },
+  {
+    id: "ord_3",
+    status: "completed",
+    items: [
+      {
+        name: "Desk Chair",
+        category: "Furniture",
+        price: 150,
+        quantity: 2,
+        discount: 0.2,
+      }, // 300 * 0.8 = 240
+      {
+        name: "Monitor",
+        category: "Electronics",
+        price: 300,
+        quantity: 1,
+        discount: 0.05,
+      }, // 300 * 0.95 = 285
+    ],
+  },
+];
+
+function calculateCategoryTotals(orders) {}
+
+console.log("Task 1:", calculateCategoryTotals(orders));
