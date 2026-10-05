@@ -134,10 +134,16 @@ function calculateCategoryTotals(orders) {
   const result = Object.entries(
     Object.groupBy(mappedOrders, ({ category }) => category),
   ).map(([key, value]) => ({
-    [key]: value.reduce((acc, v) => (acc += v.totalPrice), 0),
+    [key]: value.reduce(
+      (acc, v, index, arr) =>
+        arr.length === index + 1
+          ? Number((acc += v.totalPrice).toFixed(2))
+          : (acc += v.totalPrice),
+      0,
+    ),
   }));
-  console.log("clog2", result);
-  return mappedOrders;
+
+  return result;
 }
 
 console.log("Task 2:", calculateCategoryTotals(orders));
