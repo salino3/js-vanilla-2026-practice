@@ -32,6 +32,15 @@ const users = [
   },
 ];
 
-function extractActiveUserEmails(users) {}
+function extractActiveUserEmails(users) {
+  const reducedUsers = users.reduce((acc, user) => {
+    if (user.status.active && user.contact.email) {
+      acc.add(user.contact.email.toLowerCase());
+    }
+    return acc;
+  }, new Set());
+
+  return [...reducedUsers];
+}
 
 console.log("Task 1:", extractActiveUserEmails(users));
