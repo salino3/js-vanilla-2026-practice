@@ -143,6 +143,7 @@ function calculateCategoryTotals(orders) {
     ),
   }));
 
+  //   return  result
   return Object.assign({}, ...result);
 }
 
