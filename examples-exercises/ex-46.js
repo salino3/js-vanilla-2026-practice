@@ -118,9 +118,8 @@ const orders = [
 
 function calculateCategoryTotals(orders) {
   const filteredOreds = orders.filter((order) => order.status === "completed");
-  const mappedOredrs = filteredOreds.map((order) => ({
-    ...order,
-    items: order.items.map((item) => {
+  const mappedOredrs = filteredOreds.flatMap((order) =>
+    order.items.map((item) => {
       const result =
         item.quantity * item.price - item.quantity * item.price * item.discount;
 
@@ -130,7 +129,7 @@ function calculateCategoryTotals(orders) {
         totalPrice: result,
       };
     }),
-  }));
+  );
 
   return mappedOredrs;
 }
