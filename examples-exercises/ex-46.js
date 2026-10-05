@@ -118,20 +118,22 @@ const orders = [
 
 function calculateCategoryTotals(orders) {
   const filteredOreds = orders.filter((order) => order.status === "completed");
-  const mappedOredrs = filteredOreds.flatMap((order) =>
+  const mappedOrders = filteredOreds.flatMap((order) =>
     order.items.map((item) => {
-      const result =
+      const resultItem =
         item.quantity * item.price - item.quantity * item.price * item.discount;
 
       return {
         name: item.name,
         category: item.category,
-        totalPrice: result,
+        totalPrice: resultItem,
       };
     }),
   );
 
-  return mappedOredrs;
+  const result = Object.groupBy(mappedOrders, ({ category }) => category);
+  console.log("clog2", result);
+  return mappedOrders;
 }
 
-console.log("Task 1:", calculateCategoryTotals(orders));
+console.log("Task 2:", calculateCategoryTotals(orders));
