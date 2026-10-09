@@ -77,3 +77,14 @@ JOIN province_names ON patients.province_id = province_names.province_id
 WHERE patients.allergies IS NOT NULL 
   AND patients.city = 'Hamilton'
   AND province_names.province_id = 'ON'; -- Or whatever province_id you want
+
+
+-- Write a SQL query to find all users with a role of either 'Premium' or 'VIP' 
+-- who have placed orders.   Return the user's name, email, role, and the total 
+-- number of orders they have placed (name this column order_count). Sort the final
+--  results with the highest order_count first.  
+ SELECT u.name, u.email, u.role  ,COUNT(o.user_id) AS order_count from users u 
+join orders o ON o.user_id = u.id
+WHERE u.role IN ('Premium', 'VIP') 
+GROUP BY o.user_id
+ORDER BY order_count  DESC;
