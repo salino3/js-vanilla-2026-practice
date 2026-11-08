@@ -10,6 +10,17 @@
 // Clean up: Ensure there are no consecutive hyphens (--) or leading/trailing hyphens in the final output.
 
 //
-function slugify(str) {}
+function slugify(str) {
+  const result = str
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // Remove accents
+    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters except spaces and hyphens
+    .replace(/[\s-]+/g, "-") // Replace spaces and multiple hyphens with a single hyphen
+    .replace(/^-+|-+$/g, ""); // Trim leading and trailing hyphens
+
+  return result;
+}
 
 console.log("Task 1: ", slugify(" JavaScript & CSS: The Ultimate Guide!     "));
